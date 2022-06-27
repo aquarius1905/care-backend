@@ -18,9 +18,15 @@ class Provider extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'manager_id',
+        'keyperson_id',
         'name',
+        'name_furigana',
         'email',
         'password',
+        'postcode',
+        'address',
+        'tel'
     ];
 
     /**

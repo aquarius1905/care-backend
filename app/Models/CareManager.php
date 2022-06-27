@@ -8,19 +8,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class Manager extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'support_office_id',
+        'registration_number',
         'name',
+        'name_furigana',
         'email',
         'password',
+        'post_code',
+        'address',
+        'tel',
     ];
 
     /**
@@ -41,9 +46,4 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
 }
