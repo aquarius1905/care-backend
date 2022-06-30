@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HomeCareSupportOffice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HomeCareSupportOfficeController extends Controller
 {
@@ -14,11 +15,11 @@ class HomeCareSupportOfficeController extends Controller
      */
     public function index()
     {
-        $items = HomeCareSupportOffice::all();
+        $items = HomeCareSupportOffice::get(['id', 'name']);
 
         return response()->json([
-            'data' => $items
-        ]);
+            'data' => $items->toArray()
+        ], 200);
     }
 
     /**
