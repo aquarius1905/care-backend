@@ -10,7 +10,6 @@ use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use App\Models\Provider;
-use Log;
 
 class ProviderAuthController extends Controller
 {

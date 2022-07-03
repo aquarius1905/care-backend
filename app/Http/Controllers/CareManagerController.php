@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Manager;
-use App\Auth\Events\ManagerRegistered;
-use App\Http\Requests\ManagerRegisterRequest;
+use App\Http\Requests\CareManagerRegisterRequest;
+use App\Auth\Events\CareManagerRegistered;
+use App\Models\CareManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ManagerController extends Controller
+class CareManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,27 +21,17 @@ class ManagerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\ManagerRegisterRequest  $request
+     * @param  \App\Http\Requests\CareManagerRegisterRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ManagerRegisterRequest $request)
+    public function store(CareManagerRegisterRequest $request)
     {
         $inputs = $request->except(['_token']);
         $inputs['password'] = Hash::make($inputs['password']);
-        $manager = Manager::create($inputs);
-        event(new ManagerRegistered($manager));
+        $manager = CareManager::create($inputs);
+        event(new CareManagerRegistered($manager));
 
         return response()->json([
             'message' => 'Store Successfully!'
@@ -51,21 +41,10 @@ class ManagerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param  \App\Models\CareManager  $careManager
      * @return \Illuminate\Http\Response
      */
-    public function show(Manager $manager)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Manager  $manager
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Manager $manager)
+    public function show(CareManager $careManager)
     {
         //
     }
@@ -74,10 +53,10 @@ class ManagerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Manager  $manager
+     * @param  \App\Models\CareManager  $careManager
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manager $manager)
+    public function update(Request $request, CareManager $careManager)
     {
         //
     }
@@ -85,10 +64,10 @@ class ManagerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Manager  $manager
+     * @param  \App\Models\CareManager  $careManager
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manager $manager)
+    public function destroy(CareManager $careManager)
     {
         //
     }

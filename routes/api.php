@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\ManagerAuthController;
 use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\ProviderController;
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,10 @@ Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController
     'index'
 ]);
 
+Route::apiResource('/care-managers', CareManagerController::class)->only([
+    'store'
+]);
+
 // ユーザー
 Route::prefix('users')->group(function () {
     // 登録
@@ -36,9 +40,7 @@ Route::prefix('users')->group(function () {
 });
 
 // ケアマネジャー
-Route::prefix('managers')->group(function () {
-    // 登録
-    Route::post('/', [ManagerController::class, 'store'])->name('managers.register');
+Route::prefix('care-managers')->group(function () {
     // ログイン
     Route::post('/login', [ManagerAuthController::class, 'store'])->name('managers.login');
     Route::middleware('auth:manager')->group(function () {
