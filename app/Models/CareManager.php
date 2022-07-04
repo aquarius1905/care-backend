@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Contracts\Auth\MustVerifyCareManagerEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Foundation\Auth\CareManager as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class CareManager extends Authenticatable implements MustVerifyEmail
+class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
     /**

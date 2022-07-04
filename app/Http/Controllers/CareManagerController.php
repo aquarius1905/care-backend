@@ -30,8 +30,8 @@ class CareManagerController extends Controller
     {
         $inputs = $request->except(['_token']);
         $inputs['password'] = Hash::make($inputs['password']);
-        $manager = CareManager::create($inputs);
-        event(new CareManagerRegistered($manager));
+        $care_manager = CareManager::create($inputs);
+        event(new CareManagerRegistered($care_manager));
 
         return response()->json([
             'message' => 'Store Successfully!'

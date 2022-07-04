@@ -27,6 +27,13 @@ Route::apiResource('/care-managers', CareManagerController::class)->only([
     'store'
 ]);
 
+Route::prefix('care-managers')->group(function () {
+    // ケアマネージャーメール認証
+    $verificationLimiter = config('fortify.limiters.verification', '6,1');
+    Route::get('/email/verify/{id}/{hash}', [VerifyShopRepresetativeEmailController::class,  '__invoke'])
+        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
+});
+
 // ユーザー
 Route::prefix('users')->group(function () {
     // 登録
