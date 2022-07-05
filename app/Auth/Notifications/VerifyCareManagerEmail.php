@@ -80,7 +80,7 @@ class VerifyCareManagerEmail extends Notification
         }
 
         return URL::temporarySignedRoute(
-            'manager.verification.verify',
+            'care-manager.verification.verify',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             [
                 'id' => $notifiable->getKey(),

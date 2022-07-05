@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
-        App\Providers\ManagerAuthServiceProvider::class,
+        App\Providers\CareManagerAuthServiceProvider::class,
         App\Providers\ProviderAuthServiceProvider::class,
         App\Providers\UserAuthServiceProvider::class,
     ],

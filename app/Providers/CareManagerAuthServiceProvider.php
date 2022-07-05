@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use App\Actions\Manager\AttemptToAuthenticate;
-use App\Http\Controllers\Auth\ManagerAuthController;
+use App\Http\Controllers\Auth\CareManagerAuthController;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 
-class ManagerAuthServiceProvider extends ServiceProvider
+class CareManagerAuthServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -18,10 +18,10 @@ class ManagerAuthServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app
-            ->when([ManagerAuthController::class, AttemptToAuthenticate::class])
+            ->when([CareManagerAuthController::class, AttemptToAuthenticate::class])
             ->needs(StatefulGuard::class)
             ->give(function () {
-                return Auth::guard('manager');
+                return Auth::guard('care-manager');
             });
     }
 

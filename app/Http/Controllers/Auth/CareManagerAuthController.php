@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Manager\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
-use App\Models\Manager;
+use App\Models\CareManager;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 
-class ManagerAuthController extends Controller
+class CareManagerAuthController extends Controller
 {
     /**
      * The guard implementation.
@@ -40,8 +40,8 @@ class ManagerAuthController extends Controller
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
-            $manager = Manager::where('email', $request->email)->firstOrFail();
-            $token = $manager->createToken('auth_manager_token')->plainTextToken;
+            $care_manager = CareManager::where('email', $request->email)->firstOrFail();
+            $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',

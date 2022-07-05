@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 use App\Models\User;
-use App\Models\Manager;
+use App\Models\CareManager;
 use App\Models\Provider;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -36,8 +36,8 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $url = url()->current();
             $user = null;
-            if (preg_match("/managers/", $url)) {
-                $user = Manager::where('email', $request->email)->first();
+            if (preg_match("/care-managers/", $url)) {
+                $user = CareManager::where('email', $request->email)->first();
             } else if (preg_match("/providers/", $url)) {
                 $user = Provider::where('email', $request->email)->first();
             } else {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareManagerController;
+use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Route::apiResource('/care-managers', CareManagerController::class)->only([
 Route::prefix('care-managers')->group(function () {
     // ケアマネージャーメール認証
     $verificationLimiter = config('fortify.limiters.verification', '6,1');
-    Route::get('/email/verify/{id}/{hash}', [VerifyShopRepresetativeEmailController::class,  '__invoke'])
+    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class,  '__invoke'])
         ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
 });
 
