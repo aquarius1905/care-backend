@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class RedirectIfAuthenticated
                     return response()->json(['message' =>
                     'Already authenticated.'], 200);
                 }
+                return redirect(RouteServiceProvider::HOME);
             }
         }
 

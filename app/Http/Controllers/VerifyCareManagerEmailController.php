@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Routing\Controller;
-use App\Responses\VerifyCareManagerEmailResponse;
 use Laravel\Fortify\Http\Requests\VerifyEmailRequest;
 
 class VerifyCareManagerEmailController extends Controller
@@ -18,13 +17,13 @@ class VerifyCareManagerEmailController extends Controller
     public function __invoke(VerifyEmailRequest $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return app(VerifyCareManagerEmailResponse::class);
+            return response()->json($request);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return app(VerifyCareManagerEmailResponse::class);
+        return response()->json($request);
     }
 }
