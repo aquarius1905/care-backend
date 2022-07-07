@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\UserAuthController;
-use App\Http\Controllers\Auth\ManagerAuthController;
+use App\Http\Controllers\Auth\CareManagerAuthController;
 use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
@@ -50,10 +50,10 @@ Route::prefix('users')->group(function () {
 // ケアマネジャー
 Route::prefix('care-managers')->group(function () {
     // ログイン
-    Route::post('/login', [ManagerAuthController::class, 'store'])->name('managers.login');
+    Route::post('/login', [CareManagerAuthController::class, 'store'])->name('managers.login');
     Route::middleware('auth:manager')->group(function () {
         // ログアウト
-        Route::post('/logout', [ManagerAuthController::class, 'destroy'])->name('managers.logout');
+        Route::post('/logout', [CareManagerAuthController::class, 'destroy'])->name('managers.logout');
     });
 });
 
