@@ -50,10 +50,10 @@ Route::prefix('users')->group(function () {
 // ケアマネジャー
 Route::prefix('care-managers')->group(function () {
     // ログイン
-    Route::post('/login', [CareManagerAuthController::class, 'store'])->name('managers.login');
-    Route::middleware('auth:manager')->group(function () {
+    Route::post('/login', [CareManagerAuthController::class, 'store']);
+    Route::middleware('auth:care-manager')->group(function () {
         // ログアウト
-        Route::post('/logout', [CareManagerAuthController::class, 'destroy'])->name('managers.logout');
+        Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
     });
 });
 
