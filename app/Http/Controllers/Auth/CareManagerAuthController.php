@@ -10,7 +10,6 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Log;
 
 class CareManagerAuthController extends Controller
 {
@@ -71,7 +70,6 @@ class CareManagerAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::Debug("CareManagerAuthController::destroy");
         $this->guard->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

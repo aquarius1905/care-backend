@@ -51,7 +51,7 @@ Route::prefix('users')->group(function () {
 Route::prefix('care-managers')->group(function () {
     // ログイン
     Route::post('/login', [CareManagerAuthController::class, 'store']);
-    Route::middleware('auth:care-manager')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
         // ログアウト
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
     });

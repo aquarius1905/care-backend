@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\HomeCareSupportOffice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class HomeCareSupportOfficeController extends Controller
 {
