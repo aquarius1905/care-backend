@@ -155,8 +155,16 @@ return [
 
     'attributes' => [
         'name' => 'お名前',
+        'name_furigana' => 'フリガナ',
         'email' => 'メールアドレス',
-        'password' => 'パスワード'
+        'password' => 'パスワード',
+        'tel' => '電話番号',
+        'birthday' => '生年月日',
+        'post_code' => '郵便番号',
+        'address' => '住所',
+        'care_level' => '介護度',
+        'support_office_id' => '所属居宅介護支援事業所',
+        'registration_number' => '介護支援専門員登録番号'
     ],
 
 ];
