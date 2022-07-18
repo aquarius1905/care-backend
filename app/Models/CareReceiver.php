@@ -13,8 +13,12 @@ class CareReceiver extends Model
 
     protected $dates = ['birthday'];
 
-    public function receivers()
+    public function carelevel()
     {
-        return $this->hasMany(CareReceiver::class);
+        return $this->belongsTo(CareLevel::class);
+    }
+    public function caremanager()
+    {
+        return $this->belongsTo(CareManager::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCareReceiverTable extends Migration
+class CreateCareLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateCareReceiverTable extends Migration
      */
     public function up()
     {
-        Schema::create('care_receiver', function (Blueprint $table) {
+        Schema::create('care_levels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('care_manager_id');
             $table->string('name');
-            $table->string('name_furigana');
-            $table->date('birtyday');
-            $table->string('post_code');
-            $table->string('address');
-            $table->unsignedInteger('care_level', 1);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });
@@ -34,6 +28,6 @@ class CreateCareReceiverTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('care_receiver');
+        Schema::dropIfExists('care_levels');
     }
 }

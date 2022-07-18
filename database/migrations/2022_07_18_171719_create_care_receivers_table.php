@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKeyPersonsTable extends Migration
+class CreateCareReceiversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateKeyPersonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('key_persons', function (Blueprint $table) {
+        Schema::create('care_receivers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('care_manager_id');
             $table->string('name');
             $table->string('name_furigana');
-            $table->string('relationship');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('tel', 11);
+            $table->date('birtyday');
+            $table->string('post_code');
+            $table->string('address');
+            $table->unsignedInteger('care_level_id');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });
@@ -35,6 +34,6 @@ class CreateKeyPersonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('key_persons');
+        Schema::dropIfExists('care_receivers');
     }
 }

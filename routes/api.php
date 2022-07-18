@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareManagerController;
+use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
 /*
@@ -23,9 +24,11 @@ use App\Http\Controllers\ProviderController;
 Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController::class)->only([
     'index'
 ]);
-
 Route::apiResource('/care-managers', CareManagerController::class)->only([
     'store'
+]);
+Route::apiResource('/care-levels', CareLevelController::class)->only([
+    'index'
 ]);
 
 Route::prefix('care-managers')->group(function () {

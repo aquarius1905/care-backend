@@ -47,8 +47,8 @@ class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function users()
+    public function receivers()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(CareReceiver::class);
     }
 }
