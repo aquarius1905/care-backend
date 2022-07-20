@@ -19,8 +19,9 @@ class CreateCareReceiversTable extends Migration
             $table->string('name');
             $table->string('name_furigana');
             $table->date('birtyday');
-            $table->string('post_code');
+            $table->string('post_code', 7);
             $table->string('address');
+            $table->string('insured_number', 11);
             $table->unsignedInteger('care_level_id');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
