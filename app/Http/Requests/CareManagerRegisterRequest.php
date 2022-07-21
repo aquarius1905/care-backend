@@ -29,8 +29,8 @@ class CareManagerRegisterRequest extends FormRequest
             'name_furigana' => 'required|max:255',
             'registration_number' => 'required|size:8',
             'email' => 'required|email|unique:care_managers|max:255',
-            'password' => 'required|between:8,255',
-            'tel' => 'required|between:10,11'
+            'tel' => 'required|between:10,11',
+            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 }
