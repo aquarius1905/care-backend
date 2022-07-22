@@ -43,7 +43,8 @@ class CareManagerAuthController extends Controller
             $care_manager = CareManager::where('email', $request->email)->firstOrFail();
             $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
             return response()->json([
-                'access_token' => $token
+                'access_token' => $token,
+                'token_type' => 'Bearer'
             ], 200);
         });
     }
@@ -76,5 +77,10 @@ class CareManagerAuthController extends Controller
         return response()->json([
             'message' => 'Logged out successfully'
         ], 200);
+    }
+
+    public function me(Request $request)
+    {
+        return $request->user();
     }
 }

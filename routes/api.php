@@ -52,11 +52,11 @@ Route::prefix('users')->group(function () {
 
 // ケアマネジャー
 Route::prefix('care-managers')->group(function () {
-    // ログイン
     Route::post('/login', [CareManagerAuthController::class, 'store']);
+
     Route::middleware('auth:sanctum')->group(function () {
-        // ログアウト
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
+        Route::post('/me', [CareManagerAuthController::class, 'me']);
     });
 });
 
