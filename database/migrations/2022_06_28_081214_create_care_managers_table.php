@@ -15,7 +15,7 @@ class CreateCareManagersTable extends Migration
     {
         Schema::create('care_managers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('support_office_id');
+            $table->unsignedBigInteger('home_care_support_office_id');
             $table->string('registration_number', 8);
             $table->string('name');
             $table->string('name_furigana');

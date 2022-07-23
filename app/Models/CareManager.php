@@ -17,7 +17,7 @@ class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'support_office_id',
+        'home_care_support_office_id',
         'registration_number',
         'name',
         'name_furigana',
@@ -46,6 +46,11 @@ class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function homeCareSupportOffice()
+    {
+        return $this->belongsTo(HomeCareSupportOffice::class);
+    }
 
     public function receivers()
     {

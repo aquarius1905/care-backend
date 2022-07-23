@@ -8,6 +8,7 @@ use App\Models\CareManager;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 
@@ -81,6 +82,15 @@ class CareManagerAuthController extends Controller
 
     public function me(Request $request)
     {
-        return $request->user();
+        $user = null;
+        $result = false;
+        if (Auth::check()) {
+            $id = Auth::id();
+            $user = CareManager::with(['homeCareSupportOffice'])->find($id);
+            $result = true;
+        }
+        return response()->json([
+            'result' => $result, 'user' => $user
+        ]);
     }
 }

@@ -162,7 +162,7 @@ return [
         'birthday' => '生年月日',
         'post_code' => '郵便番号',
         'address' => '住所',
-        'support_office_id' => '所属居宅介護支援事業所',
+        'home_care_support_office_id' => '所属居宅介護支援事業所',
         'registration_number' => '介護支援専門員登録番号',
         'insurer_number' => '保険者番号',
         'insured_number' => '被保険者番号',

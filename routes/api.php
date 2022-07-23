@@ -56,7 +56,7 @@ Route::prefix('care-managers')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
-        Route::post('/me', [CareManagerAuthController::class, 'me']);
+        Route::get('/me', [CareManagerAuthController::class, 'me']);
     });
 });
 
