@@ -11,6 +11,8 @@ use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class CareManagerAuthController extends Controller
 {
@@ -40,14 +42,20 @@ class CareManagerAuthController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        return $this->loginPipeline($request)->then(function ($request) {
-            $care_manager = CareManager::where('email', $request->email)->firstOrFail();
-            $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
-            return response()->json([
-                'access_token' => $token,
-                'token_type' => 'Bearer'
-            ], 200);
-        });
+        try {
+            return $this->loginPipeline($request)
+                ->then(function ($request) {
+                    $care_manager = CareManager::where('email', $request->email)->firstOrFail();
+                    $care_manager->tokens()->delete();
+                    $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
+                    return response()->json([
+                        'access_token' => $token,
+                        'token_type' => 'Bearer'
+                    ], 200);
+                });
+        } catch (Exception $e) {
+            return response()->json(['error' => 'ログインエラー'], 401);
+        }
     }
 
     /**
@@ -58,10 +66,15 @@ class CareManagerAuthController extends Controller
      */
     protected function loginPipeline(LoginRequest $request)
     {
-        return (new Pipeline(app()))->send($request)->through(array_filter([
-            AttemptToAuthenticate::class,
-            PrepareAuthenticatedSession::class,
-        ]));
+        try {
+            return (new Pipeline(app()))->send($request)->through(array_filter([
+                AttemptToAuthenticate::class,
+                PrepareAuthenticatedSession::class,
+            ]));
+        } catch (Exception $e) {
+            Log::Debug("Exception");
+            throw $e;
+        }
     }
 
     /**
@@ -72,9 +85,7 @@ class CareManagerAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->guard->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::user()->tokens()->delete();
         return response()->json([
             'message' => 'Logged out successfully'
         ], 200);
@@ -82,15 +93,16 @@ class CareManagerAuthController extends Controller
 
     public function me(Request $request)
     {
-        $user = null;
+        $care_manager = null;
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $user = CareManager::with(['homeCareSupportOffice'])->find($id);
+            $care_manager = CareManager::with(['homeCareSupportOffice'])->find($id);
             $result = true;
         }
         return response()->json([
-            'result' => $result, 'user' => $user
+            'result' => $result,
+            'care_manager' => $care_manager
         ]);
     }
 }

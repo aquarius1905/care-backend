@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareManagerController;
+use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
@@ -58,6 +59,12 @@ Route::prefix('care-managers')->group(function () {
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
         Route::get('/me', [CareManagerAuthController::class, 'me']);
     });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/care-receivers', CareReceiverController::class)->only([
+        'store'
+    ]);
 });
 
 // 介護事業者

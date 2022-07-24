@@ -26,6 +26,12 @@ class CareReceiverController extends Controller
      */
     public function store(CareReceiverRequest $request)
     {
+        $inputs = $request->except(['_token']);
+        CareReceiver::create($inputs);
+
+        return response()->json([
+            'message' => 'Store Successfully!'
+        ], 201);
     }
 
     /**

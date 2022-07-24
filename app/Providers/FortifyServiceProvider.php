@@ -6,7 +6,6 @@ use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 use App\Models\User;
 use App\Models\CareManager;
@@ -49,9 +48,7 @@ class FortifyServiceProvider extends ServiceProvider
             ) {
                 return $user;
             } else {
-                throw ValidationException::withMessages([
-                    'login_error' => "メールアドレス・パスワードが一致しません"
-                ]);
+                return null;
             }
         });
     }

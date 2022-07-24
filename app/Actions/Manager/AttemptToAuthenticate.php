@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\LoginRateLimiter;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class AttemptToAuthenticate
 {
@@ -46,18 +48,23 @@ class AttemptToAuthenticate
      */
     public function handle($request, $next)
     {
-        if (Fortify::$authenticateUsingCallback) {
-            return $this->handleUsingCustomCallback($request, $next);
-        }
+        try {
+            if (Fortify::$authenticateUsingCallback) {
+                return $this->handleUsingCustomCallback($request, $next);
+            }
 
-        if ($this->guard->attempt(
-            $request->only(Fortify::username(), 'password'),
-            $request->boolean('remember')
-        )) {
-            return $next($request);
-        }
+            if ($this->guard->attempt(
+                $request->only(Fortify::username(), 'password'),
+                $request->boolean('remember')
+            )) {
+                return $next($request);
+            }
 
-        $this->throwFailedAuthenticationException($request);
+            $this->throwFailedAuthenticationException($request);
+        } catch (Exception $e) {
+            Log::Debug($e);
+            throw $e;
+        }
     }
 
     /**
