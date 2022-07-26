@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CareReceiverRequest;
-use App\Models\CareReceiver;
 use Illuminate\Http\Request;
+use App\Http\Requests\KeyPersonRequest;
+use App\Models\KeyPerson;
 
-class CareReceiverController extends Controller
+class KeyPersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,14 +24,13 @@ class CareReceiverController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CareReceiverRequest $request)
+    public function store(KeyPersonRequest $request)
     {
         $inputs = $request->except(['_token']);
-        $care_receiver = CareReceiver::create($inputs);
+        KeyPerson::create($inputs);
 
         return response()->json([
-            'message' => 'Store Successfully!',
-            'care_receiver_id' => $care_receiver->id
+            'message' => 'Store Successfully!'
         ], 201);
     }
 
