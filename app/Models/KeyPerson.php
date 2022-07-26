@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class KeyPerson extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
 
     protected $fillable = [
         'name',
@@ -38,8 +39,8 @@ class KeyPerson extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public function users()
+    public function carereceivers()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(CareReceiver::class);
     }
 }

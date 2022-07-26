@@ -104,17 +104,17 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'managers' => [
-            'provider' => 'managers',
+        'care_managers' => [
+            'provider' => 'care_managers',
             'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 10000,
+            'throttle' => 60,
         ],
         'providers' => [
             'provider' => 'providers',
             'table' => 'password_resets',
             'expire' => 60,
-            'throttle' => 10000,
+            'throttle' => 60,
         ],
     ],
 

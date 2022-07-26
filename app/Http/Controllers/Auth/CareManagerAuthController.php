@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
-use Exception;
+use Throwable;
 
 class CareManagerAuthController extends Controller
 {
@@ -53,7 +51,7 @@ class CareManagerAuthController extends Controller
                         'token_type' => 'Bearer'
                     ], 200);
                 });
-        } catch (Exception $e) {
+        } catch (Throwable $e) {
             return response()->json(['error' => 'ログインエラー'], 401);
         }
     }
@@ -68,24 +66,22 @@ class CareManagerAuthController extends Controller
     {
         try {
             return (new Pipeline(app()))->send($request)->through(array_filter([
-                AttemptToAuthenticate::class,
-                PrepareAuthenticatedSession::class,
+                AttemptToAuthenticate::class
             ]));
-        } catch (Exception $e) {
-            Log::Debug("Exception");
+        } catch (Throwable $e) {
             throw $e;
         }
     }
 
     /**
      * Destroy an authenticated session.
-     *
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        Auth::user()->tokens()->delete();
+        auth('sanctum')->user()->tokens()->delete();
         return response()->json([
             'message' => 'Logged out successfully'
         ], 200);
@@ -103,6 +99,6 @@ class CareManagerAuthController extends Controller
         return response()->json([
             'result' => $result,
             'care_manager' => $care_manager
-        ]);
+        ], 200);
     }
 }
