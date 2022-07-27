@@ -18,12 +18,12 @@ class CreateCareReceiversTable extends Migration
             $table->unsignedBigInteger('care_manager_id');
             $table->string('name');
             $table->string('name_furigana');
-            $table->date('birtyday');
+            $table->date('birthday');
             $table->string('post_code', 7);
             $table->string('address');
             $table->string('insurer_number', 8);
             $table->string('insured_number', 11);
-            $table->unsignedInteger('care_level_id');
+            $table->unsignedBigInteger('care_level_id');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

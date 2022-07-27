@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CareReceiverRequest;
 use App\Models\CareReceiver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CareReceiverController extends Controller
 {
@@ -26,8 +28,11 @@ class CareReceiverController extends Controller
      */
     public function store(CareReceiverRequest $request)
     {
-        $inputs = $request->except(['_token']);
+        $request->care_manager_id = Auth::id();
+        $inputs = $request->all();
+        Log::Debug($inputs);
         $care_receiver = CareReceiver::create($inputs);
+        Log::Debug($care_receiver);
 
         return response()->json([
             'message' => 'Store Successfully!',

@@ -29,9 +29,9 @@ class CareReceiverRequest extends FormRequest
             'birthday' => 'required|date',
             'post_code' => 'required|size:7',
             'address' => 'required|max:255',
-            'insurer_number' => 'required',
+            'insurer_number' => 'required|min:6|max:8',
             'insured_number' => 'required|size:11',
-            'care_level_id' => 'required|between:0,6',
+            'care_level_id' => 'required|numeric|between:1,7'
         ];
     }
 }

@@ -52,7 +52,7 @@ class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
         return $this->belongsTo(HomeCareSupportOffice::class);
     }
 
-    public function receivers()
+    public function carereceivers()
     {
         return $this->hasMany(CareReceiver::class);
     }
