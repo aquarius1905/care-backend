@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\KeyPersonRequest;
 use App\Models\KeyPerson;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class KeyPersonController extends Controller
 {
@@ -21,12 +23,14 @@ class KeyPersonController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\KeyPersonRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(KeyPersonRequest $request)
     {
-        $inputs = $request->except(['_token']);
+        $inputs = $request->all();
+        $inputs['password'] = Hash::make($inputs['password']);
+        Log::Debug($inputs);
         KeyPerson::create($inputs);
 
         return response()->json([

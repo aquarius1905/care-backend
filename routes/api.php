@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
+use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
@@ -51,7 +52,6 @@ Route::prefix('users')->group(function () {
     });
 });
 
-// ケアマネジャー
 Route::prefix('care-managers')->group(function () {
     Route::post('/login', [CareManagerAuthController::class, 'store']);
 
@@ -63,6 +63,9 @@ Route::prefix('care-managers')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
+        'index', 'store'
+    ]);
+    Route::apiResource('/key-persons', KeyPersonController::class)->only([
         'store'
     ]);
 });

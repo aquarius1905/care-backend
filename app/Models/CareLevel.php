@@ -11,7 +11,7 @@ class CareLevel extends Model
 
     protected $guarded = ['id'];
 
-    public function carereceivers()
+    public function care_receivers()
     {
         return $this->hasMany(CareReceiver::class);
     }

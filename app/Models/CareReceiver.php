@@ -13,12 +13,12 @@ class CareReceiver extends Model
 
     protected $dates = ['birthday'];
 
-    public function carelevel()
+    public function care_level()
     {
         return $this->belongsTo(CareLevel::class);
     }
 
-    public function caremanager()
+    public function care_manager()
     {
         return $this->belongsTo(CareManager::class);
     }

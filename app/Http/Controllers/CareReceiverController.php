@@ -6,7 +6,6 @@ use App\Http\Requests\CareReceiverRequest;
 use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class CareReceiverController extends Controller
 {
@@ -17,7 +16,14 @@ class CareReceiverController extends Controller
      */
     public function index()
     {
-        //
+        $care_manager_id = Auth::id();
+        $items = CareReceiver::with('care_level')
+            ->where('care_manager_id', $care_manager_id)
+            ->get();
+
+        return response()->json([
+            'data' => $items
+        ], 200);
     }
 
     /**
@@ -28,11 +34,9 @@ class CareReceiverController extends Controller
      */
     public function store(CareReceiverRequest $request)
     {
-        $request->care_manager_id = Auth::id();
         $inputs = $request->all();
-        Log::Debug($inputs);
+        $inputs['care_manager_id'] = Auth::id();
         $care_receiver = CareReceiver::create($inputs);
-        Log::Debug($care_receiver);
 
         return response()->json([
             'message' => 'Store Successfully!',
