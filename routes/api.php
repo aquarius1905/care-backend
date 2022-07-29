@@ -63,7 +63,7 @@ Route::prefix('care-managers')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
-        'index', 'store'
+        'index', 'store', 'show'
     ]);
     Route::apiResource('/key-persons', KeyPersonController::class)->only([
         'store'
