@@ -16,6 +16,7 @@ class CreateCareReceiversTable extends Migration
         Schema::create('care_receivers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('care_manager_id');
+            $table->unsignedBigInteger('key_person_id');
             $table->string('name');
             $table->string('name_furigana');
             $table->date('birthday');

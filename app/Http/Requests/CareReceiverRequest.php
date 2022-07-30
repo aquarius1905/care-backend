@@ -31,7 +31,8 @@ class CareReceiverRequest extends FormRequest
             'address' => 'required|max:255',
             'insurer_number' => 'required|min:6|max:8',
             'insured_number' => 'required|size:11',
-            'care_level_id' => 'required|numeric|between:1,7'
+            'care_level_id' => 'required|numeric|between:1,7',
+            'key_person_id' => 'required|numeric',
         ];
     }
 }

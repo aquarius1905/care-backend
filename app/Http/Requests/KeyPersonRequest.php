@@ -29,8 +29,7 @@ class KeyPersonRequest extends FormRequest
             'relationship' => 'required',
             'email' => 'required|email|unique:key_persons|max:255',
             'tel' => 'required|between:10,11',
-            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/',
-            'care_receiver_id' => 'required|numeric'
+            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 }

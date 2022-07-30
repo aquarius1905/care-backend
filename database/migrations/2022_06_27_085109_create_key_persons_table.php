@@ -23,7 +23,6 @@ class CreateKeyPersonsTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('tel', 11);
-            $table->unsignedBigInteger('care_receiver_id');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

@@ -6,7 +6,6 @@ use App\Http\Requests\KeyPersonRequest;
 use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class KeyPersonController extends Controller
 {
@@ -30,11 +29,11 @@ class KeyPersonController extends Controller
     {
         $inputs = $request->all();
         $inputs['password'] = Hash::make($inputs['password']);
-        Log::Debug($inputs);
-        KeyPerson::create($inputs);
+        $key_person = KeyPerson::create($inputs);
 
         return response()->json([
-            'message' => 'Store Successfully!'
+            'message' => 'Store Successfully!',
+            'key_person_id' => $key_person->id
         ], 201);
     }
 

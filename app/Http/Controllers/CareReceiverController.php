@@ -36,11 +36,10 @@ class CareReceiverController extends Controller
     {
         $inputs = $request->all();
         $inputs['care_manager_id'] = Auth::id();
-        $care_receiver = CareReceiver::create($inputs);
+        CareReceiver::create($inputs);
 
         return response()->json([
-            'message' => 'Store Successfully!',
-            'care_receiver_id' => $care_receiver->id
+            'message' => 'Store Successfully!'
         ], 201);
     }
 
@@ -84,7 +83,22 @@ class CareReceiverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(CareReceiver $care_receiver)
     {
+        $count = $care_receiver->key_persons()->count();
+        if ($count === 1) {
+            $care_receiver->key_persons()->delete();
+        }
+
+        $result = CareReceiver::where('id', $care_receiver->id)->delete();
+        if ($result) {
+            return response()->json([
+                'message' => 'Deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 }

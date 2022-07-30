@@ -22,4 +22,9 @@ class CareReceiver extends Model
     {
         return $this->belongsTo(CareManager::class);
     }
+
+    public function key_person()
+    {
+        return $this->belongsTo(KeyPerson::class);
+    }
 }
