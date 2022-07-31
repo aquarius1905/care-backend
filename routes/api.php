@@ -61,6 +61,14 @@ Route::prefix('care-managers')->group(function () {
     });
 });
 
+Route::prefix('key-persons')->group(function () {
+    Route::post('/login', [KeyPersonAuthController::class, 'store']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [KeyPersonAuthController::class, 'destroy']);
+    });
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
         'index', 'store', 'show'

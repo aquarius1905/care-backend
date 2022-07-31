@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\Manager\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
-use App\Models\CareManager;
+use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
+use Throwable;
 
-class CareManagerAuthController extends Controller
+class KeyPersonAuthController extends Controller
 {
     /**
      * The guard implementation.
@@ -42,9 +42,9 @@ class CareManagerAuthController extends Controller
     {
         return $this->loginPipeline($request)
             ->then(function ($request) {
-                $care_manager = CareManager::where('email', $request->email)->firstOrFail();
-                $care_manager->tokens()->delete();
-                $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
+                $key_person = KeyPerson::where('email', $request->email)->firstOrFail();
+                $key_person->tokens()->delete();
+                $token = $key_person->createToken('auth_key_person_token')->plainTextToken;
                 return response()->json([
                     'access_token' => $token,
                     'token_type' => 'Bearer'
@@ -60,9 +60,13 @@ class CareManagerAuthController extends Controller
      */
     protected function loginPipeline(LoginRequest $request)
     {
-        return (new Pipeline(app()))->send($request)->through(array_filter([
-            AttemptToAuthenticate::class
-        ]));
+        try {
+            return (new Pipeline(app()))->send($request)->through(array_filter([
+                AttemptToAuthenticate::class
+            ]));
+        } catch (Throwable $e) {
+            throw $e;
+        }
     }
 
     /**
@@ -73,7 +77,6 @@ class CareManagerAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::Debug("CareManagerAuthController::destroy");
         auth('sanctum')->user()->tokens()->delete();
         return response()->json([
             'message' => 'Logged out successfully'
@@ -82,16 +85,16 @@ class CareManagerAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_manager = null;
+        $key_person = null;
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $care_manager = CareManager::with(['homeCareSupportOffice'])->find($id);
+            $key_person = KeyPerson::with(['care_receivers'])->find($id);
             $result = true;
         }
         return response()->json([
             'result' => $result,
-            'care_manager' => $care_manager
+            'key_person' => $key_person
         ], 200);
     }
 }

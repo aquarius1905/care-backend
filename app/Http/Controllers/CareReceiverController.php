@@ -17,7 +17,7 @@ class CareReceiverController extends Controller
     public function index()
     {
         $care_manager_id = Auth::id();
-        $items = CareReceiver::with('care_level')
+        $items = CareReceiver::with(['care_level', 'key_person'])
             ->where('care_manager_id', $care_manager_id)
             ->get();
 
