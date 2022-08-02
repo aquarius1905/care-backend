@@ -71,7 +71,7 @@ Route::prefix('key-persons')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
-        'index', 'store', 'show'
+        'index', 'store', 'show', 'destroy'
     ]);
     Route::apiResource('/key-persons', KeyPersonController::class)->only([
         'store'

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CareReceiverRequest;
 use App\Models\CareReceiver;
+use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class CareReceiverController extends Controller
 {
@@ -80,14 +82,15 @@ class CareReceiverController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\CareReceiver  $care_receiver
      * @return \Illuminate\Http\Response
      */
     public function destroy(CareReceiver $care_receiver)
     {
-        $count = $care_receiver->key_persons()->count();
+        $count = CareReceiver::where('key_person_id', $care_receiver->key_person_id)
+            ->count();
         if ($count === 1) {
-            $care_receiver->key_persons()->delete();
+            KeyPerson::where('id', $care_receiver->key_person_id)->delete();
         }
 
         $result = CareReceiver::where('id', $care_receiver->id)->delete();
