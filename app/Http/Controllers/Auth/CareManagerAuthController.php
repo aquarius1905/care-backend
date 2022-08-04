@@ -73,8 +73,7 @@ class CareManagerAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::Debug("CareManagerAuthController::destroy");
-        auth('sanctum')->user()->tokens()->delete();
+        Auth::guard('sanctum')->user()->tokens()->delete();
         return response()->json([
             'message' => 'Logged out successfully'
         ], 200);

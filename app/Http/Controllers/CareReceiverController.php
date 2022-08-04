@@ -7,7 +7,6 @@ use App\Models\CareReceiver;
 use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Log;
 
 class CareReceiverController extends Controller
 {
@@ -19,7 +18,7 @@ class CareReceiverController extends Controller
     public function index()
     {
         $care_manager_id = Auth::id();
-        $items = CareReceiver::with(['care_level', 'key_person'])
+        $items = CareReceiver::with(['care_level:id,name', 'key_person'])
             ->where('care_manager_id', $care_manager_id)
             ->get();
 
@@ -53,9 +52,8 @@ class CareReceiverController extends Controller
      */
     public function show($id)
     {
-        $item = CareReceiver::with(['care_level', 'key_person'])
+        $item = CareReceiver::with(['care_level:id,name', 'key_person'])
             ->find($id);
-
         if ($item) {
             return response()->json([
                 'data' => $item
