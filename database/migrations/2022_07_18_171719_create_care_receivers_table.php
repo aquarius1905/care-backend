@@ -19,6 +19,7 @@ class CreateCareReceiversTable extends Migration
             $table->unsignedBigInteger('key_person_id');
             $table->string('name');
             $table->string('name_furigana');
+            $table->tinyInteger('gender');
             $table->date('birthday');
             $table->string('post_code', 7);
             $table->string('address');

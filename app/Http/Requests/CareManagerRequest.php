@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CareReceiverRequest extends FormRequest
+class CareManagerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,13 @@ class CareReceiverRequest extends FormRequest
     public function rules()
     {
         return [
+            'home_care_support_office_id' => 'required|numeric',
             'name' => 'required|max:255',
             'name_furigana' => 'required|max:255',
-            'gender' => 'required',
-            'birthday' => 'required|date',
-            'post_code' => 'required|size:7',
-            'address' => 'required|max:255',
-            'insurer_number' => 'required|min:6|max:8',
-            'insured_number' => 'required|size:11',
-            'care_level_id' => 'required|numeric|between:1,7',
-            'key_person_id' => 'required|numeric',
+            'registration_number' => 'required|size:8',
+            'email' => 'required|email|unique:care_managers|max:255',
+            'tel' => 'required|between:10,11',
+            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 }

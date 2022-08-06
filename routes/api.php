@@ -26,12 +26,6 @@ use App\Http\Controllers\ProviderController;
 Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController::class)->only([
     'index'
 ]);
-Route::apiResource('/care-managers', CareManagerController::class)->only([
-    'store'
-]);
-Route::apiResource('/care-levels', CareLevelController::class)->only([
-    'index'
-]);
 
 Route::prefix('care-managers')->group(function () {
     // ケアマネージャーメール認証
@@ -53,11 +47,17 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('care-managers')->group(function () {
+    Route::apiResource('/', CareManagerController::class)->only([
+        'store'
+    ]);
     Route::post('/login', [CareManagerAuthController::class, 'store']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
+        Route::apiResource('/', CareManagerController::class)->only([
+            'update'
+        ]);
     });
 });
 
@@ -71,7 +71,7 @@ Route::prefix('key-persons')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
-        'index', 'store', 'show', 'destroy'
+        'index', 'store', 'show', 'update', 'destroy'
     ]);
     Route::apiResource('/key-persons', KeyPersonController::class)->only([
         'store'

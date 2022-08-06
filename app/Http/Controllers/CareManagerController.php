@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CareManagerRegisterRequest;
+use App\Http\Requests\CareManagerRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class CareManagerController extends Controller
@@ -23,10 +22,10 @@ class CareManagerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CareManagerRegisterRequest  $request
+     * @param  \App\Http\Requests\CareManagerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CareManagerRegisterRequest $request)
+    public function store(CareManagerRequest $request)
     {
         $inputs = $request->except(['_token']);
         $inputs['password'] = Hash::make($inputs['password']);
@@ -56,9 +55,8 @@ class CareManagerController extends Controller
      * @param  \App\Models\CareManager  $careManager
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CareManager $careManager)
+    public function update(CareManagerRequest $request, CareManager $careManager)
     {
-        //
     }
 
     /**
