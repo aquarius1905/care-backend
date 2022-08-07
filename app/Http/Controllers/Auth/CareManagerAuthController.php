@@ -10,7 +10,6 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
 
 class CareManagerAuthController extends Controller
 {
@@ -85,7 +84,8 @@ class CareManagerAuthController extends Controller
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $care_manager = CareManager::with(['homeCareSupportOffice'])->find($id);
+            $care_manager = CareManager::with(['home_care_support_office:id,name'])
+                ->find($id);
             $result = true;
         }
         return response()->json([

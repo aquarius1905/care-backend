@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\KeyPersonController;
-use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
 /*

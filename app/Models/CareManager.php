@@ -47,7 +47,7 @@ class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function homeCareSupportOffice()
+    public function home_care_support_office()
     {
         return $this->belongsTo(HomeCareSupportOffice::class);
     }
