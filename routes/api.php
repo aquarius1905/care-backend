@@ -46,27 +46,23 @@ Route::prefix('users')->group(function () {
 });
 
 Route::prefix('care-managers')->group(function () {
-    Route::apiResource('/', CareManagerController::class)->only([
-        'store'
-    ]);
+    Route::post('/', [CareManagerController::class, 'store']);
     Route::post('/login', [CareManagerAuthController::class, 'store']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
-        Route::apiResource('/', CareManagerController::class)->only([
-            'update'
-        ]);
+        Route::put('/{id}', [CareManagerController::class, 'update']);
     });
 });
 
-Route::prefix('key-persons')->group(function () {
-    Route::post('/login', [KeyPersonAuthController::class, 'store']);
+// Route::prefix('key-persons')->group(function () {
+//     Route::post('/login', [KeyPersonAuthController::class, 'store']);
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [KeyPersonAuthController::class, 'destroy']);
-    });
-});
+//     Route::middleware('auth:sanctum')->group(function () {
+//         Route::post('/logout', [KeyPersonAuthController::class, 'destroy']);
+//     });
+// });
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CareManagerRequest;
+use App\Http\Requests\CareManagerUpdateRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
 use Illuminate\Support\Facades\Hash;
+use Log;
 
 class CareManagerController extends Controller
 {
@@ -51,12 +53,27 @@ class CareManagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CareManagerUpdateRequest  $request
      * @param  \App\Models\CareManager  $careManager
      * @return \Illuminate\Http\Response
      */
-    public function update(CareManagerRequest $request, CareManager $careManager)
+    public function update(CareManagerUpdateRequest $request, int $id)
     {
+        $inputs = $request->only(
+            ['home_care_support_office_id', 'name', 'name_furigana', 'registration_number', 'email', 'tel', 'password']
+        );
+        Log::Debug($inputs);
+        Log::Debug($id);
+        $result = CareManager::where('id', $id)->update($inputs);
+        if ($result) {
+            return response()->json([
+                'message' => 'Updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**
