@@ -29,7 +29,7 @@ class CareManagerController extends Controller
      */
     public function store(CareManagerRequest $request)
     {
-        $inputs = $request->except(['_token']);
+        $inputs = $request->all();
         $inputs['password'] = Hash::make($inputs['password']);
         $care_manager = CareManager::create($inputs);
         event(new CareManagerRegistered($care_manager));
@@ -54,16 +54,20 @@ class CareManagerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\CareManagerUpdateRequest  $request
-     * @param  \App\Models\CareManager  $careManager
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(CareManagerUpdateRequest $request, int $id)
     {
-        $inputs = $request->only(
-            ['home_care_support_office_id', 'name', 'name_furigana', 'registration_number', 'email', 'tel', 'password']
-        );
-        Log::Debug($inputs);
-        Log::Debug($id);
+        $inputs = $request->only([
+            'home_care_support_office_id',
+            'name',
+            'name_furigana',
+            'registration_number',
+            'email',
+            'tel'
+        ]);
+
         $result = CareManager::where('id', $id)->update($inputs);
         if ($result) {
             return response()->json([
@@ -84,6 +88,5 @@ class CareManagerController extends Controller
      */
     public function destroy(CareManager $careManager)
     {
-        //
     }
 }
