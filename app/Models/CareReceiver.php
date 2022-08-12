@@ -27,4 +27,9 @@ class CareReceiver extends Model
     {
         return $this->belongsTo(KeyPerson::class);
     }
+
+    public function visit_datetimes()
+    {
+        return $this->hasMany(VisitDatetime::class);
+    }
 }

@@ -11,6 +11,8 @@ use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\VisitDatetimeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,6 +54,7 @@ Route::prefix('care-managers')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
+        Route::post('/visit', [VisitDatetimeController::class, 'store']);
         Route::put('/{id}', [CareManagerController::class, 'update']);
     });
 });

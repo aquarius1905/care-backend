@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VisitDatetimeRequest;
 use App\Models\VisitDatetime;
 use Illuminate\Http\Request;
+use Log;
 
 class VisitDatetimeController extends Controller
 {
