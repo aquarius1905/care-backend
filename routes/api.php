@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\CareManagerAuthController;
 use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\KeyPersonController;
@@ -23,6 +24,10 @@ use App\Http\Controllers\VisitDatetimeController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::apiResource('/care-levels', CareLevelController::class)->only([
+    'index'
+]);
 
 Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController::class)->only([
     'index'

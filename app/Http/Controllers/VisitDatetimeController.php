@@ -28,6 +28,7 @@ class VisitDatetimeController extends Controller
     public function store(VisitDatetimeRequest $request)
     {
         $inputs = $request->all();
+        $this->destroy($inputs['care_receiver_id']);
         VisitDatetime::create($inputs);
 
         return response()->json([
@@ -61,11 +62,21 @@ class VisitDatetimeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\VisitDatetime  $visitDatetime
+     * @param  int  $care_receiver_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VisitDatetime $visitDatetime)
+    public function destroy($care_receiver_id)
     {
-        //
+        $result = VisitDatetime::where('care_receiver_id', $care_receiver_id)->delete();
+
+        if ($result) {
+            return response()->json([
+                'message' => 'Deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 }
