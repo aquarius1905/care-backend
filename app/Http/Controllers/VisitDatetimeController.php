@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VisitDatetimeRequest;
+use App\Mail\VisitDateTimeNotificationMail;
+use App\Models\CareReceiver;
 use App\Models\VisitDatetime;
 use Illuminate\Http\Request;
-use Log;
+use Illuminate\Support\Facades\Mail;
 
 class VisitDatetimeController extends Controller
 {
@@ -28,8 +30,11 @@ class VisitDatetimeController extends Controller
     public function store(VisitDatetimeRequest $request)
     {
         $inputs = $request->all();
-        $this->destroy($inputs['care_receiver_id']);
+        $care_receiver_id = $inputs['care_receiver_id'];
+        $this->destroy($care_receiver_id);
         VisitDatetime::create($inputs);
+
+        $this->sendMail($care_receiver_id);
 
         return response()->json([
             'message' => 'Store Successfully!'
@@ -78,5 +83,17 @@ class VisitDatetimeController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
+    }
+
+    private function sendMail($care_receiver_id)
+    {
+        $care_receiver = CareReceiver::find($care_receiver_id);
+
+        $from_email = config('mail.from.address');
+        $to_email = $care_receiver->getKeyPersonEmail();
+
+        Mail::to($to_email)->send(
+            new VisitDateTimeNotificationMail($care_receiver, $from_email)
+        );
     }
 }

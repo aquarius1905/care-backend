@@ -32,4 +32,29 @@ class CareReceiver extends Model
     {
         return $this->hasOne(VisitDatetime::class);
     }
+
+    public function getKeyPersonEmail()
+    {
+        return optional($this->key_person)->email;
+    }
+
+    public function getKeyPersonName()
+    {
+        return optional($this->key_person)->name;
+    }
+
+    public function getCareManagerName()
+    {
+        return optional($this->care_manager)->name;
+    }
+
+    public function getVisitDate()
+    {
+        return optional($this->visit_datetime)->date;
+    }
+
+    public function getVisitTime()
+    {
+        return optional($this->visit_datetime)->time;
+    }
 }
