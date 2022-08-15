@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Carbon;
+use App\Models\VisitDatetime;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +17,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('visit_datetime:reminder')->dailyAt('9:00');
+
+        $schedule->call(function () {
+            $today = Carbon::today()->format('Y-m-d');
+            VisitDatetime::wheredate('date', $today)->delete();
+        })->dailyAt('19:00');
     }
 
     /**
@@ -25,7 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

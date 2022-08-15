@@ -16,4 +16,24 @@ class VisitDatetime extends Model
     {
         return $this->belongsTo(CareReceiver::class);
     }
+
+    public function getKeyPersonEmail()
+    {
+        return optional($this->care_receiver)->getKeyPersonEmail();
+    }
+
+    public function getKeyPersonName()
+    {
+        return optional($this->care_receiver)->getKeyPersonName();
+    }
+
+    public function getCareReceiverName()
+    {
+        return optional($this->care_receiver)->name();
+    }
+
+    public function getCareManagerName()
+    {
+        return optional($this->care_receiver)->getCareManagerName();
+    }
 }
