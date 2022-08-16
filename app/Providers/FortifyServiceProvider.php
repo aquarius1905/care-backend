@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
-use App\Models\User;
 use App\Models\CareManager;
+use App\Models\KeyPerson;
 use App\Models\Provider;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -39,8 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
                 $user = CareManager::where('email', $request->email)->first();
             } else if (preg_match("/providers/", $url)) {
                 $user = Provider::where('email', $request->email)->first();
-            } else {
-                $user = User::where('email', $request->email)->first();
+            } else if (preg_match("/key-persons/", $url)) {
+                $user = KeyPerson::where('email', $request->email)->first();
             }
             if (
                 $user &&

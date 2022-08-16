@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Provider;
+namespace App\Actions;
 
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Contracts\Auth\StatefulGuard;
@@ -70,6 +70,7 @@ class AttemptToAuthenticate
     protected function handleUsingCustomCallback($request, $next)
     {
         $user = call_user_func(Fortify::$authenticateUsingCallback, $request);
+
         if (!$user) {
             $this->fireFailedEvent($request);
 

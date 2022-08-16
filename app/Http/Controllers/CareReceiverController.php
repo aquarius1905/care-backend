@@ -17,12 +17,19 @@ class CareReceiverController extends Controller
      */
     public function index()
     {
-        $care_manager_id = Auth::id();
+        $column = $this->getSearchTargetColumn();
+        if (!$column) {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
+
+        $login_id = Auth::id();
         $items = CareReceiver::with([
             'care_level:id,name',
             'key_person',
             'visit_datetime:care_receiver_id,date,time'
-        ])->where('care_manager_id', $care_manager_id)->get();
+        ])->where($column, $login_id)->get();
 
         return response()->json([
             'data' => $items
@@ -102,5 +109,15 @@ class CareReceiverController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
+    }
+
+    private function getSearchTargetColumn()
+    {
+        if (Auth::guard('care-manager')) {
+            return 'care_manager_id';
+        } else if (Auth::guard('key-person')) {
+            return 'key_person_id';
+        }
+        return null;
     }
 }

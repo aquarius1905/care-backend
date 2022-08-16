@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\CareManagerAuthController;
+use App\Http\Controllers\Auth\KeyPersonAuthController;
 use App\Http\Controllers\Auth\ProviderAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
@@ -40,17 +39,16 @@ Route::prefix('care-managers')->group(function () {
         ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
 });
 
-// ユーザー
-Route::prefix('users')->group(function () {
-    // 登録
-    Route::post('/', [UserController::class, 'store'])->name('users.register');
-    // ログイン
-    Route::post('/login', [UserAuthController::class, 'store'])->name('users.login');
-    Route::middleware('auth:web')->group(function () {
-        // ログアウト
-        Route::post('/logout', [UserAuthController::class, 'destroy'])->name('users.logout');
-    });
-});
+// Route::prefix('users')->group(function () {
+//     // 登録
+//     Route::post('/', [UserController::class, 'store'])->name('users.register');
+//     // ログイン
+//     Route::post('/login', [UserAuthController::class, 'store'])->name('users.login');
+//     Route::middleware('auth:web')->group(function () {
+//         // ログアウト
+//         Route::post('/logout', [UserAuthController::class, 'destroy'])->name('users.logout');
+//     });
+// });
 
 Route::prefix('care-managers')->group(function () {
     Route::post('/', [CareManagerController::class, 'store']);
@@ -64,13 +62,13 @@ Route::prefix('care-managers')->group(function () {
     });
 });
 
-// Route::prefix('key-persons')->group(function () {
-//     Route::post('/login', [KeyPersonAuthController::class, 'store']);
+Route::prefix('key-persons')->group(function () {
+    Route::post('/login', [KeyPersonAuthController::class, 'store']);
 
-//     Route::middleware('auth:sanctum')->group(function () {
-//         Route::post('/logout', [KeyPersonAuthController::class, 'destroy']);
-//     });
-// });
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [KeyPersonAuthController::class, 'destroy']);
+    });
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([

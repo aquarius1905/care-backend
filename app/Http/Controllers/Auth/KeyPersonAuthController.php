@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\Manager\AttemptToAuthenticate;
+use App\Actions\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
 use App\Models\KeyPerson;
 use Illuminate\Http\Request;
