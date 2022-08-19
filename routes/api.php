@@ -72,7 +72,10 @@ Route::prefix('key-persons')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/care-receivers', CareReceiverController::class)->only([
-        'index', 'store', 'show', 'update', 'destroy'
+        'index', 'store', 'update',
+    ]);
+    Route::post('/care-receivers/batch-delete', [
+        CareReceiverController::class, 'batchDelete'
     ]);
     Route::apiResource('/key-persons', KeyPersonController::class)->only([
         'store'

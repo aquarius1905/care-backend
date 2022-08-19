@@ -7,6 +7,7 @@ use App\Models\CareReceiver;
 use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class CareReceiverController extends Controller
 {
@@ -109,6 +110,23 @@ class CareReceiverController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
+    }
+
+    public function batchDelete(Request $request_ids)
+    {
+        foreach ($request_ids as $id) {
+            $care_receiver = CareReceiver::find($id);
+            if (!$care_receiver) {
+                continue;
+            }
+            if ($care_receiver->getKeyPersonCount() === 1) {
+                $care_receiver->key_person()->delete();
+            }
+            $care_receiver->delete();
+        }
+        return response()->json([
+            'message' => 'Deleted successfully',
+        ], 200);
     }
 
     private function getSearchTargetColumn()

@@ -46,7 +46,7 @@ class CareManagerAuthController extends Controller
                 $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
                 return response()->json([
                     'access_token' => $token,
-                    'token_type' => 'Bearer'
+                    'care_manager' => $care_manager
                 ], 200);
             });
     }

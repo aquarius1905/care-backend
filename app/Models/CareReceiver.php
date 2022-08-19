@@ -57,4 +57,9 @@ class CareReceiver extends Model
     {
         return optional($this->visit_datetime)->time;
     }
+
+    public function getKeyPersonCount()
+    {
+        return optional($this->key_person)->count();
+    }
 }
