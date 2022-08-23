@@ -29,7 +29,7 @@ class CareReceiverController extends Controller
         $items = CareReceiver::with([
             'care_level:id,name',
             'key_person',
-            'visit_datetime:care_receiver_id,date,time'
+            'visit_datetime:id,care_receiver_id,date,time'
         ])->where($column, $login_id)->get();
 
         return response()->json([

@@ -41,7 +41,9 @@ class CareManagerAuthController extends Controller
     {
         return $this->loginPipeline($request)
             ->then(function ($request) {
-                $care_manager = CareManager::where('email', $request->email)->firstOrFail();
+                $care_manager = CareManager::with(['home_care_support_office:id,name'])
+                    ->where('email', $request->email)
+                    ->firstOrFail();
                 $care_manager->tokens()->delete();
                 $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
                 return response()->json([

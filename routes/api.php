@@ -32,13 +32,6 @@ Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController
     'index'
 ]);
 
-Route::prefix('care-managers')->group(function () {
-    // ケアマネージャーメール認証
-    $verificationLimiter = config('fortify.limiters.verification', '6,1');
-    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class,  '__invoke'])
-        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
-});
-
 // Route::prefix('users')->group(function () {
 //     // 登録
 //     Route::post('/', [UserController::class, 'store'])->name('users.register');
@@ -53,11 +46,17 @@ Route::prefix('care-managers')->group(function () {
 Route::prefix('care-managers')->group(function () {
     Route::post('/', [CareManagerController::class, 'store']);
     Route::post('/login', [CareManagerAuthController::class, 'store']);
+    // ケアマネージャーメール認証
+    $verificationLimiter = config('fortify.limiters.verification', '6,1');
+    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class,  '__invoke'])
+        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
-        Route::post('/visit', [VisitDatetimeController::class, 'store']);
+        Route::apiResource('/visit', VisitDatetimeController::class)->only([
+            'store', 'update'
+        ]);
         Route::put('/{id}', [CareManagerController::class, 'update']);
     });
 });

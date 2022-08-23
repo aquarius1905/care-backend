@@ -6,7 +6,6 @@ use App\Http\Requests\VisitDatetimeRequest;
 use App\Mail\VisitDateTimeNotificationMail;
 use App\Models\CareReceiver;
 use App\Models\VisitDatetime;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class VisitDatetimeController extends Controller
@@ -24,7 +23,7 @@ class VisitDatetimeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\VisitDatetimeRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(VisitDatetimeRequest $request)
@@ -55,13 +54,29 @@ class VisitDatetimeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\VisitDatetimeRequest  $request
      * @param  \App\Models\VisitDatetime  $visitDatetime
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VisitDatetime $visitDatetime)
+    public function update(VisitDatetimeRequest $request, VisitDatetime $visitDatetime)
     {
-        //
+        $update = [
+            'date' => $request->date,
+            'time' => $request->time
+        ];
+
+        $result = VisitDatetime::where('id', $visitDatetime->id)
+            ->update($update);
+        if ($result) {
+            $this->sendMail($request->care_receiver_id);
+            return response()->json([
+                'message' => 'Store Successfully!'
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**
