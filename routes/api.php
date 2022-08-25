@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
+use App\Http\Controllers\HomeCareServiceController;
 use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\ProviderController;
@@ -28,9 +29,15 @@ Route::apiResource('/care-levels', CareLevelController::class)->only([
     'index'
 ]);
 
-Route::apiResource('/home-care-support-offices', HomeCareSupportOfficeController::class)->only([
-    'index'
-]);
+Route::apiResource(
+    '/home-care-support-offices',
+    HomeCareSupportOfficeController::class
+)->only(['index']);
+
+Route::apiResource(
+    '/home-care-services',
+    HomeCareServiceController::class
+)->only(['index']);
 
 // Route::prefix('users')->group(function () {
 //     // 登録

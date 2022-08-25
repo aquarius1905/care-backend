@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CareLevel;
+use App\Models\HomeCareService;
 use Illuminate\Http\Request;
 
-class CareLevelController extends Controller
+class HomeCareServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class CareLevelController extends Controller
      */
     public function index()
     {
-        $items = CareLevel::get(['id', 'name']);
+        $items = HomeCareService::all();
 
         return response()->json([
-            'data' => $items->toArray()
+            'data' => $items
         ], 200);
     }
 
@@ -36,10 +36,10 @@ class CareLevelController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CareLevel  $careLevel
+     * @param  \App\Models\HomeCareService  $homeCareService
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CareLevel $careLevel)
+    public function update(Request $request, HomeCareService $homeCareService)
     {
         //
     }
@@ -47,10 +47,10 @@ class CareLevelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CareLevel  $careLevel
+     * @param  \App\Models\HomeCareService  $homeCareService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CareLevel $careLevel)
+    public function destroy(HomeCareService $homeCareService)
     {
         //
     }
