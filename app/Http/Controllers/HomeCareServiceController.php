@@ -14,10 +14,10 @@ class HomeCareServiceController extends Controller
      */
     public function index()
     {
-        $items = HomeCareService::all();
+        $items = HomeCareService::get(['id', 'name']);
 
         return response()->json([
-            'data' => $items
+            'data' => $items->toArray()
         ], 200);
     }
 

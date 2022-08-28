@@ -42,12 +42,13 @@ class KeyPersonAuthController extends Controller
     {
         return $this->loginPipeline($request)
             ->then(function ($request) {
-                $key_person = KeyPerson::where('email', $request->email)->firstOrFail();
+                $key_person = KeyPerson::with(['care_receivers'])
+                    ->where('email', $request->email)->firstOrFail();
                 $key_person->tokens()->delete();
                 $token = $key_person->createToken('auth_key_person_token')->plainTextToken;
                 return response()->json([
                     'access_token' => $token,
-                    'token_type' => 'Bearer'
+                    'key_person' => $key_person
                 ], 200);
             });
     }
