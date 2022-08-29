@@ -17,13 +17,17 @@ class VerifyCareManagerEmailController extends Controller
     public function __invoke(VerifyEmailRequest $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return response()->json($request);
+            return response()->json([
+                "message" => "既にメール認証済みです。"
+            ], 400);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return response()->json($request);
+        return response()->json([
+            "message" => "メール認証が完了しました。"
+        ]);
     }
 }

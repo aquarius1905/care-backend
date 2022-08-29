@@ -52,10 +52,11 @@ Route::apiResource(
 
 Route::prefix('care-managers')->group(function () {
     Route::post('/', [CareManagerController::class, 'store']);
+
     Route::post('/login', [CareManagerAuthController::class, 'store']);
-    // ケアマネージャーメール認証
+
     $verificationLimiter = config('fortify.limiters.verification', '6,1');
-    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class,  '__invoke'])
+    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class, '__invoke'])
         ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
 
     Route::middleware('auth:sanctum')->group(function () {

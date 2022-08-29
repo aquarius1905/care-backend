@@ -4,7 +4,6 @@ namespace App\Auth\Listeners;
 
 use App\Auth\Events\CareManagerRegistered;
 use App\Contracts\Auth\MustVerifyCareManagerEmail;
-use Illuminate\Support\Facades\Log;
 
 class SendCareManagerEmailVerificationNotification
 {
