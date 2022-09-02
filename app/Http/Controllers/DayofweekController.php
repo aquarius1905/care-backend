@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CareLevel;
+use App\Models\Dayofweek;
+use Log;
 
-class CareLevelController extends Controller
+class DayofweekController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,10 +14,10 @@ class CareLevelController extends Controller
      */
     public function index()
     {
-        $items = CareLevel::get(['id', 'name']);
+        $items = Dayofweek::get(['id', 'name']);
 
         return response()->json([
-            'data' => $items->toArray()
+            'data' => $items
         ], 200);
     }
 }

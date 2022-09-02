@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
+use App\Http\Controllers\DayofweekController;
 use App\Http\Controllers\HomeCareServiceController;
 use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
@@ -28,7 +29,9 @@ use App\Http\Controllers\VisitDatetimeController;
 Route::apiResource('/care-levels', CareLevelController::class)->only([
     'index'
 ]);
-
+Route::apiResource('/day-of-weeks', DayofweekController::class)->only([
+    'index'
+]);
 Route::apiResource(
     '/home-care-support-offices',
     HomeCareSupportOfficeController::class
