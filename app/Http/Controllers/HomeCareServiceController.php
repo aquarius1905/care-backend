@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\HomeCareService;
-use Illuminate\Http\Request;
 
 class HomeCareServiceController extends Controller
 {
@@ -17,41 +16,7 @@ class HomeCareServiceController extends Controller
         $items = HomeCareService::get(['id', 'name']);
 
         return response()->json([
-            'data' => $items->toArray()
+            'data' => $items
         ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HomeCareService  $homeCareService
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, HomeCareService $homeCareService)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\HomeCareService  $homeCareService
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(HomeCareService $homeCareService)
-    {
-        //
     }
 }

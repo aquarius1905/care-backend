@@ -26,12 +26,16 @@ use App\Http\Controllers\VisitDatetimeController;
 |
 */
 
-Route::apiResource('/care-levels', CareLevelController::class)->only([
-    'index'
-]);
-Route::apiResource('/day-of-weeks', DayofweekController::class)->only([
-    'index'
-]);
+Route::apiResource(
+    '/care-levels',
+    CareLevelController::class
+)->only(['index']);
+
+Route::apiResource(
+    '/day-of-weeks',
+    DayofweekController::class
+)->only(['index']);
+
 Route::apiResource(
     '/home-care-support-offices',
     HomeCareSupportOfficeController::class
