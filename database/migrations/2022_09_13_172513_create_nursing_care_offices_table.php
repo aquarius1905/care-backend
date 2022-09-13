@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProvidersTable extends Migration
+class CreateNursingCareOfficesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,19 @@ class CreateProvidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('nursing_care_offices', function (Blueprint $table) {
             $table->id();
+            $table->string('office_name');
+            $table->string('corporate_name');
+            $table->string('home_care_service_id');
+            $table->string('office_number', 10);
+            $table->string('post_code', 7);
+            $table->string('address');
             $table->string('name');
+            $table->string('name_furigana');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('tel', 11);
             $table->string('password');
             $table->rememberToken();
             $table->timestamp('created_at')->useCurrent()->nullable();
@@ -32,6 +40,6 @@ class CreateProvidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('providers');
+        Schema::dropIfExists('nursing_care_offices');
     }
 }

@@ -12,7 +12,7 @@ use App\Http\Controllers\DayofweekController;
 use App\Http\Controllers\HomeCareServiceController;
 use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
-use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\NursingCareOfficeController;
 use App\Http\Controllers\VisitDatetimeController;
 
 /*
@@ -45,17 +45,6 @@ Route::apiResource(
     '/home-care-services',
     HomeCareServiceController::class
 )->only(['index']);
-
-// Route::prefix('users')->group(function () {
-//     // 登録
-//     Route::post('/', [UserController::class, 'store'])->name('users.register');
-//     // ログイン
-//     Route::post('/login', [UserAuthController::class, 'store'])->name('users.login');
-//     Route::middleware('auth:web')->group(function () {
-//         // ログアウト
-//         Route::post('/logout', [UserAuthController::class, 'destroy'])->name('users.logout');
-//     });
-// });
 
 Route::prefix('care-managers')->group(function () {
     Route::post('/', [CareManagerController::class, 'store']);
@@ -97,9 +86,9 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // 介護事業者
-Route::prefix('providers')->group(function () {
+Route::prefix('nursing-care-offices')->group(function () {
     // 登録
-    Route::post('/', [ProviderController::class, 'store'])->name('providers.register');
+    Route::post('/', [NursingCareOfficeController::class, 'store']);
     // ログイン
     Route::post('/login', [ProviderAuthController::class, 'store'])->name('providers.login');
     Route::middleware('auth:provider')->group(function () {

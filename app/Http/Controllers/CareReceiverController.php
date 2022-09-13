@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CareReceiverRequest;
+use App\Http\Requests\CareReceiver\StoreRequest;
 use App\Models\CareReceiver;
 use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Log;
 
 class CareReceiverController extends Controller
 {
@@ -40,10 +39,10 @@ class CareReceiverController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CareReceiver\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CareReceiverRequest $request)
+    public function store(StoreRequest $request)
     {
         $inputs = $request->all();
         $inputs['care_manager_id'] = Auth::id();

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CareManagerRequest;
-use App\Http\Requests\CareManagerUpdateRequest;
+use App\Http\Requests\CareManager\StoreRequest;
+use App\Http\Requests\CareManager\UpdateRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
 use Illuminate\Support\Facades\Hash;
-use Log;
 
 class CareManagerController extends Controller
 {
@@ -24,10 +23,10 @@ class CareManagerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CareManagerRequest  $request
+     * @param  \App\Http\Requests\CareManager\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CareManagerRequest $request)
+    public function store(StoreRequest $request)
     {
         $inputs = $request->all();
         $inputs['password'] = Hash::make($inputs['password']);
@@ -53,11 +52,11 @@ class CareManagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CareManagerUpdateRequest  $request
+     * @param  \App\Http\Requests\CareManager\UpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CareManagerUpdateRequest $request, int $id)
+    public function update(UpdateRequest $request, int $id)
     {
         $inputs = $request->only([
             'home_care_support_office_id',

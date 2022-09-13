@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Auth\Events\ProviderRegistered;
-use App\Http\Requests\ProviderRegisterRequest;
+use App\Http\Requests\NursingCareOffice\StoreRequest;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ProviderController extends Controller
+class NursingCareOfficeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,10 +33,10 @@ class ProviderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\ProviderRegisterRequest  $request
+     * @param  \App\Http\Requests\NursingCareOffice\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProviderRegisterRequest $request)
+    public function store(StoreRequest $request)
     {
         $inputs = $request->except(['_token']);
         $inputs['password'] = Hash::make($inputs['password']);
