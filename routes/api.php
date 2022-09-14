@@ -9,7 +9,7 @@ use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\DayofweekController;
-use App\Http\Controllers\HomeCareServiceController;
+use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\KeyPersonController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\NursingCareOfficeController;
@@ -42,8 +42,8 @@ Route::apiResource(
 )->only(['index']);
 
 Route::apiResource(
-    '/home-care-services',
-    HomeCareServiceController::class
+    '/service-types',
+    ServiceTypeController::class
 )->only(['index']);
 
 Route::prefix('care-managers')->group(function () {
@@ -53,7 +53,7 @@ Route::prefix('care-managers')->group(function () {
 
     $verificationLimiter = config('fortify.limiters.verification', '6,1');
     Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class, '__invoke'])
-        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])->name('care-manager.verification.verify');
+        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter]);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
@@ -85,14 +85,13 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
 });
 
-// 介護事業者
 Route::prefix('nursing-care-offices')->group(function () {
     // 登録
     Route::post('/', [NursingCareOfficeController::class, 'store']);
     // ログイン
-    Route::post('/login', [ProviderAuthController::class, 'store'])->name('providers.login');
-    Route::middleware('auth:provider')->group(function () {
+    Route::post('/login', [ProviderAuthController::class, 'store']);
+    Route::middleware('auth:sanctum')->group(function () {
         // ログアウト
-        Route::post('/logout', [ProviderAuthController::class, 'destroy'])->name('providers.logout');
+        Route::post('/logout', [ProviderAuthController::class, 'destroy']);
     });
 });

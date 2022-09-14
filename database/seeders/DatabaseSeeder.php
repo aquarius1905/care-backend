@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DayofweeksTableSeeder::class);
         $this->call(ServiceTypesTableSeeder::class);
         $this->call(HomeCareSupportOfficesSeeder::class);
-        $this->call(HomeCareServicesTableSeeder::class);
+        $this->call(ServiceTypesTableSeeder::class);
     }
 }

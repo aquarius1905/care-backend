@@ -4,7 +4,7 @@ namespace App\Auth\Events;
 
 use Illuminate\Queue\SerializesModels;
 
-class ProviderRegistered
+class NursingCareOfficeRegistered
 {
     use SerializesModels;
 
@@ -13,7 +13,7 @@ class ProviderRegistered
      *
      * @var \Illuminate\Contracts\Auth\Authenticatable
      */
-    public $provider;
+    public $nursing_care_office;
 
     /**
      * Create a new event instance.
@@ -21,8 +21,8 @@ class ProviderRegistered
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return void
      */
-    public function __construct($provider)
+    public function __construct($nursing_care_office)
     {
-        $this->provider = $provider;
+        $this->nursing_care_office = $nursing_care_office;
     }
 }

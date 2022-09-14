@@ -17,13 +17,13 @@ class CreateNursingCareOfficesTable extends Migration
             $table->id();
             $table->string('office_name');
             $table->string('corporate_name');
-            $table->string('home_care_service_id');
+            $table->unsignedBigInteger('service_type_id');
             $table->string('office_number', 10);
             $table->string('post_code', 7);
             $table->string('address');
             $table->string('name');
             $table->string('name_furigana');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('tel', 11);
             $table->string('password');

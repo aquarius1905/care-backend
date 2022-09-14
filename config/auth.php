@@ -44,9 +44,9 @@ return [
             'driver' => 'session',
             'provider' => 'care_managers',
         ],
-        'provider' => [
+        'nursing-care-office' => [
             'driver' => 'session',
-            'provider' => 'providers',
+            'provider' => 'nursing_care_offices',
         ]
     ],
 
@@ -76,9 +76,9 @@ return [
             'driver' => 'eloquent',
             'model'  => App\Models\CareManager::class
         ],
-        'providers' => [
+        'nursing_care_offices' => [
             'driver' => 'eloquent',
-            'model'  => App\Models\Provider::class
+            'model'  => App\Models\NursingCareOffice::class
         ],
     ],
 
@@ -110,8 +110,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'providers' => [
-            'provider' => 'providers',
+        'nursing_care_offices' => [
+            'provider' => 'nursing_care_offices',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

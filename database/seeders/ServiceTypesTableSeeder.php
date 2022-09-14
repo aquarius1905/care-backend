@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\HomeCareService;
+use App\Models\ServiceType;
 use Illuminate\Database\Seeder;
 
-class HomeCareServicesTableSeeder extends Seeder
+class ServiceTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class HomeCareServicesTableSeeder extends Seeder
      */
     public function run()
     {
-        $services = [
+        $service_types = [
             ['name' => '通所介護（デイサービス）'],
             ['name' => '通所リハビリテーション（デイケア）'],
             ['name' => '訪問介護（ホームヘルプサービス）'],
@@ -25,8 +25,8 @@ class HomeCareServicesTableSeeder extends Seeder
             ['name' => '福祉用具貸与'],
             ['name' => '居宅療養管理指導']
         ];
-        foreach ($services as $service) {
-            HomeCareService::create($service);
+        foreach ($service_types as $service_type) {
+            ServiceType::create($service_type);
         }
     }
 }

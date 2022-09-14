@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Auth\Events\ProviderRegistered;
+use App\Models\NursingCareOffice;
+use App\Auth\Events\NursingCareOfficeRegistered;
 use App\Http\Requests\NursingCareOffice\StoreRequest;
-use App\Models\Provider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class NursingCareOfficeController extends Controller
 {
@@ -21,16 +21,6 @@ class NursingCareOfficeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\NursingCareOffice\StoreRequest  $request
@@ -40,8 +30,10 @@ class NursingCareOfficeController extends Controller
     {
         $inputs = $request->except(['_token']);
         $inputs['password'] = Hash::make($inputs['password']);
-        $provider = Provider::create($inputs);
-        event(new ProviderRegistered($provider));
+
+        $item = NursingCareOffice::create($inputs);
+
+        event(new NursingCareOfficeRegistered($item));
 
         return response()->json([
             'message' => 'Store Successfully!'
@@ -51,21 +43,10 @@ class NursingCareOfficeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\NursingCareOffice  $nursingCareOffice
      * @return \Illuminate\Http\Response
      */
-    public function show(Provider $provider)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Provider  $provider
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Provider $provider)
+    public function show(NursingCareOffice $nursingCareOffice)
     {
         //
     }
@@ -74,10 +55,10 @@ class NursingCareOfficeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\NursingCareOffice  $nursingCareOffice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request, NursingCareOffice $nursingCareOffice)
     {
         //
     }
@@ -85,10 +66,10 @@ class NursingCareOfficeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Provider  $provider
+     * @param  \App\Models\NursingCareOffice  $nursingCareOffice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provider $provider)
+    public function destroy(NursingCareOffice $nursingCareOffice)
     {
         //
     }

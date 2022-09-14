@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HomeCareService;
+use App\Models\ServiceType;
 
-class HomeCareServiceController extends Controller
+class ServiceTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class HomeCareServiceController extends Controller
      */
     public function index()
     {
-        $items = HomeCareService::get(['id', 'name']);
+        $items = ServiceType::get(['id', 'name']);
 
         return response()->json([
             'data' => $items
