@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use App\Models\CareManager;
 use App\Models\KeyPerson;
-use App\Models\Provider;
+use App\Models\NursingCareOffice;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -37,8 +37,8 @@ class FortifyServiceProvider extends ServiceProvider
             $user = null;
             if (preg_match("/care-managers/", $url)) {
                 $user = CareManager::where('email', $request->email)->first();
-            } else if (preg_match("/providers/", $url)) {
-                $user = Provider::where('email', $request->email)->first();
+            } else if (preg_match("/nursing-care-offices/", $url)) {
+                $user = NursingCareOffice::where('email', $request->email)->first();
             } else if (preg_match("/key-persons/", $url)) {
                 $user = KeyPerson::where('email', $request->email)->first();
             }

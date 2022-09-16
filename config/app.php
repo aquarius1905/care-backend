@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\CareManagerAuthServiceProvider::class,
-        App\Providers\ProviderAuthServiceProvider::class,
+        App\Providers\NursingCareOfficeAuthServiceProvider::class,
         App\Providers\UserAuthServiceProvider::class,
     ],
 

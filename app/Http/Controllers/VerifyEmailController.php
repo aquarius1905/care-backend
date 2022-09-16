@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Routing\Controller;
 use Laravel\Fortify\Http\Requests\VerifyEmailRequest;
 
-class VerifyCareManagerEmailController extends Controller
+class VerifyEmailController extends Controller
 {
     /**
      * Mark the authenticated user's email address as verified.

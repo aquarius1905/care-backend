@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\CareManagerAuthController;
 use App\Http\Controllers\Auth\KeyPersonAuthController;
-use App\Http\Controllers\Auth\ProviderAuthController;
+use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
 use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
@@ -11,7 +11,7 @@ use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\DayofweekController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\KeyPersonController;
-use App\Http\Controllers\VerifyCareManagerEmailController;
+use App\Http\Controllers\VerifyEmailController;
 use App\Http\Controllers\NursingCareOfficeController;
 use App\Http\Controllers\VisitDatetimeController;
 
@@ -52,8 +52,9 @@ Route::prefix('care-managers')->group(function () {
     Route::post('/login', [CareManagerAuthController::class, 'store']);
 
     $verificationLimiter = config('fortify.limiters.verification', '6,1');
-    Route::get('/email/verify/{id}/{hash}', [VerifyCareManagerEmailController::class, '__invoke'])
-        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter]);
+    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+        ->middleware(['auth:care-manager', 'signed', 'throttle:' . $verificationLimiter])
+        ->name('care-manager.verification.verify');;
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
@@ -86,12 +87,17 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('nursing-care-offices')->group(function () {
-    // 登録
     Route::post('/', [NursingCareOfficeController::class, 'store']);
-    // ログイン
-    Route::post('/login', [ProviderAuthController::class, 'store']);
+
+    Route::post('/login', [NursingCareOfficeAuthController::class, 'store']);
+
+    $verificationLimiter = config('fortify.limiters.verification', '6,1');
+    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+        ->middleware(['auth:nursing-care-office', 'signed', 'throttle:' . $verificationLimiter])
+        ->name('nursing-care-office.verification.verify');
+
     Route::middleware('auth:sanctum')->group(function () {
         // ログアウト
-        Route::post('/logout', [ProviderAuthController::class, 'destroy']);
+        Route::post('/logout', [NursingCareOfficeAuthController::class, 'destroy']);
     });
 });

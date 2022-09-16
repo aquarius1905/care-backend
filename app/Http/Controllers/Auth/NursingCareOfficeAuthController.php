@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use App\Models\Provider;
+use App\Models\NursingCareOffice;
 
-class ProviderAuthController extends Controller
+class NursingCareOfficeAuthController extends Controller
 {
     /**
      * The guard implementation.
@@ -40,11 +41,13 @@ class ProviderAuthController extends Controller
     public function store(LoginRequest $request)
     {
         return $this->loginPipeline($request)->then(function ($request) {
-            $provider = Provider::where('email', $request->email)->firstOrFail();
-            $token = $provider->createToken('auth_provider_token')->plainTextToken;
+            $nursing_care_office
+                = NursingCareOffice::where('email', $request->email)->firstOrFail();
+            $token = $nursing_care_office->createToken('auth_provider_token')->plainTextToken;
+
             return response()->json([
                 'access_token' => $token,
-                'token_type' => 'Bearer',
+                'nursing_care_office' => $nursing_care_office
             ], 200);
         });
     }
@@ -71,11 +74,10 @@ class ProviderAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->guard->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::guard('sanctum')->user()->tokens()->delete();
+
         return response()->json([
-            'message' => "Logged out successfully"
+            'message' => 'Logged out successfully'
         ], 200);
     }
 }

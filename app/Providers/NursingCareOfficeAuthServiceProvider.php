@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use App\Actions\AttemptToAuthenticate;
-use App\Http\Controllers\Auth\ProviderAuthController;
+use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 
-class ProviderAuthServiceProvider extends ServiceProvider
+class NursingCareOfficeAuthServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -18,10 +18,10 @@ class ProviderAuthServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app
-            ->when([ProviderAuthController::class, AttemptToAuthenticate::class])
+            ->when([NursingCareOfficeAuthController::class, AttemptToAuthenticate::class])
             ->needs(StatefulGuard::class)
             ->give(function () {
-                return Auth::guard('provider');
+                return Auth::guard('nursing-care-office');
             });
     }
 
