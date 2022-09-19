@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\AttemptToAuthenticate;
+use App\Actions\CareManager\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
 use App\Models\CareManager;
 use Illuminate\Http\Request;

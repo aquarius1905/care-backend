@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Contracts\Auth\MustVerifyCareManagerEmail;
+use App\Contracts\Auth\MustVerifyNursingCareOfficeEmail;
 
-class EnsureCareManagerEmailIsVerified
+class EnsureNursingCareOfficeEmailIsVerified
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class EnsureCareManagerEmailIsVerified
     {
         if (
             !$request->user() ||
-            ($request->user() instanceof MustVerifyCareManagerEmail &&
+            ($request->user() instanceof MustVerifyNursingCareOfficeEmail &&
                 !$request->user()->hasVerifiedEmail())
         ) {
             return redirect(config('app.front') . '/email/unverified');

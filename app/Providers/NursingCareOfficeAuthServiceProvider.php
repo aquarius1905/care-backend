@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\AttemptToAuthenticate;
+use App\Actions\NursingCareOffice\AttemptToAuthenticate;
 use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;

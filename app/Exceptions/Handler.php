@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
-use Log;
 
 class Handler extends ExceptionHandler
 {
@@ -44,7 +43,6 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof ValidationException) {
-            Log::Debug($exception);
             return response()->json([
                 'login_error'   => 'メールアドレス・パスワードが一致しません'
             ], 401);

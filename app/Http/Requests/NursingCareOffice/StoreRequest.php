@@ -36,7 +36,7 @@ class StoreRequest extends FormRequest
             'name_furigana' => 'required|string',
             'email' => 'required',
             'tel' => 'required|regex:/^0[0-9]{10,11}$/',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8|max:64|confirmed',
         ];
     }
 

@@ -15,7 +15,10 @@ class SendCareManagerEmailVerificationNotification
    */
   public function handle(CareManagerRegistered $event)
   {
-    if ($event->care_manager instanceof MustVerifyCareManagerEmail && !$event->care_manager->hasVerifiedEmail()) {
+    if (
+      $event->care_manager instanceof MustVerifyCareManagerEmail &&
+      !$event->care_manager->hasVerifiedEmail()
+    ) {
       $event->care_manager->sendEmailVerificationNotification();
     }
   }

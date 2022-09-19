@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\AttemptToAuthenticate;
+use App\Actions\NursingCareOffice\AttemptToAuthenticate;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Controller;
@@ -42,8 +42,9 @@ class NursingCareOfficeAuthController extends Controller
     {
         return $this->loginPipeline($request)->then(function ($request) {
             $nursing_care_office
-                = NursingCareOffice::where('email', $request->email)->firstOrFail();
-            $token = $nursing_care_office->createToken('auth_provider_token')->plainTextToken;
+                = NursingCareOffice::with(['service_type:id,name'])
+                ->where('email', $request->email)->firstOrFail();
+            $token = $nursing_care_office->createToken('auth_nursing_care_office_token')->plainTextToken;
 
             return response()->json([
                 'access_token' => $token,

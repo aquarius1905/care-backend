@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Actions\AttemptToAuthenticate;
+use App\Actions\CareManager\AttemptToAuthenticate;
 use App\Http\Controllers\Auth\CareManagerAuthController;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\StatefulGuard;
