@@ -15,13 +15,11 @@ class CreateHomeCareSupportOfficesTable extends Migration
     {
         Schema::create('home_care_support_offices', function (Blueprint $table) {
             $table->id();
+            $table->string('office_name');
+            $table->string('corporate_name');
             $table->string('office_number', 10);
-            $table->string('name');
             $table->string('post_code', 7);
             $table->string('address');
-            $table->string('tel', 11);
-            $table->string('fax', 11)->nullable();
-            $table->string('email');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

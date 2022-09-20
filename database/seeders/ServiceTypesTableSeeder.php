@@ -15,9 +15,10 @@ class ServiceTypesTableSeeder extends Seeder
     public function run()
     {
         $service_types = [
+            ['name' => '居宅介護支援'],
             ['name' => '通所介護（デイサービス）'],
             ['name' => '通所リハビリテーション（デイケア）'],
-            ['name' => '訪問介護（ホームヘルプサービス）'],
+            ['name' => '訪問介護'],
             ['name' => '訪問看護'],
             ['name' => '訪問リハビリテーション'],
             ['name' => '短期入所生活介護（ショートステイ）'],
