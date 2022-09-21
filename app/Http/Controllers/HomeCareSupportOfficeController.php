@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HomeCareSupportOffice;
+use App\Http\Requests\HomeCareSupportOffice\StoreRequest;
 use Illuminate\Http\Request;
 
 class HomeCareSupportOfficeController extends Controller
@@ -24,12 +25,16 @@ class HomeCareSupportOfficeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\HomeCareSupportOffice\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        HomeCareSupportOffice::create($request->all());
+
+        return response()->json([
+            'message' => 'Store Successfully!'
+        ], 201);
     }
 
     /**

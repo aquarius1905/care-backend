@@ -42,7 +42,7 @@ Route::apiResource(
 Route::apiResource(
     '/home-care-support-offices',
     HomeCareSupportOfficeController::class
-)->only(['index']);
+)->only(['index', 'store']);
 
 Route::apiResource(
     '/service-types',
