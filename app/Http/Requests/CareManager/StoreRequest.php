@@ -25,12 +25,17 @@ class StoreRequest extends FormRequest
     {
         return [
             'home_care_support_office_id' => 'required|numeric',
-            'name' => 'required|max:255',
-            'name_furigana' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'name_furigana' => 'required|string|max:255',
             'registration_number' => 'required|size:8',
             'email' => 'required|email|unique:care_managers|max:255',
             'tel' => 'required|between:10,11',
-            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/'
+            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/',
+            'office_name' => 'required|string',
+            'corporate_name' => 'required|string',
+            'office_number' => 'required|size:10',
+            'office_postcode' => 'required|size:7',
+            'office_address' => 'required|string',
         ];
     }
 }
