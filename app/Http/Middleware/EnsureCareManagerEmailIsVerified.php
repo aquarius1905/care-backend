@@ -17,6 +17,7 @@ class EnsureCareManagerEmailIsVerified
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
+        dd($request);
         if (
             !$request->user() ||
             ($request->user() instanceof MustVerifyCareManagerEmail &&

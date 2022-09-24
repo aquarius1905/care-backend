@@ -62,13 +62,12 @@ if (Features::enabled(Features::emailVerification())) {
 }
 
 
-Route::prefix('care-managers')->group(function () {
-
+Route::prefix('/care-managers')->group(function () {
 
     Route::post('/', [CareManagerController::class, 'store']);
 
     Route::post('/login', [CareManagerAuthController::class, 'store'])
-        ->middleware('caremanager.verified');;
+        ->middleware('caremanager.verified');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);

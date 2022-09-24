@@ -7,6 +7,7 @@ use App\Http\Requests\CareManager\UpdateRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CareManagerController extends Controller
 {
@@ -59,7 +60,6 @@ class CareManagerController extends Controller
     public function update(UpdateRequest $request, int $id)
     {
         $inputs = $request->only([
-            'home_care_support_office_id',
             'name',
             'name_furigana',
             'registration_number',

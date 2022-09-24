@@ -11,22 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 class CareManager extends Authenticatable implements MustVerifyCareManagerEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'home_care_support_office_id',
-        'registration_number',
-        'name',
-        'name_furigana',
-        'email',
-        'password',
-        'post_code',
-        'address',
-        'tel',
-    ];
+
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.

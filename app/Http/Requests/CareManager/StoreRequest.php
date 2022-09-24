@@ -24,13 +24,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'home_care_support_office_id' => 'required|numeric',
             'name' => 'required|string|max:255',
             'name_furigana' => 'required|string|max:255',
             'registration_number' => 'required|size:8',
             'email' => 'required|email|unique:care_managers|max:255',
             'tel' => 'required|between:10,11',
-            'password' => 'required|min:12|regex:/^[a-zA-Z0-9]+$/',
+            'password' => 'required|between:8,64|confirmed|regex:/^[a-zA-Z0-9]+$/',
             'office_name' => 'required|string',
             'corporate_name' => 'required|string',
             'office_number' => 'required|size:10',

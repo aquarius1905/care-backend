@@ -27,13 +27,13 @@ class VerifyCareManagerEmailController extends Controller
         }
 
         if ($care_manager->hasVerifiedEmail()) {
-            return redirect(config('app.front') . '/email/verify/already-success');
+            return redirect(config('app.front') . '/email/already-verified');
         }
 
         if ($care_manager->markEmailAsVerified()) {
             event(new Verified($care_manager));
         }
 
-        return redirect(config('app.front') . '/email/verify/success');
+        return redirect(config('app.front') . '/email/verified');
     }
 }

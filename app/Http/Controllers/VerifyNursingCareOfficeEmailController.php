@@ -27,13 +27,13 @@ class VerifyNursingCareOfficeEmailController extends Controller
         }
 
         if ($nursing_care_office->hasVerifiedEmail()) {
-            return redirect(config('app.front') . '/email/verify/already-success');
+            return redirect(config('app.front') . '/email/already-verified');
         }
 
         if ($nursing_care_office->markEmailAsVerified()) {
             event(new Verified($nursing_care_office));
         }
 
-        return redirect(config('app.front') . '/email/verify/success');
+        return redirect(config('app.front') . '/email/verified');
     }
 }

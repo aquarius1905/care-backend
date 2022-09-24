@@ -24,7 +24,6 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'home_care_support_office_id' => 'required|numeric',
             'name' => 'required|max:255',
             'name_furigana' => 'required|max:255',
             'registration_number' => 'required|size:8',
