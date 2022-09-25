@@ -10,7 +10,6 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Log;
 
 class CareManagerAuthController extends Controller
 {
@@ -40,7 +39,6 @@ class CareManagerAuthController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        Log::Debug("CareManagerAuthController::store");
         return $this->loginPipeline($request)
             ->then(function ($request) {
                 $care_manager =

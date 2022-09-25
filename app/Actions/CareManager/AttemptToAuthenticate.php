@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\LoginRateLimiter;
-use Illuminate\Support\Facades\Log;
 
 class AttemptToAuthenticate
 {

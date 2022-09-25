@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Contracts\Auth\MustVerifyNursingCareOfficeEmail;
+use App\Models\NursingCareOffice;
 
 class EnsureNursingCareOfficeEmailIsVerified
 {
@@ -17,12 +18,14 @@ class EnsureNursingCareOfficeEmailIsVerified
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
+        $nursing_care_office
+            = NursingCareOffice::where('email', $request->email)->firstOrFail();
         if (
-            !$request->user() ||
-            ($request->user() instanceof MustVerifyNursingCareOfficeEmail &&
-                !$request->user()->hasVerifiedEmail())
+            !$nursing_care_office ||
+            ($nursing_care_office instanceof MustVerifyNursingCareOfficeEmail &&
+                !$nursing_care_office->hasVerifiedEmail())
         ) {
-            return redirect(config('app.front') . '/email/unverified');
+            return abort(403, 'Your email address is not verified.');
         }
 
         return $next($request);

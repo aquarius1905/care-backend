@@ -16,7 +16,6 @@ use App\Http\Controllers\VerifyNursingCareOfficeEmailController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\NursingCareOfficeController;
 use App\Http\Controllers\VisitDatetimeController;
-use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +65,9 @@ Route::prefix('/care-managers')->group(function () {
 
     Route::post('/', [CareManagerController::class, 'store']);
 
-    Route::post('/login', [CareManagerAuthController::class, 'store'])
-        ->middleware('caremanager.verified');
+    Route::middleware('caremanager.verified')->group(function () {
+        Route::post('/login', [CareManagerAuthController::class, 'store']);
+    });
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
@@ -87,17 +87,19 @@ Route::prefix('key-persons')->group(function () {
     });
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/care-receivers', CareReceiverController::class)->only([
-        'index', 'store', 'update',
-    ]);
-    Route::post('/care-receivers/batch-delete', [
-        CareReceiverController::class, 'batchDelete'
-    ]);
-    Route::apiResource('/key-persons', KeyPersonController::class)->only([
-        'store'
-    ]);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/care-receivers', [CareReceiverController::class, 'index']);
 });
+
+Route::apiResource('/care-receivers', CareReceiverController::class)->only([
+    'store', 'update',
+]);
+Route::post('/care-receivers/batch-delete', [
+    CareReceiverController::class, 'batchDelete'
+]);
+Route::apiResource('/key-persons', KeyPersonController::class)->only([
+    'store'
+]);
 
 if (Features::enabled(Features::emailVerification())) {
     $verificationLimiter = config('fortify.limiters.verification', '6,1');
@@ -108,7 +110,9 @@ if (Features::enabled(Features::emailVerification())) {
 Route::prefix('nursing-care-offices')->group(function () {
     Route::post('/', [NursingCareOfficeController::class, 'store']);
 
-    Route::post('/login', [NursingCareOfficeAuthController::class, 'store']);
+    Route::middleware('nursingcareoffice.verified')->group(function () {
+        Route::post('/login', [NursingCareOfficeAuthController::class, 'store']);
+    });
 
     Route::middleware('auth:sanctum')->group(function () {
         // ログアウト

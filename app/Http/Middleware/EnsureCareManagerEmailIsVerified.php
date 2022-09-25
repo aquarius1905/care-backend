@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Contracts\Auth\MustVerifyCareManagerEmail;
+use App\Models\CareManager;
 
 class EnsureCareManagerEmailIsVerified
 {
@@ -17,13 +18,14 @@ class EnsureCareManagerEmailIsVerified
      */
     public function handle($request, Closure $next, $redirectToRoute = null)
     {
-        dd($request);
+        $care_manager
+            = CareManager::where('email', $request->email)->firstOrFail();
         if (
-            !$request->user() ||
-            ($request->user() instanceof MustVerifyCareManagerEmail &&
-                !$request->user()->hasVerifiedEmail())
+            !$care_manager ||
+            ($care_manager instanceof MustVerifyCareManagerEmail &&
+                !$care_manager->hasVerifiedEmail())
         ) {
-            return redirect(config('app.front') . '/email/unverified');
+            return abort(403, 'Your email address is not verified.');
         }
 
         return $next($request);

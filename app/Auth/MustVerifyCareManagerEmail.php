@@ -3,6 +3,7 @@
 namespace App\Auth;
 
 use App\Auth\Notifications\VerifyCareManagerEmail;
+use Illuminate\Support\Facades\Log;
 
 trait MustVerifyCareManagerEmail
 {
