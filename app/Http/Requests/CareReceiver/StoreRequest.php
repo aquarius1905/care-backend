@@ -24,8 +24,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'name_furigana' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'name_furigana' => 'required|string|max:255',
             'gender' => 'required',
             'birthday' => 'required|date',
             'post_code' => 'required|size:7',
@@ -33,7 +33,12 @@ class StoreRequest extends FormRequest
             'insurer_number' => 'required|min:6|max:8',
             'insured_number' => 'required|size:11',
             'care_level_id' => 'required|numeric|between:1,7',
-            'key_person_id' => 'required|numeric',
+            'keyperson_name' => 'required|string|max:255',
+            'keyperson_name_furigana' => 'required|string|max:255',
+            'relationship' => 'required|string|max:255',
+            'email' => 'required|email|unique:care_receivers|max:255',
+            'tel' => 'required|between:10,11|regex:/^0[0-9]{10,11}$/',
+            'password' => 'required|between:8,64|confirmed|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 }
