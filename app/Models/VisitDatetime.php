@@ -19,12 +19,12 @@ class VisitDatetime extends Model
 
     public function getKeyPersonEmail()
     {
-        return optional($this->care_receiver)->getKeyPersonEmail();
+        return optional($this->care_receiver->email);
     }
 
     public function getKeyPersonName()
     {
-        return optional($this->care_receiver)->getKeyPersonName();
+        return optional($this->care_receiver->keyperson_name);
     }
 
     public function getCareReceiverName()

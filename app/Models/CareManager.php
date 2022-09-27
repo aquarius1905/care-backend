@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Contracts\Auth\MustVerifyCareManagerEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Foundation\Auth\CareManager as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 

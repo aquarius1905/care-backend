@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Contracts\Auth\MustVerifyCareReceiverEmail;
+use App\Foundation\Auth\CareReceiver as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class CareReceiver extends Model
+class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmail
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = ['id'];
 
@@ -23,24 +26,9 @@ class CareReceiver extends Model
         return $this->belongsTo(CareManager::class);
     }
 
-    public function key_person()
-    {
-        return $this->belongsTo(KeyPerson::class);
-    }
-
     public function visit_datetime()
     {
         return $this->hasOne(VisitDatetime::class);
-    }
-
-    public function getKeyPersonEmail()
-    {
-        return optional($this->key_person)->email;
-    }
-
-    public function getKeyPersonName()
-    {
-        return optional($this->key_person)->name;
     }
 
     public function getCareManagerName()
@@ -56,10 +44,5 @@ class CareReceiver extends Model
     public function getVisitTime()
     {
         return optional($this->visit_datetime)->time;
-    }
-
-    public function getKeyPersonCount()
-    {
-        return optional($this->key_person)->count();
     }
 }

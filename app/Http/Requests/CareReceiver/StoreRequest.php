@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\CareReceiver;
 
+use App\Rules\InsurerNumberRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -30,8 +31,8 @@ class StoreRequest extends FormRequest
             'birthday' => 'required|date',
             'post_code' => 'required|size:7',
             'address' => 'required|max:255',
-            'insurer_number' => 'required|min:6|max:8',
-            'insured_number' => 'required|size:11',
+            'insurer_number' => ['required', new InsurerNumberRule()],
+            'insured_number' => 'required|size:10',
             'care_level_id' => 'required|numeric|between:1,7',
             'keyperson_name' => 'required|string|max:255',
             'keyperson_name_furigana' => 'required|string|max:255',

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Actions\AttemptToAuthenticate;
+use App\Actions\CareReceiver\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
-use App\Models\KeyPerson;
+use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
 
-class KeyPersonAuthController extends Controller
+class CareReceiverAuthController extends Controller
 {
     /**
      * The guard implementation.
@@ -42,13 +42,13 @@ class KeyPersonAuthController extends Controller
     {
         return $this->loginPipeline($request)
             ->then(function ($request) {
-                $key_person = KeyPerson::with(['care_receivers'])
-                    ->where('email', $request->email)->firstOrFail();
-                $key_person->tokens()->delete();
-                $token = $key_person->createToken('auth_key_person_token')->plainTextToken;
+                $care_receiver = CareReceiver::where('email', $request->email)->firstOrFail();
+                $care_receiver->tokens()->delete();
+                $token = $care_receiver->createToken('auth_key_carereceiver_token')->plainTextToken;
+
                 return response()->json([
                     'access_token' => $token,
-                    'key_person' => $key_person
+                    'care_receiver' => $care_receiver
                 ], 200);
             });
     }
@@ -86,16 +86,16 @@ class KeyPersonAuthController extends Controller
 
     public function me(Request $request)
     {
-        $key_person = null;
+        $care_receiver = null;
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $key_person = KeyPerson::with(['care_receivers'])->find($id);
+            $care_receiver = CareReceiver::with(['care_receivers'])->find($id);
             $result = true;
         }
         return response()->json([
             'result' => $result,
-            'key_person' => $key_person
+            'care_receiver' => $care_receiver
         ], 200);
     }
 }

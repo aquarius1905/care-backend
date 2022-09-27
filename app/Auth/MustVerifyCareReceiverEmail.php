@@ -2,9 +2,9 @@
 
 namespace App\Auth;
 
-use App\Auth\Notifications\VerifyNursingCareOfficeEmail;
+use App\Auth\Notifications\VerifyCareManagerEmail;
 
-trait MustVerifyNursingCareOfficeEmail
+trait MustVerifyCareReceiverEmail
 {
     /**
      * Determine if the user has verified their email address.
@@ -35,7 +35,7 @@ trait MustVerifyNursingCareOfficeEmail
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyNursingCareOfficeEmail);
+        $this->notify(new VerifyCareManagerEmail);
     }
 
     /**

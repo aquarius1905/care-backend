@@ -16,7 +16,7 @@ class CreateCareReceiversTable extends Migration
         Schema::create('care_receivers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('care_manager_id');
-            $table->unsignedBigInteger('key_person_id');
+            $table->unsignedBigInteger('care_level_id');
             $table->string('name');
             $table->string('name_furigana');
             $table->tinyInteger('gender');
@@ -25,7 +25,14 @@ class CreateCareReceiversTable extends Migration
             $table->string('address');
             $table->string('insurer_number', 8);
             $table->string('insured_number', 11);
-            $table->unsignedBigInteger('care_level_id');
+            $table->string('keyperson_name');
+            $table->string('keyperson_name_furigana');
+            $table->string('relationship');
+            $table->string('email');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->string('tel', 11);
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

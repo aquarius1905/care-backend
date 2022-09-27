@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Auth\Events\CareReceiverRegistered;
 use App\Http\Requests\CareReceiver\StoreRequest;
 use App\Models\CareReceiver;
-use App\Models\KeyPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +27,6 @@ class CareReceiverController extends Controller
         $login_id = Auth::id();
         $items = CareReceiver::with([
             'care_level:id,name',
-            'key_person',
             'visit_datetime:id,care_receiver_id,date,time'
         ])->where($column, $login_id)->get();
 
@@ -46,7 +45,8 @@ class CareReceiverController extends Controller
     {
         $inputs = $request->all();
         $inputs['care_manager_id'] = Auth::id();
-        CareReceiver::create($inputs);
+        $care_receiver = CareReceiver::create($inputs);
+        event(new CareReceiverRegistered($care_receiver));
 
         return response()->json([
             'message' => 'Store Successfully!'
@@ -61,7 +61,7 @@ class CareReceiverController extends Controller
      */
     public function show($id)
     {
-        $item = CareReceiver::with(['care_level:id,name', 'key_person'])
+        $item = CareReceiver::with(['care_level:id,name'])
             ->find($id);
         if ($item) {
             return response()->json([
@@ -93,13 +93,8 @@ class CareReceiverController extends Controller
      */
     public function destroy(CareReceiver $care_receiver)
     {
-        $count = CareReceiver::where('key_person_id', $care_receiver->key_person_id)
-            ->count();
-        if ($count === 1) {
-            KeyPerson::where('id', $care_receiver->key_person_id)->delete();
-        }
-
         $result = CareReceiver::where('id', $care_receiver->id)->delete();
+
         if ($result) {
             return response()->json([
                 'message' => 'Deleted successfully',
@@ -117,9 +112,6 @@ class CareReceiverController extends Controller
             $care_receiver = CareReceiver::find($id);
             if (!$care_receiver) {
                 continue;
-            }
-            if ($care_receiver->getKeyPersonCount() === 1) {
-                $care_receiver->key_person()->delete();
             }
             $care_receiver->delete();
         }

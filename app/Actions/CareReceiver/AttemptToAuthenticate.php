@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\NursingCareOffice;
+namespace App\Actions\CareReceiver;
 
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Contracts\Auth\StatefulGuard;

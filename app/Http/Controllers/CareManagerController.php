@@ -7,7 +7,6 @@ use App\Http\Requests\CareManager\UpdateRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class CareManagerController extends Controller
 {

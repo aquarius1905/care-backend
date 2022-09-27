@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use App\Models\CareManager;
-use App\Models\KeyPerson;
+use App\Models\CareReceiver;
 use App\Models\NursingCareOffice;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -39,8 +39,8 @@ class FortifyServiceProvider extends ServiceProvider
                 $user = CareManager::where('email', $request->email)->first();
             } else if (preg_match("/nursing-care-offices/", $url)) {
                 $user = NursingCareOffice::where('email', $request->email)->first();
-            } else if (preg_match("/key-persons/", $url)) {
-                $user = KeyPerson::where('email', $request->email)->first();
+            } else if (preg_match("/care-receivers/", $url)) {
+                $user = CareReceiver::where('email', $request->email)->first();
             }
             if (
                 $user &&
