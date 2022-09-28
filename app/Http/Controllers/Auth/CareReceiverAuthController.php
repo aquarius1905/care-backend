@@ -11,7 +11,6 @@ use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
-use Illuminate\Support\Facades\Log;
 
 class CareReceiverAuthController extends Controller
 {
@@ -41,7 +40,6 @@ class CareReceiverAuthController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        Log::Debug($request);
         return $this->loginPipeline($request)
             ->then(function ($request) {
                 $care_receiver = CareReceiver::where('email', $request->email)->firstOrFail();
@@ -81,6 +79,7 @@ class CareReceiverAuthController extends Controller
     public function destroy(Request $request)
     {
         auth('sanctum')->user()->tokens()->delete();
+
         return response()->json([
             'message' => 'Logged out successfully'
         ], 200);

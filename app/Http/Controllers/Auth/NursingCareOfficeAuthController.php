@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use App\Models\NursingCareOffice;
@@ -75,7 +74,7 @@ class NursingCareOfficeAuthController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('sanctum')->user()->tokens()->delete();
+        auth('sanctum')->user()->tokens()->delete();
 
         return response()->json([
             'message' => 'Logged out successfully'
