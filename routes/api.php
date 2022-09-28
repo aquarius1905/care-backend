@@ -100,7 +100,7 @@ Route::prefix('care-receivers')->group(function () {
         Route::post('/logout', [CareReceiverAuthController::class, 'destroy']);
     });
 
-    Route::middleware('carerecevier.verified')->group(function () {
+    Route::middleware('carereceiver.verified')->group(function () {
         Route::post('/login', [CareReceiverAuthController::class, 'store']);
     });
 });

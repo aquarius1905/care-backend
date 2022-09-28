@@ -2,7 +2,7 @@
 
 namespace App\Auth;
 
-use App\Auth\Notifications\VerifyCareManagerEmail;
+use App\Auth\Notifications\VerifyCareReceiverEmail;
 
 trait MustVerifyCareReceiverEmail
 {
@@ -35,7 +35,7 @@ trait MustVerifyCareReceiverEmail
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyCareManagerEmail);
+        $this->notify(new VerifyCareReceiverEmail);
     }
 
     /**

@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
 use App\Auth\Events\CareManagerRegistered;
+use App\Auth\Events\CareReceiverRegistered;
 use App\Auth\Events\NursingCareOfficeRegistered;
 use App\Auth\Listeners\SendCareManagerEmailVerificationNotification;
+use App\Auth\Listeners\SendCareReceiverEmailVerificationNotification;
 use App\Auth\Listeners\SendNursingCareOfficeEmailVerificationNotification;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CareManagerRegistered::class => [
             SendCareManagerEmailVerificationNotification::class,
+        ],
+        CareReceiverRegistered::class => [
+            SendCareReceiverEmailVerificationNotification::class,
         ],
         NursingCareOfficeRegistered::class => [
             SendNursingCareOfficeEmailVerificationNotification::class,

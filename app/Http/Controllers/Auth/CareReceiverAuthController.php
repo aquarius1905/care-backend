@@ -11,6 +11,7 @@ use Illuminate\Routing\Pipeline;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
+use Illuminate\Support\Facades\Log;
 
 class CareReceiverAuthController extends Controller
 {
@@ -40,11 +41,12 @@ class CareReceiverAuthController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        Log::Debug($request);
         return $this->loginPipeline($request)
             ->then(function ($request) {
                 $care_receiver = CareReceiver::where('email', $request->email)->firstOrFail();
                 $care_receiver->tokens()->delete();
-                $token = $care_receiver->createToken('auth_key_carereceiver_token')->plainTextToken;
+                $token = $care_receiver->createToken('auth_carereceiver_token')->plainTextToken;
 
                 return response()->json([
                     'access_token' => $token,

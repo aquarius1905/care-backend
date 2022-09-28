@@ -7,6 +7,7 @@ use App\Http\Requests\CareReceiver\StoreRequest;
 use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CareReceiverController extends Controller
 {
@@ -44,7 +45,8 @@ class CareReceiverController extends Controller
     public function store(StoreRequest $request)
     {
         $inputs = $request->all();
-        $inputs['care_manager_id'] = Auth::id();
+        $inputs['password'] = Hash::make($inputs['password']);
+        $inputs['care_manager_id'] = Auth::guard('sanctum')->id();
         $care_receiver = CareReceiver::create($inputs);
         event(new CareReceiverRegistered($care_receiver));
 
