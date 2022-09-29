@@ -9,7 +9,7 @@ use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
-use App\Http\Controllers\DayofweekController;
+use App\Http\Controllers\WeeklyServiceScheduleController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
 use App\Http\Controllers\VerifyCareReceiverEmailController;
@@ -34,11 +34,6 @@ Route::apiResource(
 )->only(['index']);
 
 Route::apiResource(
-    '/day-of-weeks',
-    DayofweekController::class
-)->only(['index']);
-
-Route::apiResource(
     '/home-care-support-offices',
     HomeCareSupportOfficeController::class
 )->only(['index', 'store']);
@@ -47,6 +42,12 @@ Route::apiResource(
     '/service-types',
     ServiceTypeController::class
 )->only(['index']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/dayofweeks-and-servicetypes', [
+        WeeklyServiceScheduleController::class, 'getDayofweeksAndServiceTypes'
+    ]);
+});
 
 if (Features::enabled(Features::emailVerification())) {
     $verificationLimiter = config('fortify.limiters.verification', '6,1');

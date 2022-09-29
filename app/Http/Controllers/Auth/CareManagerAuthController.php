@@ -86,8 +86,7 @@ class CareManagerAuthController extends Controller
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $care_manager = CareManager::with(['home_care_support_office:id,name'])
-                ->find($id);
+            $care_manager = CareManager::find($id);
             $result = true;
         }
         return response()->json([

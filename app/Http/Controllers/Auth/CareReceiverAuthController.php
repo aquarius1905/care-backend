@@ -91,7 +91,7 @@ class CareReceiverAuthController extends Controller
         $result = false;
         if (Auth::check()) {
             $id = Auth::id();
-            $care_receiver = CareReceiver::with(['care_receivers'])->find($id);
+            $care_receiver = CareReceiver::find($id);
             $result = true;
         }
         return response()->json([
