@@ -5,7 +5,6 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\Auth\CareManagerAuthController;
 use App\Http\Controllers\Auth\CareReceiverAuthController;
 use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
-use App\Http\Controllers\HomeCareSupportOfficeController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
@@ -32,11 +31,6 @@ Route::apiResource(
     '/care-levels',
     CareLevelController::class
 )->only(['index']);
-
-Route::apiResource(
-    '/home-care-support-offices',
-    HomeCareSupportOfficeController::class
-)->only(['index', 'store']);
 
 Route::apiResource(
     '/service-types',

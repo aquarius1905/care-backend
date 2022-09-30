@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\HomeCareSupportOffice;
+namespace App\Http\Requests\WeeklyServiceSchedule;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -26,11 +26,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'office_name' => 'required|string',
-            'corporate_name' => 'required|string',
-            'office_number' => 'required|size:10',
-            'post_code' => 'required|size:7',
-            'address' => 'required|string'
+            'care_receiver_id' => 'required|numeric',
+            'dayofweek_id' => 'required|numeric',
+            'service_type_id' => 'required|numeric',
+            'nursing_care_office_id' => 'required|numeric',
+            'starting_time' => 'required|date_format:H:i',
+            'ending_time' => 'required|date_format:H:i|after:starting_time',
         ];
     }
 

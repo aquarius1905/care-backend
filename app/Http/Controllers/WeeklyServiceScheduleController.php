@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\WeeklyServiceSchedule;
 use App\Models\Dayofweek;
 use App\Models\ServiceType;
+use App\Http\Requests\WeeklyServiceSchedule\StoreRequest;
 use Illuminate\Http\Request;
 
 class WeeklyServiceScheduleController extends Controller
@@ -22,12 +23,17 @@ class WeeklyServiceScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\WeeklyServiceSchedule\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $inputs = $request->all();
+        WeeklyServiceSchedule::create($inputs);
+
+        return response()->json([
+            'message' => 'Store Successfully!'
+        ], 201);
     }
 
     /**

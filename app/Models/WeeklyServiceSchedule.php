@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class WeeklyServiceSchedule extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 }

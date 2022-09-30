@@ -16,7 +16,5 @@ class DatabaseSeeder extends Seeder
         $this->call(CareLevelsTableSeeder::class);
         $this->call(DayofweeksTableSeeder::class);
         $this->call(ServiceTypesTableSeeder::class);
-        $this->call(HomeCareSupportOfficesSeeder::class);
-        $this->call(ServiceTypesTableSeeder::class);
     }
 }
