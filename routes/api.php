@@ -41,6 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dayofweeks-and-servicetypes', [
         WeeklyServiceScheduleController::class, 'getDayofweeksAndServiceTypes'
     ]);
+    Route::apiResource(
+        '/weekly-service-schedules',
+        WeeklyServiceScheduleController::class
+    )->only(['index, store']);
 });
 
 if (Features::enabled(Features::emailVerification())) {
