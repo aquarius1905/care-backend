@@ -9,4 +9,26 @@ class WeeklyServiceSchedule extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    protected $dates = ['date', 'time'];
+
+    public function care_receiver()
+    {
+        return $this->belongsTo(CareReceiver::class);
+    }
+
+    public function dayofweek()
+    {
+        return $this->belongsTo(Dayofweek::class);
+    }
+
+    public function service_type()
+    {
+        return $this->belongsTo(ServiceType::class);
+    }
+
+    public function nursing_care_office()
+    {
+        return $this->belongsTo(NursingCareOffice::class);
+    }
 }

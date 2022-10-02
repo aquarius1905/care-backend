@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VisitDatetime extends Model
 {
     use HasFactory;
-    protected $guarded = array('id');
+    protected $guarded = ['id'];
 
     protected $dates = ['date', 'time'];
 

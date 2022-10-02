@@ -17,7 +17,17 @@ class WeeklyServiceScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $items = WeeklyServiceSchedule::with([
+            'dayofweek:id,name',
+            'service_type:id,name',
+            'nursing_care_office:id,office_name'
+        ])
+            ->orderBy('dayofweek_id')
+            ->get();
+
+        return response()->json([
+            'data' => $items
+        ], 200);
     }
 
     /**
@@ -29,10 +39,16 @@ class WeeklyServiceScheduleController extends Controller
     public function store(StoreRequest $request)
     {
         $inputs = $request->all();
-        WeeklyServiceSchedule::create($inputs);
+        $weekly_service_schedule = WeeklyServiceSchedule::create($inputs);
+        $item = WeeklyServiceSchedule::with([
+            'dayofweek:id,name',
+            'service_type:id,name',
+            'nursing_care_office:id,office_name'
+        ])->find($weekly_service_schedule->id);
 
         return response()->json([
-            'message' => 'Store Successfully!'
+            'message' => 'Store Successfully!',
+            'data' => $item
         ], 201);
     }
 
@@ -67,7 +83,20 @@ class WeeklyServiceScheduleController extends Controller
      */
     public function destroy(WeeklyServiceSchedule $weeklyServiceSchedule)
     {
-        //
+        $result = WeeklyServiceSchedule::where(
+            'id',
+            $weeklyServiceSchedule->id
+        )->delete();
+
+        if ($result) {
+            return response()->json([
+                'message' => 'Deleted successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     public function getDayofweeksAndServiceTypes()

@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource(
         '/weekly-service-schedules',
         WeeklyServiceScheduleController::class
-    )->only(['index, store']);
+    )->only(['index', 'store', 'destroy']);
 });
 
 if (Features::enabled(Features::emailVerification())) {
