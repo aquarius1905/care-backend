@@ -11,26 +11,6 @@ use Illuminate\Http\Request;
 class WeeklyServiceScheduleController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $items = WeeklyServiceSchedule::with([
-            'dayofweek:id,name',
-            'service_type:id,name',
-            'nursing_care_office:id,office_name'
-        ])
-            ->orderBy('dayofweek_id')
-            ->get();
-
-        return response()->json([
-            'data' => $items
-        ], 200);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\WeeklyServiceSchedule\StoreRequest  $request
@@ -60,7 +40,22 @@ class WeeklyServiceScheduleController extends Controller
      */
     public function show(WeeklyServiceSchedule $weeklyServiceSchedule)
     {
-        //
+    }
+
+    public function showByCareReceiverId(Request $request)
+    {
+        $items = WeeklyServiceSchedule::with([
+            'dayofweek:id,name',
+            'service_type:id,name',
+            'nursing_care_office:id,office_name'
+        ])
+            ->where('care_receiver_id', $request->care_receiver_id)
+            ->orderBy('dayofweek_id')
+            ->get();
+
+        return response()->json([
+            'data' => $items
+        ], 200);
     }
 
     /**

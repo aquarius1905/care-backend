@@ -41,10 +41,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dayofweeks-and-servicetypes', [
         WeeklyServiceScheduleController::class, 'getDayofweeksAndServiceTypes'
     ]);
+    Route::get('/weekly-service-schedules', [
+        WeeklyServiceScheduleController::class, 'showByCareReceiverId'
+    ]);
     Route::apiResource(
         '/weekly-service-schedules',
         WeeklyServiceScheduleController::class
-    )->only(['index', 'store', 'destroy']);
+    )->only(['store', 'destroy']);
 });
 
 if (Features::enabled(Features::emailVerification())) {
