@@ -58,15 +58,9 @@ class CareManagerController extends Controller
      */
     public function update(UpdateRequest $request, int $id)
     {
-        $inputs = $request->only([
-            'name',
-            'name_furigana',
-            'registration_number',
-            'email',
-            'tel'
-        ]);
-
+        $inputs = $request->all();
         $result = CareManager::where('id', $id)->update($inputs);
+
         if ($result) {
             return response()->json([
                 'message' => 'Updated successfully',

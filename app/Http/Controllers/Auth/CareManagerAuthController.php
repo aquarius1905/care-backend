@@ -45,9 +45,9 @@ class CareManagerAuthController extends Controller
                     CareManager::where('email', $request->email)->firstOrFail();
                 $care_manager->tokens()->delete();
                 $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
+
                 return response()->json([
                     'access_token' => $token,
-                    'care_manager' => $care_manager
                 ], 200);
             });
     }
@@ -82,16 +82,10 @@ class CareManagerAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_manager = null;
-        $result = false;
-        if (Auth::check()) {
-            $id = Auth::id();
-            $care_manager = CareManager::find($id);
-            $result = true;
-        }
+        $care_manager = auth('sanctum')->user();
+        Log::Debug($care_manager);
         return response()->json([
-            'result' => $result,
-            'care_manager' => $care_manager
+            'data' => $care_manager
         ], 200);
     }
 }

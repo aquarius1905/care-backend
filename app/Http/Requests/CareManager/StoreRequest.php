@@ -30,11 +30,11 @@ class StoreRequest extends FormRequest
             'email' => 'required|email|unique:care_managers|max:255',
             'tel' => 'required|between:10,11',
             'password' => 'required|between:8,64|confirmed|regex:/^[a-zA-Z0-9]+$/',
-            'office_name' => 'required|string',
-            'corporate_name' => 'required|string',
+            'office_name' => 'required|string|max:255',
+            'corporate_name' => 'required|string|max:255',
             'office_number' => 'required|size:10',
             'office_postcode' => 'required|size:7',
-            'office_address' => 'required|string',
+            'office_address' => 'required|string|max:255',
         ];
     }
 }

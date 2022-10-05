@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Throwable;
+use Log;
 
 class Handler extends ExceptionHandler
 {
@@ -44,7 +45,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ValidationException) {
             return response()->json([
-                'login_error'   => 'メールアドレス・パスワードが一致しません'
+                'error_msg' => $exception->getMessage()
             ], 401);
         }
 

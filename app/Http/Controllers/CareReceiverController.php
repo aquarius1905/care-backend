@@ -8,6 +8,7 @@ use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use DateTime;
 
 class CareReceiverController extends Controller
 {
@@ -25,11 +26,13 @@ class CareReceiverController extends Controller
             ], 404);
         }
 
-        $login_id = Auth::id();
+        $loggedin_id = Auth::id();
         $items = CareReceiver::with([
             'care_level:id,name',
             'visit_datetime:id,care_receiver_id,date,time'
-        ])->where($column, $login_id)->get();
+        ])
+            ->where($column, $loggedin_id)
+            ->get();
 
         return response()->json([
             'data' => $items
