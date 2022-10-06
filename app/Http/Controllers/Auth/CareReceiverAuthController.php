@@ -47,8 +47,7 @@ class CareReceiverAuthController extends Controller
                 $token = $care_receiver->createToken('auth_carereceiver_token')->plainTextToken;
 
                 return response()->json([
-                    'access_token' => $token,
-                    'care_receiver' => $care_receiver
+                    'token' => $token
                 ], 200);
             });
     }
@@ -87,16 +86,9 @@ class CareReceiverAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_receiver = null;
-        $result = false;
-        if (Auth::check()) {
-            $id = Auth::id();
-            $care_receiver = CareReceiver::find($id);
-            $result = true;
-        }
+        $care_receiver = auth('sanctum')->user();
         return response()->json([
-            'result' => $result,
-            'care_receiver' => $care_receiver
+            'data' => $care_receiver
         ], 200);
     }
 }

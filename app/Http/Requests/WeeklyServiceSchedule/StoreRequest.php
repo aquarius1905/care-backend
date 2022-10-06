@@ -26,10 +26,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'care_receiver_id' => 'required|numeric',
-            'dayofweek_id' => 'required|numeric',
-            'service_type_id' => 'required|numeric',
-            'nursing_care_office_id' => 'required|numeric',
+            'care_receiver_id' => 'required|integer',
+            'dayofweek_id' => 'required|integer|between:0,6',
+            'service_type_id' => 'required|integer',
+            'nursing_care_office_id' => 'required|integer',
             'starting_time' => 'required|date_format:H:i',
             'ending_time' => 'required|date_format:H:i|after:starting_time',
         ];

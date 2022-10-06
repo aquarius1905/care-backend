@@ -46,8 +46,7 @@ class NursingCareOfficeAuthController extends Controller
             $token = $nursing_care_office->createToken('auth_nursing_care_office_token')->plainTextToken;
 
             return response()->json([
-                'access_token' => $token,
-                'nursing_care_office' => $nursing_care_office
+                'token' => $token,
             ], 200);
         });
     }
@@ -78,6 +77,14 @@ class NursingCareOfficeAuthController extends Controller
 
         return response()->json([
             'message' => 'Logged out successfully'
+        ], 200);
+    }
+
+    public function me(Request $request)
+    {
+        $nursing_care_office = auth('sanctum')->user();
+        return response()->json([
+            'data' => $nursing_care_office
         ], 200);
     }
 }

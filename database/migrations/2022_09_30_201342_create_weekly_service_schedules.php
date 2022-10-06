@@ -16,7 +16,7 @@ class CreateWeeklyServiceSchedules extends Migration
         Schema::create('weekly_service_schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('care_receiver_id');
-            $table->unsignedBigInteger('dayofweek_id');
+            $table->unsignedTinyInteger('dayofweek_id');
             $table->unsignedBigInteger('service_type_id');
             $table->unsignedBigInteger('nursing_care_office_id');
             $table->time('starting_time');

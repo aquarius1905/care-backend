@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\WeeklyServiceSchedule;
-use App\Models\Dayofweek;
 use App\Models\ServiceType;
 use App\Http\Requests\WeeklyServiceSchedule\StoreRequest;
 use Illuminate\Http\Request;
@@ -45,7 +44,6 @@ class WeeklyServiceScheduleController extends Controller
     public function showByCareReceiverId(Request $request)
     {
         $items = WeeklyServiceSchedule::with([
-            'dayofweek:id,name',
             'service_type:id,name',
             'nursing_care_office:id,office_name'
         ])
@@ -94,14 +92,12 @@ class WeeklyServiceScheduleController extends Controller
         }
     }
 
-    public function getDayofweeksAndServiceTypes()
+    public function getServiceTypes()
     {
-        $day_of_weeks = Dayofweek::get(['id', 'name']);
         $service_types = ServiceType::with(['nursing_care_offices'])
             ->get(['id', 'name']);
 
         return response()->json([
-            'day_of_weeks' => $day_of_weeks,
             'service_types' => $service_types,
         ], 200);
     }

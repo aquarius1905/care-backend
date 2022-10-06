@@ -38,8 +38,8 @@ Route::apiResource(
 )->only(['index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/dayofweeks-and-servicetypes', [
-        WeeklyServiceScheduleController::class, 'getDayofweeksAndServiceTypes'
+    Route::get('/service-types', [
+        WeeklyServiceScheduleController::class, 'getServiceTypes'
     ]);
     Route::get('/weekly-service-schedules', [
         WeeklyServiceScheduleController::class, 'showByCareReceiverId'
@@ -98,6 +98,7 @@ Route::prefix('care-receivers')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [CareReceiverController::class, 'index']);
+        Route::get('/me', [CareReceiverAuthController::class, 'me']);
         Route::post('/', [CareReceiverController::class, 'store']);
         Route::post('/logout', [CareReceiverAuthController::class, 'destroy']);
     });
@@ -122,6 +123,7 @@ Route::prefix('nursing-care-offices')->group(function () {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/me', [NursingCareOfficeAuthController::class, 'me']);
         Route::post('/logout', [NursingCareOfficeAuthController::class, 'destroy']);
     });
 });

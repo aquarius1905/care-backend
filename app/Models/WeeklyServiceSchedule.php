@@ -17,11 +17,6 @@ class WeeklyServiceSchedule extends Model
         return $this->belongsTo(CareReceiver::class);
     }
 
-    public function dayofweek()
-    {
-        return $this->belongsTo(Dayofweek::class);
-    }
-
     public function service_type()
     {
         return $this->belongsTo(ServiceType::class);

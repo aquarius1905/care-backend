@@ -8,8 +8,8 @@ use App\Models\CareManager;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareManagerAuthController extends Controller
 {
@@ -47,7 +47,7 @@ class CareManagerAuthController extends Controller
                 $token = $care_manager->createToken('auth_care_manager_token')->plainTextToken;
 
                 return response()->json([
-                    'access_token' => $token,
+                    'token' => $token,
                 ], 200);
             });
     }
@@ -83,7 +83,6 @@ class CareManagerAuthController extends Controller
     public function me(Request $request)
     {
         $care_manager = auth('sanctum')->user();
-        Log::Debug($care_manager);
         return response()->json([
             'data' => $care_manager
         ], 200);
