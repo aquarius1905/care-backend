@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(CareLevelsTableSeeder::class);
-        $this->call(DayofweeksTableSeeder::class);
         $this->call(ServiceTypesTableSeeder::class);
     }
 }
