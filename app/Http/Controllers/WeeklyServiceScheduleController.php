@@ -44,8 +44,7 @@ class WeeklyServiceScheduleController extends Controller
     public function showByCareReceiverId(Request $request)
     {
         $items = WeeklyServiceSchedule::with([
-            'service_type:id,name',
-            'nursing_care_office:id,office_name'
+            'nursing_care_office.service_type',
         ])
             ->where('care_receiver_id', $request->care_receiver_id)
             ->orderBy('dayofweek_id')
@@ -90,6 +89,18 @@ class WeeklyServiceScheduleController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
+    }
+
+    public function searchByNursingCareOfficeId(Request $request)
+    {
+        $items = WeeklyServiceSchedule::with(['care_receiver'])
+            ->where('nursing_care_office_id', auth('sanctum')->id())
+            ->where('dayofweek_id', $request->dayofweek)
+            ->get();
+
+        return response()->json([
+            'data' => $items
+        ], 200);
     }
 
     public function getServiceTypes()

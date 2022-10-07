@@ -44,6 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/weekly-service-schedules', [
         WeeklyServiceScheduleController::class, 'showByCareReceiverId'
     ]);
+    Route::get('/weekly-service-schedules/search', [
+        WeeklyServiceScheduleController::class, 'searchByNursingCareOfficeId'
+    ]);
     Route::apiResource(
         '/weekly-service-schedules',
         WeeklyServiceScheduleController::class

@@ -17,11 +17,6 @@ class WeeklyServiceSchedule extends Model
         return $this->belongsTo(CareReceiver::class);
     }
 
-    public function service_type()
-    {
-        return $this->belongsTo(ServiceType::class);
-    }
-
     public function nursing_care_office()
     {
         return $this->belongsTo(NursingCareOffice::class);

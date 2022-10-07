@@ -17,7 +17,6 @@ class CreateWeeklyServiceSchedules extends Migration
             $table->id();
             $table->unsignedBigInteger('care_receiver_id');
             $table->unsignedTinyInteger('dayofweek_id');
-            $table->unsignedBigInteger('service_type_id');
             $table->unsignedBigInteger('nursing_care_office_id');
             $table->time('starting_time');
             $table->time('ending_time');
