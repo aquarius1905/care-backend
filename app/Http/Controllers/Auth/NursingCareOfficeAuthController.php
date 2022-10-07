@@ -41,9 +41,11 @@ class NursingCareOfficeAuthController extends Controller
     {
         return $this->loginPipeline($request)->then(function ($request) {
             $nursing_care_office
-                = NursingCareOffice::with(['service_type:id,name'])
-                ->where('email', $request->email)->firstOrFail();
-            $token = $nursing_care_office->createToken('auth_nursing_care_office_token')->plainTextToken;
+                = NursingCareOffice::where('email', $request->email)
+                ->firstOrFail();
+            $token = $nursing_care_office
+                ->createToken('auth_nursing_care_office_token')
+                ->plainTextToken;
 
             return response()->json([
                 'token' => $token,

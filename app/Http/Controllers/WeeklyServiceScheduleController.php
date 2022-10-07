@@ -20,9 +20,7 @@ class WeeklyServiceScheduleController extends Controller
         $inputs = $request->all();
         $weekly_service_schedule = WeeklyServiceSchedule::create($inputs);
         $item = WeeklyServiceSchedule::with([
-            'dayofweek:id,name',
-            'service_type:id,name',
-            'nursing_care_office:id,office_name'
+            'nursing_care_office.service_type'
         ])->find($weekly_service_schedule->id);
 
         return response()->json([

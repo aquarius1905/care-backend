@@ -12,6 +12,8 @@ class VisitDatetime extends Model
 
     protected $dates = ['date', 'time'];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function care_receiver()
     {
         return $this->belongsTo(CareReceiver::class);

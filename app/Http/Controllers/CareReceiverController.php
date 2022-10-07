@@ -28,8 +28,7 @@ class CareReceiverController extends Controller
 
         $loggedin_id = Auth::id();
         $items = CareReceiver::with([
-            'care_level:id,name',
-            'visit_datetime:id,care_receiver_id,date,time'
+            'care_level', 'visit_datetime'
         ])
             ->where($column, $loggedin_id)
             ->get();
@@ -66,7 +65,7 @@ class CareReceiverController extends Controller
      */
     public function show($id)
     {
-        $item = CareReceiver::with(['care_level:id,name'])
+        $item = CareReceiver::with(['care_level'])
             ->find($id);
         if ($item) {
             return response()->json([
