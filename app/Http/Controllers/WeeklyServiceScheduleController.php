@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\WeeklyServiceSchedule;
-use App\Models\ServiceType;
 use App\Http\Requests\WeeklyServiceSchedule\StoreRequest;
 use Illuminate\Http\Request;
 
@@ -98,16 +97,6 @@ class WeeklyServiceScheduleController extends Controller
 
         return response()->json([
             'data' => $items
-        ], 200);
-    }
-
-    public function getServiceTypes()
-    {
-        $service_types = ServiceType::with(['nursing_care_offices'])
-            ->get(['id', 'name']);
-
-        return response()->json([
-            'service_types' => $service_types,
         ], 200);
     }
 }

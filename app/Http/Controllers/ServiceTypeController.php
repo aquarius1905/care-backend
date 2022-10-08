@@ -19,4 +19,14 @@ class ServiceTypeController extends Controller
             'data' => $items
         ], 200);
     }
+
+    public function getServiceTypesWithNursingCareOffices()
+    {
+        $items = ServiceType::with(['nursing_care_offices'])
+            ->get(['id', 'name']);
+
+        return response()->json([
+            'data' => $items,
+        ], 200);
+    }
 }

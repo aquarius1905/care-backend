@@ -38,8 +38,8 @@ Route::apiResource(
 )->only(['index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/service-types', [
-        WeeklyServiceScheduleController::class, 'getServiceTypes'
+    Route::get('/service-types/nursing-care-offices', [
+        ServiceTypeController::class, 'getServiceTypesWithNursingCareOffices'
     ]);
     Route::get('/weekly-service-schedules', [
         WeeklyServiceScheduleController::class, 'showByCareReceiverId'
