@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\NursingCareOffice;
 use App\Auth\Events\NursingCareOfficeRegistered;
 use App\Http\Requests\NursingCareOffice\StoreRequest;
+use App\Http\Requests\NursingCareOffice\UpdateRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
 class NursingCareOfficeController extends Controller
 {
@@ -54,13 +54,40 @@ class NursingCareOfficeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\NursingCareOffice  $nursingCareOffice
+     * @param  \App\Http\Requests\NursingCareOffice\UpdateRequest  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NursingCareOffice $nursingCareOffice)
+    public function update(UpdateRequest $request, int $id)
     {
-        //
+        $inputs = $request->except([
+            'password', 'password_confirmation'
+        ]);
+
+        if ($request->password) {
+            $inputs['password'] = Hash::make($request->password);
+        }
+
+        $email_update = NursingCareOffice::where('email', $request->email)->doesntExist();
+        if ($email_update) {
+            $inputs['email_verified_at'] = null;
+        }
+
+        $result = NursingCareOffice::where('id', $id)->update($inputs);
+
+        if ($email_update) {
+            $item = NursingCareOffice::find($id);
+            event(new NursingCareOfficeRegistered($item));
+        }
+        if ($result) {
+            return response()->json([
+                'message' => 'Updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**

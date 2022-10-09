@@ -128,5 +128,6 @@ Route::prefix('nursing-care-offices')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [NursingCareOfficeAuthController::class, 'me']);
         Route::post('/logout', [NursingCareOfficeAuthController::class, 'destroy']);
+        Route::put('/{id}', [NursingCareOfficeController::class, 'update']);
     });
 });

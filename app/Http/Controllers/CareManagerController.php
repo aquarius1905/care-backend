@@ -66,16 +66,16 @@ class CareManagerController extends Controller
             $inputs['password'] = Hash::make($request->password);
         }
 
-        $email_doesnt_exists = CareManager::where('email', $request->email)->doesntExist();
-        if ($email_doesnt_exists) {
+        $email_update = CareManager::where('email', $request->email)->doesntExist();
+        if ($email_update) {
             $inputs['email_verified_at'] = null;
         }
 
         $result = CareManager::where('id', $id)->update($inputs);
 
-        if ($email_doesnt_exists) {
-            $care_manager = CareManager::find($id);
-            event(new CareManagerRegistered($care_manager));
+        if ($email_update) {
+            $item = CareManager::find($id);
+            event(new CareManagerRegistered($item));
         }
 
         if ($result) {

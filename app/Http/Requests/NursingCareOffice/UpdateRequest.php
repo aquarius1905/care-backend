@@ -3,6 +3,8 @@
 namespace App\Http\Requests\NursingCareOffice;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
@@ -27,14 +29,17 @@ class UpdateRequest extends FormRequest
             'office_name' => 'required|string|max:255',
             'corporate_name' => 'required|string|max:255',
             'service_type_id' => 'required|numeric',
-            'office_number' => 'required|size:10',
-            'post_code' => 'required|size:7',
+            'office_number' => 'required|string|size:10',
+            'post_code' => 'required|string|size:7',
             'address' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'name_furigana' => 'required|string|max:255',
-            'email' => 'required|email|unique:nursing_care_offices',
-            'tel' => 'required|between:10,11|regex:/^0[0-9]{10,11}$/',
-            'password' => 'nullable|between:8,64|confirmed|regex:/^[a-zA-Z0-9]+$/'
+            'email' => [
+                'required', 'email', 'max:255',
+                Rule::unique('nursing_care_offices')->ignore(Auth::id())
+            ],
+            'tel' => 'required|string|between:10,11|regex:/^0[0-9]{10,11}$/',
+            'password' => 'nullable|string|between:8,64|confirmed|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 }
