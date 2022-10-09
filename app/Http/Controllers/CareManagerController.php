@@ -58,8 +58,25 @@ class CareManagerController extends Controller
      */
     public function update(UpdateRequest $request, int $id)
     {
-        $inputs = $request->all();
+        $inputs = $request->except([
+            'password', 'password_confirmation'
+        ]);
+
+        if ($request->password) {
+            $inputs['password'] = Hash::make($request->password);
+        }
+
+        $email_doesnt_exists = CareManager::where('email', $request->email)->doesntExist();
+        if ($email_doesnt_exists) {
+            $inputs['email_verified_at'] = null;
+        }
+
         $result = CareManager::where('id', $id)->update($inputs);
+
+        if ($email_doesnt_exists) {
+            $care_manager = CareManager::find($id);
+            event(new CareManagerRegistered($care_manager));
+        }
 
         if ($result) {
             return response()->json([
