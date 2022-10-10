@@ -8,6 +8,7 @@ use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CareReceiverController extends Controller
 {
@@ -18,19 +19,7 @@ class CareReceiverController extends Controller
      */
     public function index()
     {
-        $column = $this->getSearchTargetColumn();
-        if (!$column) {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
-        }
-
-        $loggedin_id = Auth::id();
-        $items = CareReceiver::with([
-            'care_level', 'visit_datetime'
-        ])
-            ->where($column, $loggedin_id)
-            ->get();
+        $items = $this->getCareReceivers();
 
         return response()->json([
             'data' => $items
@@ -109,27 +98,30 @@ class CareReceiverController extends Controller
         }
     }
 
-    public function batchDelete(Request $request_ids)
+    public function batchDelete(Request $request)
     {
-        foreach ($request_ids as $id) {
-            $care_receiver = CareReceiver::find($id);
-            if (!$care_receiver) {
-                continue;
-            }
-            $care_receiver->delete();
+        foreach ($request->ids as $key => $id) {
+            CareReceiver::find($id)->delete();
         }
+
+        $items = $this->getCareReceivers();
+
         return response()->json([
             'message' => 'Deleted successfully',
+            'data' => $items
         ], 200);
     }
 
-    private function getSearchTargetColumn()
+    private function getCareReceivers()
     {
-        if (Auth::guard('care-manager')) {
-            return 'care_manager_id';
-        } else if (Auth::guard('key-person')) {
-            return 'key_person_id';
-        }
-        return null;
+        $care_manager_id = auth('sanctum')->id();
+
+        $items = CareReceiver::with([
+            'care_level', 'visit_datetime'
+        ])
+            ->where('care_manager_id', $care_manager_id)
+            ->get();
+
+        return $items;
     }
 }
