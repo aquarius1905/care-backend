@@ -54,7 +54,7 @@ class VisitDatetimeReminder extends Command
 
         foreach ($visit_datetimes as $visit_datetime) {
             // 訪問前日メールを送信
-            Mail::to($visit_datetime->getKeyPersonEmail())
+            Mail::to($visit_datetime->getEmail())
                 ->send(new VisitDatetimeReminderMail($visit_datetime, $from_email));
         }
     }

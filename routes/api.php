@@ -90,7 +90,7 @@ Route::prefix('/care-managers')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);
         Route::post('/logout', [CareManagerAuthController::class, 'destroy']);
-        Route::apiResource('/visit', VisitDatetimeController::class)->only([
+        Route::apiResource('/visit-datetime', VisitDatetimeController::class)->only([
             'store', 'update'
         ]);
         Route::put('/{id}', [CareManagerController::class, 'update']);

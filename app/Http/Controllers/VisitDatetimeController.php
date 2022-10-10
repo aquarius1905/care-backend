@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Mail;
 class VisitDatetimeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\VisitDatetimeRequest  $request
@@ -105,7 +95,7 @@ class VisitDatetimeController extends Controller
         $care_receiver = CareReceiver::find($care_receiver_id);
 
         $from_email = config('mail.from.address');
-        $to_email = $care_receiver->getKeyPersonEmail();
+        $to_email = $care_receiver->email;
 
         Mail::to($to_email)->send(
             new VisitDateTimeNotificationMail($care_receiver, $from_email)

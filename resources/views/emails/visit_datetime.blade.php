@@ -24,9 +24,9 @@
 </head>
 
 <body>
-    <p class="destination">{{ $care_receiver->getKeyPersonName() }}&emsp;様</p>
+    <p class="destination">{{ $care_receiver->keyperson_name }}&emsp;様</p>
 
-    <p class="info-text">いつもお世話にになっております。<br>
+    <p class="info-text">いつもお世話になっております。<br>
         次回のケアマネージャー訪問日時をお知らせ致します。
     <p>
 
