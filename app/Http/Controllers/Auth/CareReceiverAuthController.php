@@ -8,7 +8,6 @@ use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
 
@@ -87,8 +86,7 @@ class CareReceiverAuthController extends Controller
     public function me(Request $request)
     {
         $care_receiver = auth('sanctum')->user();
-        $care_receiver->care_manager = $care_receiver->care_manager;
-        $care_receiver->care_level = $care_receiver->care_level;
+
         return response()->json([
             'data' => $care_receiver
         ], 200);

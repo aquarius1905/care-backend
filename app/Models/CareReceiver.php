@@ -16,6 +16,12 @@ class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmai
 
     protected $dates = ['birthday'];
 
+    protected $with = [
+        'care_level',
+        'care_manager',
+        'visit_datetime',
+        'weekly_service_schedules'
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -51,6 +57,11 @@ class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmai
     public function visit_datetime()
     {
         return $this->hasOne(VisitDatetime::class);
+    }
+
+    public function weekly_service_schedules()
+    {
+        return $this->hasMany(WeeklyServiceSchedule::class);
     }
 
     public function getCareManagerName()

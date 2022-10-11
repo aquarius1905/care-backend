@@ -52,17 +52,6 @@ class CareReceiverController extends Controller
      */
     public function show($id)
     {
-        $item = CareReceiver::with(['care_level'])
-            ->find($id);
-        if ($item) {
-            return response()->json([
-                'data' => $item
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
-        }
     }
 
     /**
@@ -115,11 +104,10 @@ class CareReceiverController extends Controller
     {
         $care_manager_id = auth('sanctum')->id();
 
-        $items = CareReceiver::with([
-            'care_level', 'visit_datetime'
-        ])
-            ->where('care_manager_id', $care_manager_id)
-            ->get();
+        $items = CareReceiver::where(
+            'care_manager_id',
+            $care_manager_id
+        )->get();
 
         return $items;
     }
