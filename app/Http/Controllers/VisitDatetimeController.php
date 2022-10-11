@@ -21,12 +21,14 @@ class VisitDatetimeController extends Controller
         $inputs = $request->all();
         $care_receiver_id = $inputs['care_receiver_id'];
         $this->destroy($care_receiver_id);
-        VisitDatetime::create($inputs);
+        $data = VisitDatetime::create($inputs);
+        unset($data['id']);
 
         $this->sendMail($care_receiver_id);
 
         return response()->json([
-            'message' => 'Store Successfully!'
+            'message' => 'Store Successfully!',
+            'data' => $data
         ], 201);
     }
 
@@ -50,17 +52,16 @@ class VisitDatetimeController extends Controller
      */
     public function update(VisitDatetimeRequest $request, VisitDatetime $visitDatetime)
     {
-        $update = [
-            'date' => $request->date,
-            'time' => $request->time
-        ];
-
+        $inputs = $request->except(['care_receiver_id']);
         $result = VisitDatetime::where('id', $visitDatetime->id)
-            ->update($update);
+            ->update($inputs);
         if ($result) {
             $this->sendMail($request->care_receiver_id);
+            $data = VisitDatetime::find($visitDatetime->id);
+            unset($data['id']);
             return response()->json([
-                'message' => 'Store Successfully!'
+                'message' => 'Update Successfully!',
+                'data' => $data
             ], 201);
         } else {
             return response()->json([
