@@ -36,6 +36,8 @@ class NursingCareOffice extends Authenticatable implements MustVerifyNursingCare
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['service_type'];
+
     public function service_type()
     {
         return $this->belongsTo(ServiceType::class);
