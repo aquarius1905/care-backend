@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class WeeklyServiceSchedule extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
 
     protected $dates = ['date', 'time'];
@@ -24,5 +25,10 @@ class WeeklyServiceSchedule extends Model
     public function nursing_care_office()
     {
         return $this->belongsTo(NursingCareOffice::class);
+    }
+
+    public function cancellations()
+    {
+        return $this->belongsTo(WeeklyServiceSchedule::class);
     }
 }
