@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class VisitDatetime extends Model
 {
@@ -37,5 +38,12 @@ class VisitDatetime extends Model
     public function getCareManagerName()
     {
         return optional($this->care_receiver)->getCareManagerName();
+    }
+
+    public function getFormattedVisitDate()
+    {
+        Carbon::setLocale('ja');
+        $carbon_date = Carbon::parse($this->date);
+        return $carbon_date->isoFormat('YYYY年MM月DD日（ddd）');
     }
 }

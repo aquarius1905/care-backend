@@ -17,6 +17,7 @@ class CreateCancellationsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('weekly_service_schedule_id');
             $table->date('date');
+            $table->string('reason');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

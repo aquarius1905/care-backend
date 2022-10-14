@@ -69,9 +69,14 @@ class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmai
         return optional($this->care_manager)->name;
     }
 
-    public function getVisitDate()
+    public function getCareManagerEmail()
     {
-        return optional($this->visit_datetime)->date;
+        return optional($this->care_manager)->email;
+    }
+
+    public function getFormattedVisitDate()
+    {
+        return optional($this->visit_datetime)->getFormattedVisitDate();
     }
 
     public function getVisitTime()

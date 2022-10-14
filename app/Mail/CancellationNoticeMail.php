@@ -5,13 +5,13 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\CareReceiver;
+use App\Models\Cancellation;
 
-class VisitDateTimeNotificationMail extends Mailable
+class CancellationNoticeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $care_receiver;
+    protected $cancellation;
     protected $from_email;
 
     /**
@@ -20,10 +20,10 @@ class VisitDateTimeNotificationMail extends Mailable
      * @return void
      */
     public function __construct(
-        CareReceiver $care_receiver,
+        Cancellation $cancellation,
         $from_email
     ) {
-        $this->care_receiver = $care_receiver;
+        $this->cancellation = $cancellation;
         $this->from_email = $from_email;
     }
 
@@ -35,10 +35,10 @@ class VisitDateTimeNotificationMail extends Mailable
     public function build()
     {
         return $this->from($this->from_email)
-            ->subject("次回訪問日時のご連絡")
-            ->view('emails.visit_datetime')
+            ->subject("キャンセル通知")
+            ->view('emails.cancellation_notice')
             ->with([
-                'care_receiver' => $this->care_receiver
+                'cancellation' => $this->cancellation
             ]);
     }
 }

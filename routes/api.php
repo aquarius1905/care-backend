@@ -5,6 +5,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\Auth\CareManagerAuthController;
 use App\Http\Controllers\Auth\CareReceiverAuthController;
 use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
+use App\Http\Controllers\CancellationController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
@@ -103,6 +104,7 @@ Route::prefix('care-receivers')->group(function () {
         Route::get('/', [CareReceiverController::class, 'index']);
         Route::get('/me', [CareReceiverAuthController::class, 'me']);
         Route::post('/', [CareReceiverController::class, 'store']);
+        Route::post('/cancel', [CancellationController::class, 'store']);
         Route::post('/logout', [CareReceiverAuthController::class, 'destroy']);
     });
 

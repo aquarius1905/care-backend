@@ -31,4 +31,34 @@ class WeeklyServiceSchedule extends Model
     {
         return $this->belongsTo(WeeklyServiceSchedule::class);
     }
+
+    public function getCareManagerEmail()
+    {
+        return optional($this->care_receiver)->getCareManagerEmail();
+    }
+
+    public function getNursingCareOfficeEmail()
+    {
+        return optional($this->nursing_care_office)->email;
+    }
+
+    public function getKeyPersonEmail()
+    {
+        return optional($this->care_receiver)->email;
+    }
+
+    public function getCareReceiverName()
+    {
+        return optional($this->care_receiver)->name;
+    }
+
+    public function getKeyPersonName()
+    {
+        return optional($this->care_receiver)->keyperson_name;
+    }
+
+    public function getNursingCareOfficeName()
+    {
+        return optional($this->nursing_care_office)->office_name;
+    }
 }

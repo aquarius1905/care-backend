@@ -26,7 +26,7 @@
 <body>
     <p class="destination">{{ $care_receiver->keyperson_name }}&emsp;様</p>
 
-    <p class="info-text">いつもお世話になっております。<br>
+    <p class="info-text">
         次回のケアマネージャー訪問日時をお知らせ致します。
     <p>
 
@@ -34,7 +34,7 @@
     <p class="top-partation">-------------------------</p>
     <p>被介護者：{{ $care_receiver->name }}　様</p>
     <p>担当ケアマネージャー：{{ $care_receiver->getCareManagerName() }}</p>
-    <p>訪問日：{{ $care_receiver->getVisitDate()->format('Y年m月d日') }}</p>
+    <p>訪問日：{{ $care_receiver->getFormattedVisitDate() }}</p>
     <p>時間：{{ $care_receiver->getVisitTime()->format('H時i分') }}</p>
     <p>--------------------------</p>
 

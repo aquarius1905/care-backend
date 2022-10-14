@@ -26,14 +26,15 @@
 <body>
     <p class="destination">{{ $visit_datetime->getKeyPersonName() }}　様</p>
 
-    <p class="text">いつもお世話になっております。<br>
+    <p class="text">
         ケアマネージャー訪問日の前日となりましたので、お知らせ致します。<br>
-        訪問日時は以下の通りです。</p>
+        訪問日時は以下の通りです。
+    </p>
 
     <p class="top-partation">-------------------------</p>
     <p>被介護者：{{ $visit_datetime->getCareReceiverName() }}　様</p>
     <p>担当ケアマネージャー：{{ $visit_datetime->getCareManagerName() }}</p>
-    <p>日付：{{ $visit_datetime->date->format('Y年m月d日') }}</p>
+    <p>日付：{{ $visit_datetime->getFormattedVisitDate() }}</p>
     <p>時間：{{ $visit_datetime->time->format('H時i分') }}</p>
     <p>--------------------------
     <p>
