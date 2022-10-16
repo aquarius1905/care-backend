@@ -85,10 +85,9 @@ class CareReceiverAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_receiver = auth('sanctum')->user();
-
         return response()->json([
-            'data' => $care_receiver
+            'data' => auth('sanctum')->user()
+
         ], 200);
     }
 }

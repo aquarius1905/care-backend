@@ -84,9 +84,8 @@ class NursingCareOfficeAuthController extends Controller
 
     public function me(Request $request)
     {
-        $nursing_care_office = auth('sanctum')->user();
         return response()->json([
-            'data' => $nursing_care_office
+            'data' => auth('sanctum')->user()
         ], 200);
     }
 }

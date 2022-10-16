@@ -14,9 +14,11 @@ class Cancellation extends Model
 
     protected $dates = ['date'];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
-    protected $with = ['weekly_service_schedule'];
+    protected $hidden = [
+        'weekly_service_schedule_id',
+        'created_at',
+        'updated_at'
+    ];
 
     public function weekly_service_schedule()
     {

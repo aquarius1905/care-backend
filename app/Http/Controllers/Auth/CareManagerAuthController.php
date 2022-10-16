@@ -82,9 +82,8 @@ class CareManagerAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_manager = auth('sanctum')->user();
         return response()->json([
-            'data' => $care_manager
+            'data' => auth('sanctum')->user()
         ], 200);
     }
 }

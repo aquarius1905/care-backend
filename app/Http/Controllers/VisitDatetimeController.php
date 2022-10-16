@@ -20,8 +20,14 @@ class VisitDatetimeController extends Controller
     {
         $inputs = $request->all();
         $care_receiver_id = $inputs['care_receiver_id'];
-        $this->destroy($care_receiver_id);
-        $data = VisitDatetime::create($inputs);
+
+        if (VisitDatetime::where('care_recevier_id', $care_receiver_id)->exists()) {
+            $this->destroy($care_receiver_id);
+            VisitDatetime::where('care_receiver_id', $care_receiver_id)
+                ->update($inputs);
+        } else {
+            $data = VisitDatetime::create($inputs);
+        }
         unset($data['id']);
 
         $this->sendMail($care_receiver_id);
@@ -55,6 +61,7 @@ class VisitDatetimeController extends Controller
         $inputs = $request->except(['care_receiver_id']);
         $result = VisitDatetime::where('id', $visitDatetime->id)
             ->update($inputs);
+
         if ($result) {
             $this->sendMail($request->care_receiver_id);
             $data = VisitDatetime::find($visitDatetime->id);
@@ -63,11 +70,10 @@ class VisitDatetimeController extends Controller
                 'message' => 'Update Successfully!',
                 'data' => $data
             ], 201);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
         }
+        return response()->json([
+            'message' => 'Not found',
+        ], 404);
     }
 
     /**

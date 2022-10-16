@@ -15,7 +15,7 @@ class WeeklyServiceSchedule extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $with = ['nursing_care_office'];
+    protected $with = ['nursing_care_office', 'cancellations'];
 
     public function care_receiver()
     {
@@ -29,7 +29,7 @@ class WeeklyServiceSchedule extends Model
 
     public function cancellations()
     {
-        return $this->belongsTo(WeeklyServiceSchedule::class);
+        return $this->hasMany(Cancellation::class);
     }
 
     public function getCareManagerEmail()
