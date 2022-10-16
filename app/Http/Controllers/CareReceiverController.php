@@ -8,6 +8,7 @@ use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use DateTime;
 
 class CareReceiverController extends Controller
 {
@@ -108,6 +109,19 @@ class CareReceiverController extends Controller
             'care_manager_id',
             $care_manager_id
         )->get();
+
+        $today = new Datetime();
+        $today = $today->format('Y-m-d');
+        foreach ($items as $item) {
+            if ($item->visit_datetime == null) {
+                continue;
+            }
+            $visit_date = $item->visit_datetime->date->format('Y-m-d');
+            if ($today <= $visit_date) {
+                continue;
+            }
+            unset($item['visit_datetime']);
+        }
 
         return $items;
     }

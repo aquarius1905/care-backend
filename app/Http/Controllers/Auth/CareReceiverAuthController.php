@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
+use DateTime;
 
 class CareReceiverAuthController extends Controller
 {
@@ -85,9 +86,20 @@ class CareReceiverAuthController extends Controller
 
     public function me(Request $request)
     {
-        return response()->json([
-            'data' => auth('sanctum')->user()
+        $care_receiver = auth('sanctum')->user();
+        if ($care_receiver->visit_datetime !== null) {
 
+            $visit_date = $care_receiver->visit_datetime->date->format('Y-m-d');
+            $today = new DateTime();
+            $today = $today->format('Y-m-d');
+
+            if ($visit_date < $today) {
+                unset($care_receiver['visit_datetime']);
+            }
+        }
+
+        return response()->json([
+            'data' => $care_receiver
         ], 200);
     }
 }

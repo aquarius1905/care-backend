@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Pipeline;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Auth;
 
 class CareManagerAuthController extends Controller
 {
