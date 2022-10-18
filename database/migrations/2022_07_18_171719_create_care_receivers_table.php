@@ -24,7 +24,7 @@ class CreateCareReceiversTable extends Migration
             $table->string('post_code', 7);
             $table->string('address');
             $table->string('insurer_number', 8);
-            $table->string('insured_number', 11);
+            $table->string('insured_number', 10);
             $table->string('keyperson_name');
             $table->string('keyperson_name_furigana');
             $table->string('relationship');

@@ -106,6 +106,7 @@ Route::prefix('care-receivers')->group(function () {
         Route::post('/', [CareReceiverController::class, 'store']);
         Route::post('/cancel', [CancellationController::class, 'store']);
         Route::post('/logout', [CareReceiverAuthController::class, 'destroy']);
+        Route::put('/{id}', [CareReceiverController::class, 'update']);
     });
 
     Route::middleware('carereceiver.verified')->group(function () {

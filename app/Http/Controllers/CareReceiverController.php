@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Auth\Events\CareReceiverRegistered;
 use App\Http\Requests\CareReceiver\StoreRequest;
+use App\Http\Requests\CareReceiver\UpdateRequest;
 use App\Models\CareReceiver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Log;
 use DateTime;
 
 class CareReceiverController extends Controller
@@ -58,12 +60,48 @@ class CareReceiverController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CareReceiver\UpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
+        $email_update = CareReceiver::where('email', $request->email)->doesntExist();
+        if ($email_update) {
+            $inputs['email_verified_at'] = null;
+        }
+
+        $inputs = $request->only([
+            'name',
+            'name_furigana',
+            'post_code',
+            'address',
+            'insurer_number',
+            'insured_number',
+            'care_level_id',
+            'keyperson_name',
+            'keyperson_name_furigana',
+            'relationship',
+            'email',
+            'tel'
+        ]);
+
+        $result = CareReceiver::where('id', $id)->update($inputs);
+
+        if ($email_update) {
+            $item = CareReceiver::find($id);
+            event(new CareReceiverRegistered($item));
+        }
+
+        if ($result) {
+            return response()->json([
+                'message' => 'Updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**

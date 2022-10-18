@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\CareReceiver;
 
+use App\Rules\InsurerNumberRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
@@ -24,13 +25,18 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'name_furigana' => 'required|max:255',
-            'post_code' => 'required|size:7',
-            'address' => 'required|max:255',
-            'insurer_number' => 'required|min:6|max:8',
-            'insured_number' => 'required|size:11',
-            'care_level_id' => 'required|numeric|between:1,7'
+            'name' => 'required|string|max:255',
+            'name_furigana' => 'required|string|max:255',
+            'post_code' => 'required|string|size:7',
+            'address' => 'required|string|max:255',
+            'insurer_number' => ['required', 'string', new InsurerNumberRule()],
+            'insured_number' => 'required|size:10',
+            'care_level_id' => 'required|numeric|between:1,7',
+            'keyperson_name' => 'required|string|max:255',
+            'keyperson_name_furigana' => 'required|string|max:255',
+            'relationship' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'tel' => 'required|between:10,11|regex:/^0[0-9]{10,11}$/',
         ];
     }
 }
