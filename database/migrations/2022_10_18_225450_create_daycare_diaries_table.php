@@ -15,6 +15,26 @@ class CreateDaycareDiariesTable extends Migration
     {
         Schema::create('daycare_diaries', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('care_recevier_id');
+            $table->unsignedBigInteger('nursing_care_office_id');
+            $table->date('date');
+            $table->string('situation_at_home');
+            $table->float('body_temperature', 2, 1);
+            $table->unsignedTinyInteger('systonic_blood_pressure');
+            $table->unsignedTinyInteger('diastolic_blood_pressure');
+            $table->unsignedTinyInteger('pulse');
+            $table->unsignedTinyInteger('staple_food');
+            $table->unsignedTinyInteger('side_dish');
+            $table->boolean('strength_training');
+            $table->boolean('stretch');
+            $table->boolean('stand_up_practice');
+            $table->boolean('thermotherapy');
+            $table->boolean('bicycle_exercise');
+            $table->boolean('walking_practice');
+            $table->boolean('others');
+            $table->string('others_detail');
+            $table->boolean('rehabilitation_plan');
+            $table->string('special_notes');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

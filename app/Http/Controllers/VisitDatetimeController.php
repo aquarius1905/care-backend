@@ -21,7 +21,7 @@ class VisitDatetimeController extends Controller
         $inputs = $request->all();
         $care_receiver_id = $inputs['care_receiver_id'];
 
-        if (VisitDatetime::where('care_recevier_id', $care_receiver_id)->exists()) {
+        if (VisitDatetime::where('care_receiver_id', $care_receiver_id)->exists()) {
             $this->destroy($care_receiver_id);
             VisitDatetime::where('care_receiver_id', $care_receiver_id)
                 ->update($inputs);
