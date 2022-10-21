@@ -64,6 +64,11 @@ class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmai
         return $this->hasMany(WeeklyServiceSchedule::class);
     }
 
+    public function daycare_diaries()
+    {
+        return $this->hasMany(DaycareDiary::class);
+    }
+
     public function getCareManagerName()
     {
         return optional($this->care_manager)->name;

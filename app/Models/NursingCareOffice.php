@@ -42,4 +42,9 @@ class NursingCareOffice extends Authenticatable implements MustVerifyNursingCare
     {
         return $this->belongsTo(ServiceType::class);
     }
+
+    public function daycare_diaries()
+    {
+        return $this->belongsTo(DaycareDiary::class);
+    }
 }

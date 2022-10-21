@@ -9,6 +9,7 @@ use App\Http\Controllers\CancellationController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
 use App\Http\Controllers\CareReceiverController;
+use App\Http\Controllers\DaycareDiaryController;
 use App\Http\Controllers\WeeklyServiceScheduleController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\VerifyCareManagerEmailController;
@@ -133,4 +134,10 @@ Route::prefix('nursing-care-offices')->group(function () {
         Route::post('/logout', [NursingCareOfficeAuthController::class, 'destroy']);
         Route::put('/{id}', [NursingCareOfficeController::class, 'update']);
     });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/daycare-diaries', DaycareDiaryController::class)->only([
+        'store'
+    ]);
 });
