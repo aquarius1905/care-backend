@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cancellation;
 use App\Http\Requests\Cancellation\StoreRequest;
-use App\Mail\CancellationNoticeMail;
+use App\Mail\CancellationNotificationMail;
 use App\Mail\CancellationRegistrationNoticeMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -82,7 +82,7 @@ class CancellationController extends Controller
         );
 
         Mail::to($to_email)->send(
-            new CancellationNoticeMail($cancellation, $from_email)
+            new CancellationNotificationMail($cancellation, $from_email)
         );
 
         Mail::to($cancellation->getKeyPersonEmail())->send(

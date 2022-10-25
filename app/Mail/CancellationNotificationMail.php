@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Cancellation;
 
-class CancellationNoticeMail extends Mailable
+class CancellationNotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -36,7 +36,7 @@ class CancellationNoticeMail extends Mailable
     {
         return $this->from($this->from_email)
             ->subject("キャンセル通知")
-            ->view('emails.cancellation_notice')
+            ->view('emails.cancellation_notification')
             ->with([
                 'cancellation' => $this->cancellation
             ]);

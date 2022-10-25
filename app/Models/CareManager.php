@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Contracts\Auth\MustVerifyCareManagerEmail;
 use App\Foundation\Auth\CareManager as Authenticatable;
+use App\Notifications\Api\Auth\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;

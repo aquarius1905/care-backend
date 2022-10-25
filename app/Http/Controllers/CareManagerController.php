@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CareManager\StoreRequest;
 use App\Http\Requests\CareManager\UpdateRequest;
+use App\Http\Requests\CareManager\ResetPasswordRequest;
 use App\Auth\Events\CareManagerRegistered;
 use App\Models\CareManager;
 use Illuminate\Support\Facades\Hash;
@@ -97,5 +98,26 @@ class CareManagerController extends Controller
      */
     public function destroy(CareManager $careManager)
     {
+    }
+
+    public function resetPasswordRequest(ResetPasswordRequest $request)
+    {
+        $care_manager = CareManager::where('email', $request->email)->first();
+        if (!$care_manager) {
+            return response()->json([
+                'message' => 'メールアドレスが存在しません'
+            ], 404);
+        }
+
+        $care_manager->verification_code = rand(111111, 999999);
+        if ($care_manager) {
+            return response()->json([
+                'message' => 'メールアドレス宛に確認コードを送信しました'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'メールアドレスが存在しません'
+            ], 404);
+        }
     }
 }
