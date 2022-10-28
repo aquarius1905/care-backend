@@ -17,6 +17,7 @@ use App\Http\Controllers\VerifyCareReceiverEmailController;
 use App\Http\Controllers\VerifyNursingCareOfficeEmailController;
 use App\Http\Controllers\NursingCareOfficeController;
 use App\Http\Controllers\VisitDatetimeController;
+use App\Http\Controllers\RehabilitationContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,16 +31,21 @@ use App\Http\Controllers\VisitDatetimeController;
 */
 
 Route::apiResource(
-    '/care-levels',
-    CareLevelController::class
-)->only(['index']);
-
-Route::apiResource(
     '/service-types',
     ServiceTypeController::class
 )->only(['index']);
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource(
+        '/care-levels',
+        CareLevelController::class
+    )->only(['index']);
+
+    Route::apiResource(
+        '/rehabilitation-contents',
+        RehabilitationContentController::class
+    )->only(['index']);
+
     Route::get('/service-types/nursing-care-offices', [
         ServiceTypeController::class, 'getServiceTypesWithNursingCareOffices'
     ]);
@@ -49,6 +55,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/weekly-service-schedules/search', [
         WeeklyServiceScheduleController::class, 'searchByNursingCareOfficeId'
     ]);
+
+    Route::apiResource(
+        '/daycare-diaries',
+        DaycareDiaryController::class
+    )->only(['store']);
+
     Route::apiResource(
         '/weekly-service-schedules',
         WeeklyServiceScheduleController::class
@@ -134,10 +146,4 @@ Route::prefix('nursing-care-offices')->group(function () {
         Route::post('/logout', [NursingCareOfficeAuthController::class, 'destroy']);
         Route::put('/{id}', [NursingCareOfficeController::class, 'update']);
     });
-});
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/daycare-diaries', DaycareDiaryController::class)->only([
-        'store'
-    ]);
 });

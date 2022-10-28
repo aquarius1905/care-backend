@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CareLevel;
+use App\Models\RehabilitationContent;
+use Illuminate\Http\Request;
 
-class CareLevelController extends Controller
+class RehabilitationContentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class CareLevelController extends Controller
      */
     public function index()
     {
-        $items = CareLevel::all();
+        $items = RehabilitationContent::all();
 
         return response()->json([
             'data' => $items

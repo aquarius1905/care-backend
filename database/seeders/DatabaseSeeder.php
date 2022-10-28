@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CareLevelsTableSeeder::class);
         $this->call(ServiceTypesTableSeeder::class);
+        $this->call(RehabilitationContentsTableSeeder::class);
     }
 }

@@ -25,15 +25,8 @@ class CreateDaycareDiariesTable extends Migration
             $table->unsignedTinyInteger('pulse');
             $table->unsignedTinyInteger('staple_food');
             $table->unsignedTinyInteger('side_dish');
-            $table->boolean('strength_training');
-            $table->boolean('stretch');
-            $table->boolean('stand_up_practice');
-            $table->boolean('thermotherapy');
-            $table->boolean('bicycle_exercise');
-            $table->boolean('walking_practice');
-            $table->boolean('others');
+            $table->json('rehabilitations');
             $table->string('others_detail');
-            $table->boolean('rehabilitation_plan');
             $table->string('special_notes');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
