@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaycareDiary;
+use App\Http\Requests\DaycareDiary\StoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DaycareDiaryController extends Controller
 {
@@ -20,12 +22,18 @@ class DaycareDiaryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DaycareDiary\StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        Log::Debug($request);
+        $inputs = $request->all();
+        DaycareDiary::create($inputs);
+
+        return response()->json([
+            'message' => 'Store Successfully!'
+        ], 201);
     }
 
     /**

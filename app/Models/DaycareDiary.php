@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class DaycareDiary extends Model
 {
@@ -14,6 +15,10 @@ class DaycareDiary extends Model
     protected $dates = ['date'];
 
     protected $hidden = ['created_at', 'updated_at'];
+
+    protected $casts = [
+        'rehabilitations'  => 'json',
+    ];
 
     public function care_receiver()
     {
