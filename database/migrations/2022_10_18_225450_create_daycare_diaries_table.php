@@ -28,6 +28,7 @@ class CreateDaycareDiariesTable extends Migration
             $table->json('rehabilitations');
             $table->string('others_detail')->nullable();
             $table->string('special_notes')->nullable();
+            $table->string('entry_person');
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

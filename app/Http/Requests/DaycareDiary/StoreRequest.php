@@ -36,7 +36,8 @@ class StoreRequest extends FormRequest
             'recreation' => 'required|boolean',
             'rehabilitations' => 'required|array',
             'others_detail' => 'nullable|string|max:255',
-            'special_notes' => 'nullable|string|max:255'
+            'special_notes' => 'nullable|string|max:255',
+            'entry_person' => 'required|string|max:255'
         ];
     }
 }

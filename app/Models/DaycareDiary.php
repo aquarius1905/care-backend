@@ -19,8 +19,8 @@ class DaycareDiary extends Model
         'rehabilitations'  => 'json',
     ];
 
-    public function weekly_service_schedules()
+    public function weekly_service_schedule()
     {
-        return $this->belongsToMany(WeeklyServiceSchedule::class);
+        return $this->belongsTo(WeeklyServiceSchedule::class);
     }
 }

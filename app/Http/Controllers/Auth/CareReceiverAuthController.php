@@ -86,7 +86,9 @@ class CareReceiverAuthController extends Controller
 
     public function me(Request $request)
     {
-        $care_receiver = auth('sanctum')->user();
+        $care_receiver = auth('sanctum')->user()->load(
+            ['care_level', 'care_manager', 'visit_datetime', 'weekly_service_schedules']
+        );
         if ($care_receiver->visit_datetime !== null) {
 
             $visit_date = $care_receiver->visit_datetime->date->format('Y-m-d');
