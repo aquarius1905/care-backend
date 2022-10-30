@@ -13,7 +13,7 @@ class ServiceTypeController extends Controller
      */
     public function index()
     {
-        $items = ServiceType::get(['id', 'name']);
+        $items = ServiceType::get();
 
         return response()->json([
             'data' => $items
@@ -23,7 +23,7 @@ class ServiceTypeController extends Controller
     public function getServiceTypesWithNursingCareOffices()
     {
         $items = ServiceType::with(['nursing_care_offices'])
-            ->get(['id', 'name']);
+            ->get();
 
         return response()->json([
             'data' => $items,

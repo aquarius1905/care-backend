@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class DaycareDiary extends Model
 {
@@ -20,13 +19,8 @@ class DaycareDiary extends Model
         'rehabilitations'  => 'json',
     ];
 
-    public function care_receiver()
+    public function weekly_service_schedules()
     {
-        return $this->belongsTo(CareReceiver::class);
-    }
-
-    public function nursing_care_office()
-    {
-        return $this->belongsTo(NursingCareOffice::class);
+        return $this->belongsToMany(WeeklyServiceSchedule::class);
     }
 }

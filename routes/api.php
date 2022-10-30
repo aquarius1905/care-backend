@@ -55,6 +55,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/weekly-service-schedules/search', [
         WeeklyServiceScheduleController::class, 'searchByNursingCareOfficeId'
     ]);
+    Route::get('/daycare-diaries/search', [
+        DaycareDiaryController::class, 'search'
+    ]);
 
     Route::apiResource(
         '/daycare-diaries',

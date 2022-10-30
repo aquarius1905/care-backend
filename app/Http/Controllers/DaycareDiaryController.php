@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DaycareDiary;
 use App\Http\Requests\DaycareDiary\StoreRequest;
+use App\Models\WeeklyServiceSchedule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class DaycareDiaryController extends Controller
 {
@@ -27,24 +27,12 @@ class DaycareDiaryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        Log::Debug($request);
         $inputs = $request->all();
         DaycareDiary::create($inputs);
 
         return response()->json([
             'message' => 'Store Successfully!'
         ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DaycareDiary  $daycareDiary
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DaycareDiary $daycareDiary)
-    {
-        //
     }
 
     /**
@@ -68,5 +56,20 @@ class DaycareDiaryController extends Controller
     public function destroy(DaycareDiary $daycareDiary)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $item = DaycareDiary::with(['weekly_service_schedule.care_receiver'])
+            ->where(
+                'weekly_service_schedule_id',
+                $request->weekly_service_schedule_id
+            )
+            ->where('date', $request->date)
+            ->firstOrFail();
+
+        return response()->json([
+            'data' => $item
+        ], 200);
     }
 }

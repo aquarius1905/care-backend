@@ -44,7 +44,7 @@ class WeeklyServiceScheduleController extends Controller
             'nursing_care_office.service_type',
         ])
             ->where('care_receiver_id', $request->care_receiver_id)
-            ->orderBy('dayofweek_id')
+            ->orderBy('dayofweek')
             ->get();
 
         return response()->json([
@@ -92,7 +92,7 @@ class WeeklyServiceScheduleController extends Controller
     {
         $items = WeeklyServiceSchedule::with(['care_receiver'])
             ->where('nursing_care_office_id', auth('sanctum')->id())
-            ->where('dayofweek_id', $request->dayofweek)
+            ->where('dayofweek', $request->dayofweek)
             ->get();
 
         return response()->json([

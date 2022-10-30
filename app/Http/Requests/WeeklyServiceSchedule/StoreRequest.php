@@ -27,8 +27,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'care_receiver_id' => 'required|integer',
-            'dayofweek_id' => 'required|integer|between:0,6',
             'nursing_care_office_id' => 'required|integer',
+            'dayofweek' => 'required|integer|between:0,6',
             'starting_time' => 'required|date_format:H:i',
             'ending_time' => 'required|date_format:H:i|after:starting_time',
         ];
