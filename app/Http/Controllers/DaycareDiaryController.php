@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DaycareDiary;
 use App\Http\Requests\DaycareDiary\StoreRequest;
-use App\Models\WeeklyServiceSchedule;
+use App\Http\Requests\DaycareDiary\UpdateSituationAtHomeRequest;
 use Illuminate\Http\Request;
 
 class DaycareDiaryController extends Controller
@@ -38,13 +38,34 @@ class DaycareDiaryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DaycareDiary  $daycareDiary
+     * @param  lluminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, DaycareDiary $daycareDiary)
     {
-        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\DaycareDiary\UpdateSituationAtHomeRequest
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSituationAtHome(UpdateSituationAtHomeRequest $request)
+    {
+        $diary = DaycareDiary::find($request->id);
+        if (!$diary) {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
+
+        $diary->situation_at_home = $request->situation_at_home;
+        $diary->save();
+
+        return response()->json([
+            'message' => 'Update Successfully!'
+        ], 201);
     }
 
     /**

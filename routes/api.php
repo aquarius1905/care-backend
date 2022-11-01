@@ -68,6 +68,14 @@ Route::middleware('auth:sanctum')->group(function () {
         '/weekly-service-schedules',
         WeeklyServiceScheduleController::class
     )->only(['store', 'destroy']);
+
+    Route::put(
+        '/daycare-diaries/situation-at-home-updates',
+        [
+            DaycareDiaryController::class,
+            'updateSituationAtHome'
+        ]
+    );
 });
 
 if (Features::enabled(Features::emailVerification())) {
