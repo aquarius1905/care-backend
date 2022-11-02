@@ -35,9 +35,9 @@ class Cancellation extends Model
         return optional($this->weekly_service_schedule)->getNursingCareOfficeEmail();
     }
 
-    public function getKeyPersonEmail()
+    public function getCareReceiverEmail()
     {
-        return optional($this->weekly_service_schedule)->getKeyPersonEmail();
+        return optional($this->weekly_service_schedule)->getCareReceiverEmail();
     }
 
     public function getCareReceiverName()

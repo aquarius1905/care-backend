@@ -23,4 +23,19 @@ class DaycareDiary extends Model
     {
         return $this->belongsTo(WeeklyServiceSchedule::class);
     }
+
+    public function getCareReceiverEmail()
+    {
+        return optional($this->weekly_service_schedule)->getCareReceiverEmail();
+    }
+
+    public function getCareReceiverName()
+    {
+        return optional($this->weekly_service_schedule)->getCareReceiverName();
+    }
+
+    public function getNursingCareOfficeEmail()
+    {
+        return optional($this->weekly_service_schedule)->getNursingCareOfficeEmail();
+    }
 }

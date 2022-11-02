@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\DaycareDiary;
 use App\Http\Requests\DaycareDiary\StoreRequest;
 use App\Http\Requests\DaycareDiary\UpdateSituationAtHomeRequest;
+use App\Mail\SituationAtHomeUpdateEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DaycareDiaryController extends Controller
 {
@@ -63,6 +65,15 @@ class DaycareDiaryController extends Controller
         $diary->situation_at_home = $request->situation_at_home;
         $diary->save();
 
+        $from_email = config('mail.from.address');
+        $to_email = array(
+            $diary->getCareReceiverEmail(),
+            $diary->getNursingCareOfficeEmail()
+        );
+
+        Mail::to($to_email)->send(
+            new SituationAtHomeUpdateEmail($diary, $from_email)
+        );
         return response()->json([
             'message' => 'Update Successfully!'
         ], 201);

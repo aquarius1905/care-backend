@@ -3,28 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <style>
-        .sender {
-            margin-top: 30px;
-        }
-
-        .content-ttl {
-            margin-bottom: 0;
-        }
-
-        .top-partation {
-            margin-top: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <p class="destination">{{ $cancellation->getKeyPersonName() }}&emsp;様</p>
 
-    <p class="info-text">キャンセル登録が完了しました。<p>
+    <p class="info__text">キャンセル登録が完了しました。<p>
 
-    <p class="content-ttl">詳細</p>
-    <p class="top-partation">-------------------------</p>
+    <p class="content__ttl">詳細</p>
+    <p class="top__partation">-------------------------</p>
     <p>利用者：{{ $cancellation->getCareReceiverName() }}　様</p>
     <p>施設名：{{ $cancellation->getNursingCareOfficeName() }}</p>
     <p>訪問日：{{ $cancellation->getFormattedDate() }}</p>

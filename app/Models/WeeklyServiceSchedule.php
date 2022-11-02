@@ -47,7 +47,7 @@ class WeeklyServiceSchedule extends Model
         return optional($this->nursing_care_office)->email;
     }
 
-    public function getKeyPersonEmail()
+    public function getCareReceiverEmail()
     {
         return optional($this->care_receiver)->email;
     }

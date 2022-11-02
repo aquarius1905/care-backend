@@ -142,7 +142,11 @@ class CareReceiverController extends Controller
     {
         $care_manager_id = auth('sanctum')->id();
 
-        $items = CareReceiver::where(
+        $items = CareReceiver::with([
+            'care_level',
+            'visit_datetime',
+            'weekly_service_schedules'
+        ])->where(
             'care_manager_id',
             $care_manager_id
         )->get();

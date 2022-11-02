@@ -85,7 +85,7 @@ class CancellationController extends Controller
             new CancellationNotificationMail($cancellation, $from_email)
         );
 
-        Mail::to($cancellation->getKeyPersonEmail())->send(
+        Mail::to($cancellation->getCareReceiverEmail())->send(
             new CancellationRegistrationNoticeMail($cancellation, $from_email)
         );
     }
