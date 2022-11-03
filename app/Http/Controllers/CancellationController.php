@@ -75,18 +75,17 @@ class CancellationController extends Controller
 
     private function sendMail($cancellation)
     {
-        $from_email = config('mail.from.address');
         $to_email = array(
             $cancellation->getCareManagerEmail(),
             $cancellation->getNursingCareOfficeEmail()
         );
 
         Mail::to($to_email)->send(
-            new CancellationNotificationMail($cancellation, $from_email)
+            new CancellationNotificationMail($cancellation)
         );
 
         Mail::to($cancellation->getCareReceiverEmail())->send(
-            new CancellationRegistrationNoticeMail($cancellation, $from_email)
+            new CancellationRegistrationNoticeMail($cancellation)
         );
     }
 }

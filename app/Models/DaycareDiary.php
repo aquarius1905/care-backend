@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class DaycareDiary extends Model
 {
@@ -37,5 +38,17 @@ class DaycareDiary extends Model
     public function getNursingCareOfficeEmail()
     {
         return optional($this->weekly_service_schedule)->getNursingCareOfficeEmail();
+    }
+
+    public function getNursingCareOfficeName()
+    {
+        return optional($this->weekly_service_schedule)->getNursingCareOfficeName();
+    }
+
+    public function getFormattedDate()
+    {
+        Carbon::setLocale('ja');
+        $date = Carbon::parse($this->date);
+        return $date->isoFormat('YYYY年MM月DD日（ddd）');
     }
 }

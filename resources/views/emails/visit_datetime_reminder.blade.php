@@ -3,13 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        .destination,
-        .text {
-            margin-bottom: 30px;
-        }
-    </style>
 </head>
 
 <body>

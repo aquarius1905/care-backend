@@ -58,7 +58,7 @@ class Cancellation extends Model
     public function getFormattedDate()
     {
         Carbon::setLocale('ja');
-        $carbon_date = Carbon::parse($this->date);
-        return $carbon_date->isoFormat('YYYY年MM月DD日（ddd）');
+        $date = Carbon::parse($this->date);
+        return $date->isoFormat('YYYY年MM月DD日（ddd）');
     }
 }

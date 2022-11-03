@@ -12,17 +12,15 @@ class VisitDatetimeReminderMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $visit_datetime;
-    protected $from_email;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(VisitDatetime $visit_datetime, $from_email)
+    public function __construct(VisitDatetime $visit_datetime)
     {
         $this->visit_datetime = $visit_datetime;
-        $this->from_email = $from_email;
     }
 
     /**
@@ -32,9 +30,9 @@ class VisitDatetimeReminderMail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->from_email)
+        return $this->from(config('mail.from.address'))
             ->subject('訪問前日のお知らせ')
-            ->view('emails.visit_datetime_reminder')
+            ->markdown('emails.visit_datetime_reminder')
             ->with(['visit_datetime' => $this->visit_datetime]);
     }
 }

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
         .destination {
             margin-bottom: 30px;

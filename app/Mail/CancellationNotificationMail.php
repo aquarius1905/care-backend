@@ -12,19 +12,15 @@ class CancellationNotificationMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $cancellation;
-    protected $from_email;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(
-        Cancellation $cancellation,
-        $from_email
-    ) {
+    public function __construct(Cancellation $cancellation)
+    {
         $this->cancellation = $cancellation;
-        $this->from_email = $from_email;
     }
 
     /**
@@ -34,11 +30,14 @@ class CancellationNotificationMail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->from_email)
+        return $this->from(config('mail.from.address'))
             ->subject("キャンセル通知")
-            ->view('emails.cancellation_notification')
+            ->markdown('emails.cancellation_notification')
             ->with([
-                'cancellation' => $this->cancellation
+                'careReceiverName' => $this->cancellation->getCareReceiverName(),
+                'nursingCareOfficeName' => $this->cancellation->getNursingCareOfficeName(),
+                'dateOfVisit' => $this->cancellation->getFormattedDate(),
+                'reason' => $this->cancellation->reason
             ]);
     }
 }

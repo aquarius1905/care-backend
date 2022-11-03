@@ -12,19 +12,15 @@ class VisitDateTimeNotificationMail extends Mailable
     use Queueable, SerializesModels;
 
     protected $care_receiver;
-    protected $from_email;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(
-        CareReceiver $care_receiver,
-        $from_email
-    ) {
+    public function __construct(CareReceiver $care_receiver)
+    {
         $this->care_receiver = $care_receiver;
-        $this->from_email = $from_email;
     }
 
     /**
@@ -34,9 +30,9 @@ class VisitDateTimeNotificationMail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->from_email)
+        return $this->from(config('mail.from.address'))
             ->subject("次回訪問日時のご連絡")
-            ->view('emails.visit_datetime')
+            ->markdown('emails.visit_datetime')
             ->with([
                 'care_receiver' => $this->care_receiver
             ]);

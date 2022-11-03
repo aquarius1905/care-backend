@@ -6,25 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\DaycareDiary;
+use Log;
 
-class SituationAtHomeUpdateEmail extends Mailable
+class SituationAtHomeUpdateMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $daycare_diary;
-    protected $from_email;
+    protected $diary;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(
-        DaycareDiary $daycare_diary,
-        $from_email
-    ) {
-        $this->daycare_diary = $daycare_diary;
-        $this->from_email = $from_email;
+    public function __construct(DaycareDiary $diary)
+    {
+        $this->diary = $diary;
     }
 
     /**
@@ -34,11 +31,14 @@ class SituationAtHomeUpdateEmail extends Mailable
      */
     public function build()
     {
-        return $this->from($this->from_email)
+        return $this->from(config('mail.from.address'))
             ->subject("ご家庭のでの状況が更新されました")
-            ->view('emails.situation_at_home_update')
+            ->markdown('emails.situation_at_home_update')
             ->with([
-                'diary' => $this->daycare_diary
+                'nursingCareOfficeName' => $this->diary->getNursingCareOfficeName(),
+                'diaryDate' => $this->diary->getFormattedDate(),
+                'careReceiverName' => $this->diary->getCareReceiverName(),
+                'situationAtHome' => $this->diary->situation_at_home
             ]);
     }
 }
