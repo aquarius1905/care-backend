@@ -34,7 +34,11 @@ class CancellationRegistrationNoticeMail extends Mailable
             ->subject("キャンセル登録が完了しました")
             ->markdown('emails.cancellation_registration_notice')
             ->with([
-                'cancellation' => $this->cancellation
+                'keyPersonName' => $this->cancellation->getKeyPersonName(),
+                'care_receiver_name' => $this->cancellation->getCareReceiverName(),
+                'nursing_care_office_name' => $this->cancellation->getNursingCareOfficeName(),
+                'date_of_visit' => $this->cancellation->getFormattedDate(),
+                'reason' => $this->cancellation->reason
             ]);
     }
 }

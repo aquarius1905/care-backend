@@ -35,10 +35,10 @@ class SituationAtHomeUpdateMail extends Mailable
             ->subject("ご家庭のでの状況が更新されました")
             ->markdown('emails.situation_at_home_update')
             ->with([
-                'nursingCareOfficeName' => $this->diary->getNursingCareOfficeName(),
-                'diaryDate' => $this->diary->getFormattedDate(),
-                'careReceiverName' => $this->diary->getCareReceiverName(),
-                'situationAtHome' => $this->diary->situation_at_home
+                'nursing_care_office_name' => $this->diary->getNursingCareOfficeName(),
+                'diary_date' => $this->diary->getFormattedDate(),
+                'care_receiver_name' => $this->diary->getCareReceiverName(),
+                'situation_at_Home' => $this->diary->situation_at_home
             ]);
     }
 }

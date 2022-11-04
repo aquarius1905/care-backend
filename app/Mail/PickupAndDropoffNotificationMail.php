@@ -37,7 +37,8 @@ class VisitDateTimeNotificationMail extends Mailable
             ->subject($subject)
             ->markdown('emails.pickup_and_dropoff_notification')
             ->with([
-                'care_receiver' => $this->care_receiver,
+                'care_receiver_name' => $this->care_receiver->name,
+                'nursing_care_office_name' => $this->care_receiver->getNursingCareOfficeName(),
                 'pickup_flg' => $this->pickup_flg
             ]);
     }

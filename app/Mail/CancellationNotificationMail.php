@@ -34,9 +34,9 @@ class CancellationNotificationMail extends Mailable
             ->subject("キャンセル通知")
             ->markdown('emails.cancellation_notification')
             ->with([
-                'careReceiverName' => $this->cancellation->getCareReceiverName(),
-                'nursingCareOfficeName' => $this->cancellation->getNursingCareOfficeName(),
-                'dateOfVisit' => $this->cancellation->getFormattedDate(),
+                'care_receiver_name' => $this->cancellation->getCareReceiverName(),
+                'nursing_care_office_name' => $this->cancellation->getNursingCareOfficeName(),
+                'date_of_visit' => $this->cancellation->getFormattedDate(),
                 'reason' => $this->cancellation->reason
             ]);
     }

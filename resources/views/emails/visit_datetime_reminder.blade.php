@@ -3,10 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 
 <body>
-    <p class="destination">{{ $visit_datetime->getKeyPersonName() }}<span class="title">様</span></p>
+    <p class="destination">{{ $keyperson_name }}<span class="title">様</span></p>
 
     <p class="text">
         ケアマネージャー訪問日の前日となりましたので、お知らせ致します。<br>
@@ -14,10 +16,10 @@
     </p>
 
     <p class="top__partation">-------------------------</p>
-    <p>被介護者：{{ $visit_datetime->getCareReceiverName() }}<span class="title">様</span></p>
-    <p>担当ケアマネージャー：{{ $visit_datetime->getCareManagerName() }}</p>
-    <p>日付：{{ $visit_datetime->getFormattedVisitDate() }}</p>
-    <p>時間：{{ $visit_datetime->time->format('H時i分') }}</p>
+    <p>被介護者：{{ $care_receiver_name }}<span class="title">様</span></p>
+    <p>担当ケアマネージャー：{{ $care_manager_name }}</p>
+    <p>日付：{{ $date }}</p>
+    <p>時間：{{ $time }}</p>
     <p>--------------------------
     <p>
 

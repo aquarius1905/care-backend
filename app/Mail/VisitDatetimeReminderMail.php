@@ -33,6 +33,12 @@ class VisitDatetimeReminderMail extends Mailable
         return $this->from(config('mail.from.address'))
             ->subject('訪問前日のお知らせ')
             ->markdown('emails.visit_datetime_reminder')
-            ->with(['visit_datetime' => $this->visit_datetime]);
+            ->with([
+                'keyperson_name' => $this->visit_datetime->getKeyPersonName(),
+                'care_receiver_name' => $this->visit_datetime->getCareReceiverName(),
+                'care_manager_name' => $this->visit_datetime->getCareManagerName(),
+                'date' => $this->visit_datetime->getFormattedVisitDate(),
+                'time' => $this->visit_datetime->time->format('H時i分'),
+            ]);
     }
 }
