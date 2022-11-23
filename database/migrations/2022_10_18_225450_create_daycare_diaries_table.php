@@ -16,7 +16,7 @@ class CreateDaycareDiariesTable extends Migration
     {
         Schema::create('daycare_diaries', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('weekly_service_schedule_id');
+            $table->foreignId('weekly_service_schedule_id')->constrained();
             $table->date('date');
             $table->string('situation_at_home')->nullable();
             $table->float('body_temperature');

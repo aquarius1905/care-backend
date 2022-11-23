@@ -15,8 +15,8 @@ class CreateCareReceiversTable extends Migration
     {
         Schema::create('care_receivers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('care_manager_id');
-            $table->unsignedBigInteger('care_level_id');
+            $table->foreignId('care_manager_id')->constrained();
+            $table->foreignId('care_level_id')->constrained();
             $table->string('name');
             $table->string('name_furigana');
             $table->tinyInteger('gender');

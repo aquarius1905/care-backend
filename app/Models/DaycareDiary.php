@@ -16,13 +16,19 @@ class DaycareDiary extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $casts = [
-        'rehabilitations'  => 'json',
-    ];
-
     public function weekly_service_schedule()
     {
         return $this->belongsTo(WeeklyServiceSchedule::class);
+    }
+
+    public function rehabilitation_contents()
+    {
+        return $this->belongsToMany(
+            RehabilitationContent::class,
+            'daycare_rehabilitaions',
+            'rehabilitation_content_id',
+            'daycare_diary_id'
+        );
     }
 
     public function getCareReceiverEmail()

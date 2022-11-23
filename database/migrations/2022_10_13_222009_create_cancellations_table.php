@@ -15,7 +15,7 @@ class CreateCancellationsTable extends Migration
     {
         Schema::create('cancellations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('weekly_service_schedule_id');
+            $table->foreignId('weekly_service_schedule_id')->constrained();
             $table->date('date');
             $table->string('reason');
             $table->timestamp('created_at')->useCurrent()->nullable();

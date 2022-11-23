@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\CareLevel;
 
 class CareLevelsTableSeeder extends Seeder
 {
@@ -23,6 +23,11 @@ class CareLevelsTableSeeder extends Seeder
             ['name' => "要介護4"],
             ['name' => "要介護5"]
         ];
-        DB::table('care_levels')->insert($care_levels);
+
+        CareLevel::truncate();
+
+        foreach ($care_levels as $care_level) {
+            CareLevel::create($care_level);
+        }
     }
 }

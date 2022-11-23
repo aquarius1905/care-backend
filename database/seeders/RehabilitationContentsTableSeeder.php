@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\RehabilitationContent;
 
 class RehabilitationContentsTableSeeder extends Seeder
 {
@@ -24,6 +24,11 @@ class RehabilitationContentsTableSeeder extends Seeder
             ['name' => "リハビリ計画書"],
             ['name' => "その他"]
         ];
-        DB::table('rehabilitation_contents')->insert($rehabilitaion_contents);
+
+        RehabilitationContent::truncate();
+
+        foreach ($rehabilitaion_contents as $rehabilitaion_content) {
+            RehabilitationContent::create($rehabilitaion_content);
+        }
     }
 }

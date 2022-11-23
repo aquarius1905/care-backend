@@ -17,7 +17,7 @@ class CreateNursingCareOfficesTable extends Migration
             $table->id();
             $table->string('office_name');
             $table->string('corporate_name');
-            $table->unsignedBigInteger('service_type_id');
+            $table->foreignId('service_type_id')->constrained();
             $table->string('office_number', 10);
             $table->string('post_code', 7);
             $table->string('address');

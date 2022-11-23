@@ -25,6 +25,9 @@ class ServiceTypesTableSeeder extends Seeder
             ['name' => '福祉用具貸与'],
             ['name' => '居宅療養管理指導']
         ];
+
+        ServiceType::truncate();
+
         foreach ($service_types as $service_type) {
             ServiceType::create($service_type);
         }

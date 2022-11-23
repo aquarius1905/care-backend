@@ -151,18 +151,18 @@ class CareReceiverController extends Controller
             $care_manager_id
         )->get();
 
-        $today = new Datetime();
-        $today = $today->format('Y-m-d');
-        foreach ($items as $item) {
-            if ($item->visit_datetime == null) {
-                continue;
-            }
-            $visit_date = $item->visit_datetime->date->format('Y-m-d');
-            if ($today <= $visit_date) {
-                continue;
-            }
-            unset($item['visit_datetime']);
-        }
+        // $today = new Datetime();
+        // $today = $today->format('Y-m-d');
+        // foreach ($items as $item) {
+        //     if ($item->visit_datetime == null) {
+        //         continue;
+        //     }
+        //     $visit_date = $item->visit_datetime->date->format('Y-m-d');
+        //     if ($today <= $visit_date) {
+        //         continue;
+        //     }
+        //     unset($item['visit_datetime']);
+        // }
 
         return $items;
     }
