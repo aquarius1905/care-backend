@@ -61,7 +61,9 @@ class NursingCareOfficeController extends Controller
     public function update(UpdateRequest $request, int $id)
     {
         $inputs = $request->except([
-            'password', 'password_confirmation'
+            'password',
+            'password_confirmation',
+            'service_type'
         ]);
 
         if ($request->password) {
