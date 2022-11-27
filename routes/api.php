@@ -1,10 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\Auth\CareManagerAuthController;
+use App\Http\Controllers\Auth\CareManagerResetPasswordController;
 use App\Http\Controllers\Auth\CareReceiverAuthController;
 use App\Http\Controllers\Auth\NursingCareOfficeAuthController;
+use App\Http\Controllers\Auth\VerifyCareManagerEmailController;
+use App\Http\Controllers\Auth\VerifyCareReceiverEmailController;
+use App\Http\Controllers\Auth\VerifyNursingCareOfficeEmailController;
 use App\Http\Controllers\CancellationController;
 use App\Http\Controllers\CareLevelController;
 use App\Http\Controllers\CareManagerController;
@@ -12,9 +17,6 @@ use App\Http\Controllers\CareReceiverController;
 use App\Http\Controllers\DaycareDiaryController;
 use App\Http\Controllers\WeeklyServiceScheduleController;
 use App\Http\Controllers\ServiceTypeController;
-use App\Http\Controllers\VerifyCareManagerEmailController;
-use App\Http\Controllers\VerifyCareReceiverEmailController;
-use App\Http\Controllers\VerifyNursingCareOfficeEmailController;
 use App\Http\Controllers\NursingCareOfficeController;
 use App\Http\Controllers\VisitDatetimeController;
 use App\Http\Controllers\RehabilitationContentController;
@@ -103,6 +105,35 @@ if (Features::enabled(Features::emailVerification())) {
         ->name('nursing-care-office.verification.verify');
 }
 
+if (Features::enabled(Features::resetPasswords())) {
+
+    Route::get(
+        '/care-managers/reset-password/{token}',
+        [CareManagerResetPasswordController::class, '__invoke']
+    )->name('care-manager.password.reset');
+
+    Route::get('/care-receivers/reset-password/{token}', function (Request $request) {
+        return redirect(config('app.front') . '/care-receiver/reset-password');
+    })->name('care-receiver.password.reset');
+
+    Route::get('/nursing-care-offices/reset-password/{token}', function (Request $request) {
+        return redirect(config('app.front') . '/nursing-care-office/reset-password');
+    })->name('nursing-care-office.password.reset');
+
+    Route::post(
+        '/care-managers/forgot-password',
+        [CareManagerAuthController::class, 'forgotPassword']
+    );
+    Route::post(
+        '/care-receivers/forgot-password',
+        [CareReceiversAuthController::class, 'forgotPassword']
+    );
+    Route::post(
+        '/nursing-care-offices/forgot-password',
+        [NursingCareOfficeAuthController::class, 'forgotPassword']
+    );
+}
+
 
 Route::prefix('/care-managers')->group(function () {
 
@@ -111,6 +142,8 @@ Route::prefix('/care-managers')->group(function () {
     Route::middleware('caremanager.verified')->group(function () {
         Route::post('/login', [CareManagerAuthController::class, 'store']);
     });
+
+
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [CareManagerAuthController::class, 'me']);

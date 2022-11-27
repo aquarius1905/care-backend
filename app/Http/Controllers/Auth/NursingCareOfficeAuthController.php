@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Actions\NursingCareOffice\AttemptToAuthenticate;
+use App\Http\Requests\NursingCareOffice\ForgotPasswordRequest;
+use App\Models\NursingCareOffice;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Password;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Http\Requests\LoginRequest;
-use App\Models\NursingCareOffice;
 
 class NursingCareOfficeAuthController extends Controller
 {
@@ -87,5 +90,32 @@ class NursingCareOfficeAuthController extends Controller
         return response()->json([
             'data' => auth('sanctum')->user()
         ], 200);
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        $status = $this->broker()->sendResetLink(
+            $request->only(['email'])
+        );
+
+        if ($status == Password::RESET_LINK_SENT) {
+            return response()->json([
+                'message' => 'Send successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Failed to send email'
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    protected function broker(): PasswordBroker
+    {
+        return Password::broker('nursing_care_offices');
     }
 }

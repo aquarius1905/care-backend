@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\CareManager;
+namespace App\Http\Requests\CareReceiver;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResetPasswordRequest extends FormRequest
+class ForgotPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:care_managers|max:255',
+            'email' => 'required|email|exists:care_receivers,email|max:255',
         ];
     }
 }

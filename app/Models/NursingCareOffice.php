@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Auth\Notifications\ResetNursingCareOfficePassword;
 use App\Contracts\Auth\MustVerifyNursingCareOfficeEmail;
 use App\Foundation\Auth\NursingCareOffice as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -46,5 +47,10 @@ class NursingCareOffice extends Authenticatable implements MustVerifyNursingCare
     public function daycare_diaries()
     {
         return $this->belongsTo(DaycareDiary::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetNursingCareOfficePassword($token));
     }
 }

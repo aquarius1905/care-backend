@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Actions\CareReceiver\AttemptToAuthenticate;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CareReceiver\ForgotPasswordRequest;
 use App\Models\CareReceiver;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Password;
 use Laravel\Fortify\Http\Requests\LoginRequest;
 use Throwable;
 use DateTime;
@@ -103,5 +106,32 @@ class CareReceiverAuthController extends Controller
         return response()->json([
             'data' => $care_receiver
         ], 200);
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        $status = $this->broker()->sendResetLink(
+            $request->only(['email'])
+        );
+
+        if ($status == Password::RESET_LINK_SENT) {
+            return response()->json([
+                'message' => 'Send successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Failed to send email'
+            ], 500);
+        }
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    protected function broker(): PasswordBroker
+    {
+        return Password::broker('care_receivers');
     }
 }

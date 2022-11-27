@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Auth\Notifications\ResetCareReceiverPassword;
 use App\Contracts\Auth\MustVerifyCareReceiverEmail;
 use App\Foundation\Auth\CareReceiver as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -81,5 +82,10 @@ class CareReceiver extends Authenticatable implements MustVerifyCareReceiverEmai
     public function getVisitTime()
     {
         return optional($this->visit_datetime)->time;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetCareReceiverPassword($token));
     }
 }
