@@ -95,10 +95,7 @@ class ResetCareReceiverPassword extends Notification
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         }
 
-        return URL::route(
-            'care-receiver.password.reset',
-            ['token' => $this->token]
-        );
+        return url(config('app.front') . '/care-receiver/reset-password' . '?token=' . $this->token . '&email=' . $notifiable->getEmailForPasswordReset());
     }
 
     /**

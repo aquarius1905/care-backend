@@ -95,11 +95,7 @@ class ResetCareManagerPassword extends Notification
         if (static::$createUrlCallback) {
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         }
-        return
-            url(route('care-manager.password.reset', [
-                'token' => $this->token,
-                'email' => $notifiable->getEmailForPasswordReset(),
-            ], false));
+        return url(config('app.front') . '/care-manager/reset-password' . '?token=' . $this->token . '&email=' . $notifiable->getEmailForPasswordReset());
     }
 
     /**

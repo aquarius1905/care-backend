@@ -95,10 +95,7 @@ class ResetNursingCareOfficePassword extends Notification
             return call_user_func(static::$createUrlCallback, $notifiable, $this->token);
         }
 
-        return URL::route(
-            'nursing-care-office.password.reset',
-            ['token' => $this->token]
-        );
+        return url(config('app.front') . '/nursing-care-office/reset-password' . '?token=' . $this->token . '&email=' . $notifiable->getEmailForPasswordReset());
     }
 
     /**
