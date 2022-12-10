@@ -28,7 +28,7 @@ class CreateCareReceiversTable extends Migration
             $table->string('keyperson_name');
             $table->string('keyperson_name_furigana');
             $table->string('relationship');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
