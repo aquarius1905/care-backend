@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Hash;
 class CareManagerController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\CareManager\StoreRequest  $request
@@ -36,17 +26,6 @@ class CareManagerController extends Controller
         return response()->json([
             'message' => 'Store Successfully!'
         ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CareManager  $careManager
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CareManager $careManager)
-    {
-        //
     }
 
     /**
@@ -87,15 +66,5 @@ class CareManagerController extends Controller
                 'message' => 'Not found',
             ], 404);
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CareManager  $careManager
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(CareManager $careManager)
-    {
     }
 }
