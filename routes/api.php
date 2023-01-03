@@ -113,11 +113,11 @@ if (Features::enabled(Features::resetPasswords())) {
     )->name('care-manager.password.reset');
 
     Route::get('/care-receivers/reset-password/{token}', function (Request $request) {
-        return redirect(config('app.front') . '/care-receiver/reset-password');
+        return redirect(config('app.url') . '/care-receiver/reset-password');
     })->name('care-receiver.password.reset');
 
     Route::get('/nursing-care-offices/reset-password/{token}', function (Request $request) {
-        return redirect(config('app.front') . '/nursing-care-office/reset-password');
+        return redirect(config('app.url') . '/nursing-care-office/reset-password');
     })->name('nursing-care-office.password.reset');
 
     Route::post(

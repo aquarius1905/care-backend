@@ -23,17 +23,17 @@ class VerifyCareManagerEmailController extends Controller
             (string) $request->hash,
             sha1($care_manager->getEmailForVerification())
         )) {
-            return redirect(config('app.front') . '/email/verify/failure');
+            return redirect(config('app.url') . '/email/verify/failure');
         }
 
         if ($care_manager->hasVerifiedEmail()) {
-            return redirect(config('app.front') . '/email/already-verified');
+            return redirect(config('app.url') . '/email/already-verified');
         }
 
         if ($care_manager->markEmailAsVerified()) {
             event(new Verified($care_manager));
         }
 
-        return redirect(config('app.front') . '/email/verified');
+        return redirect(config('app.url') . '/email/verified');
     }
 }
